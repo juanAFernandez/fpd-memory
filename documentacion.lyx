@@ -1,0 +1,794 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass scrbook
+\options titlepage
+\use_default_options true
+\begin_modules
+enumitem
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Students Management System
+\end_layout
+
+\begin_layout Subtitle
+Proccess accelerator for educational centers.
+\end_layout
+
+\begin_layout Subtitle
+Juan Antonio Fernández Sánchez
+\end_layout
+
+\begin_layout Minisec
+Abstract
+\end_layout
+
+\begin_layout Standard
+This is the abstract, cool right?
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Introduction
+\end_layout
+
+\begin_layout Standard
+The idea behind of the develop ot this software isn't only to do a good
+ tool for educational centers, is also an excuse to research and learn about
+ a lot of technologies and patterns but above all it's about how to do software,
+ clean, simple and easily readable sotware.
+\end_layout
+
+\begin_layout Section
+Domain
+\end_layout
+
+\begin_layout Standard
+La idea de crear SMS surge de la necesidad de un sistema de gestión de estudiant
+es para un centro educativo que agilizase todas su gestión interna y que
+ aliviase el gasto de papel impreso.
+ Además se precisaba de un sistema de control general que aportase inormación
+ que pudiera servir a los administradores del centro a tomar las medidas
+ necesarias para la mejora del mismo.
+\end_layout
+
+\begin_layout Chapter
+Decisiones previas
+\end_layout
+
+\begin_layout Section
+Arquitectura
+\end_layout
+
+\begin_layout Subsection
+Microservicios
+\end_layout
+
+\begin_layout Subsection
+Bases de datos distribuidas
+\end_layout
+
+\begin_layout Subsection
+Estructuración del respositorio
+\end_layout
+
+\begin_layout Section
+Leguajes y Frameworks
+\end_layout
+
+\begin_layout Section
+Infraestructura
+\end_layout
+
+\begin_layout Standard
+Google App Engine, Amazon Web Services, Microsoft Azure, IBM BlueMix, Heroku,
+ CloudFoundry, etc...
+ 
+\end_layout
+
+\begin_layout Standard
+Realizar comparativa y justificar muy bien la elección.
+\end_layout
+
+\begin_layout Section
+Metodología
+\end_layout
+
+\begin_layout Standard
+Elección de metodologías ágiles basadas en Scrum para la gestión del equipo
+ y en historias de usuario para el modelado del sistema.
+\end_layout
+
+\begin_layout Subsection
+Ágil, adaptación al cambio.
+\end_layout
+
+\begin_layout Standard
+Como se ha visto, el enfoque de este desarrollo es completamente ágil, esto
+ quiere decir que desde su inicio hasta su fin el proceso de obtención de
+ requisitos y diseño de la arquitectura se basa en un bucle de infinitas
+ iteraciones donde el cliente añade aspectos a la aplicación que esta diseñadad
+ para ser capaz no solo de aceptar esos cambios sino de desarlos para la
+ mayor satisfacción del cliente, como rezan los principios ágiles del desarrollo.
+ Debido a esto, los capitulos 3 y 4 del presente documento serían imposibles
+ de redactar de forma estática como resultado final de un estudio previo,
+ pues deben ser entendidos como una evolución constante entre el cliente
+ y el equipo de desarrollo, por eso se hace especial incapié en la sección
+ evolución de cada uno de ellos.
+ 
+\end_layout
+
+\begin_layout Section
+Copyright
+\end_layout
+
+\begin_layout Subsection
+Licencia y enfoque
+\end_layout
+
+\begin_layout Chapter
+Requisitos funcionales
+\end_layout
+
+\begin_layout Section
+Reuniones con clientes y metodologías ágiles.
+\end_layout
+
+\begin_layout Standard
+Explicar como el sistema se ha orientado de una forma ágil que no necesita
+ estrictamente un proceso de obtención de requisitos único e inamovivle
+ como en las antiguas formas de desarrollo.
+\end_layout
+
+\begin_layout Section
+Evolución
+\end_layout
+
+\begin_layout Section
+Historias de usuario
+\end_layout
+
+\begin_layout Standard
+Referenciarlas y añadirlas como un anexo para que la lectura sea más fluida
+ y no divida al documento un montón de páginas con estas, así como los diagramas
+ que sea repetitivos como los diagramas de secuencia que acompañan a estas.
+\end_layout
+
+\begin_layout Chapter
+Modelado de la arquitectura
+\end_layout
+
+\begin_layout Standard
+En base a los requisitos funcionales del sistema, se ha modelado la arquitectura
+ en base a ciertos subsistemas o microservicios que despliegan la aplicación
+ haciendo frente a todos sus requisitos de la manera más optima posible.
+ La decisión de usar ms se justifica en el capítulo 2
+\end_layout
+
+\begin_layout Section
+Patrones generales
+\end_layout
+
+\begin_layout Standard
+Explica los patrones más comunes en el diseño de aplicaciones basadas en
+ microservicios, entre ellos el basado en una API GATEWAY que es el adoptado
+ por nosotros.
+\end_layout
+
+\begin_layout Section
+Evolución
+\end_layout
+
+\begin_layout Standard
+En muchas ocasiones lo más interesante de un desarrollo, la fase propia
+ de evolución, pasa desapercibida cuando se entrega un producto final.
+ En este caso se pierden las conclusiones y decisiones tomadas por el equipo
+ de desarrollo que les han llevado a toma una u otra decisión.
+ Por eso se intentará reflejar lo más fielmente posible como ha sido el
+ proceso que ha llevado el sistema al su fase de entrega final.
+\end_layout
+
+\begin_layout Subsection
+1ª Fase
+\end_layout
+
+\begin_layout Standard
+Problema de las materias optativas.
+\end_layout
+
+\begin_layout Chapter
+Enlaces
+\end_layout
+
+\begin_layout Section
+Artículos
+\end_layout
+
+\begin_layout Enumerate
+http://blog.zachbjornson.com/2015/12/29/cloud-storage-performance.html
+\end_layout
+
+\begin_layout Enumerate
+http://googlecloudplatform.blogspot.com.es/2015/12/the-next-generation-of-managed-M
+ySQL-offerings-on-Cloud-SQL.html
+\end_layout
+
+\begin_layout Section
+Comunidades
+\end_layout
+
+\begin_layout Enumerate
+https://plus.google.com/+googlecloudplatform/posts
+\end_layout
+
+\begin_layout Enumerate
+https://plus.google.com/+AngularjsEspa%C3%B1ol/posts
+\end_layout
+
+\begin_layout Section
+Tecnologías
+\end_layout
+
+\begin_layout Enumerate
+https://material.angularjs.org/
+\end_layout
+
+\begin_layout Chapter
+Detalles
+\end_layout
+
+\begin_layout Chapter
+APIGmS
+\end_layout
+
+\begin_layout Chapter
+TDBmS
+\end_layout
+
+\begin_layout Section
+Introducción
+\end_layout
+
+\begin_layout Standard
+El microservicio de Base de Datos acota el dominio de la gestión docente
+ dentro del sistema, quizás se le cambie el nombre a TmS teachingMicroService.
+ 
+\end_layout
+
+\begin_layout Standard
+A través de este microservicio podemos realizar todas las acciones relativas
+ a.
+\end_layout
+
+\begin_layout Standard
+Este microservicio se basa en una base de datos.
+\end_layout
+
+\begin_layout Section
+Problemas y diseño.
+\end_layout
+
+\begin_layout Standard
+En el proceso de diseño con la lógica de MySQL se han encontrado varias
+ problems para los que se ha intentado dar la mejor solución posible.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename dbms-ER.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The design follow some details that the domain presents, that is related
+ (at least the more significative) below:
+\end_layout
+
+\begin_layout Subsection
+Item's metadata.
+\end_layout
+
+\begin_layout Subsection
+Input / Output convention
+\end_layout
+
+\begin_layout Standard
+All in JSON except the values with NULL in the input and in the output.
+\end_layout
+
+\begin_layout Subsection
+How to save the deleted items.
+\end_layout
+
+\begin_layout Standard
+In the way to develop the microservice we have the question, we want to
+ save the deleted items? For one hand we could want to know 
+\end_layout
+
+\begin_layout Subsection
+Optional subjects, the 
+\begin_inset Quotes eld
+\end_inset
+
+class
+\begin_inset Quotes erd
+\end_inset
+
+ Table.
+\end_layout
+
+\begin_layout Standard
+In the domain of the problem can be exists optative subjects and is needed
+ search a way to implement this because has a specific details that aren't
+ like the rest.
+\end_layout
+
+\begin_layout Subsubsection
+The details.
+\end_layout
+
+\begin_layout Standard
+The studies plan forces in certain courses to select one or several optional
+ subjects.
+ For example, if a student has enrollment in 2ºESO (independently of the
+ group, A, B...) the law and consequently the studies plan force to the student
+ to choose between some optional subjects.
+ So, maybe this subjects exists only in this optional case as 
+\begin_inset Quotes eld
+\end_inset
+
+ rare subjects
+\begin_inset Quotes erd
+\end_inset
+
+ but in other cases this are only normal subjects but that in this course
+ are offer like optional.
+\end_layout
+
+\begin_layout Standard
+A simple example of this is French subject, it in some courses like 3ESO
+ and 4ESO is obligatory but it in Bachiller (the upper level) is optional
+ because the students can be select if they want make the final exam with
+ this second language or select another like English or Greek or Latin p.e.
+ 
+\end_layout
+
+\begin_layout Standard
+To obtain this we decide develop a simple solution without change the original
+ database logic schema.
+ So, how we have an entity that save the classes and it have three attributes,
+ course, word and level mainly we going to add three more to this special
+ cases, optative, groupNumber and subgroupNumber.
+ Like this special cases haven't word param when they have value word don't
+ have and when the item have word (A, B, C...) then don't have this special
+ attributes.
+ 
+\end_layout
+
+\begin_layout Standard
+Maybe this don't be the best solution, but is a simple in the point of develop.
+ 
+\end_layout
+
+\begin_layout Standard
+Obviously like we can't have two autoincrement values in the same table
+ definition in MySQL we will need control this programatically, but is something
+ that we can assume to get our goal easily.
+ 
+\end_layout
+
+\begin_layout Standard
+Problema:
+\end_layout
+
+\begin_layout Standard
+La misma ventaja que nos ofrece UNIQUE para el caso de los eliminados ahora
+ nos muerde aquí.
+ Mientras que allí beneficiaba porque esta clausula no incluye a los item
+ que tengan campos a null y permite que no de conflicto en este caso si
+ insertamos un grupo optativo obviamente deberá tener el camo word a null
+ y si es así podemos tener exactamente dos grupos iguales sinque de conflicto.
+\end_layout
+
+\begin_layout Standard
+course 
+\end_layout
+
+\begin_layout Standard
+1 <null> ESO 1 1 1 0
+\end_layout
+
+\begin_layout Standard
+1 <null> ESO 1 1 1 0
+\end_layout
+
+\begin_layout Standard
+Sin dar conflicto, lo que no puede ser.
+ 
+\end_layout
+
+\begin_layout Standard
+Además de esto, todo lo que complica la gestión de cuando se 
+\end_layout
+
+\begin_layout Standard
+está a null o no para le resto de los procedimientos.
+\end_layout
+
+\begin_layout Standard
+Por esta razón decidimos usar el mismo campo word, con una nomenclatura
+ especial, ya que no se va a ser usada para los grupos generales que indique
+ que se trata de un grupo optativo y además especifique el grupo y el subgrupo,
+ en concreto:
+\end_layout
+
+\begin_layout Standard
+OPT_n_m
+\end_layout
+
+\begin_layout Standard
+donde n será el número del grupo (que habrá que incrementar prograticamente
+ a mano) y m el número del subgrupo que tambińe habrá que incrementar a
+ mano en caso de que se creen más.
+\end_layout
+
+\begin_layout Standard
+Esto siempre a falta de un mejor solución que se adopte en iteraciones posterior
+es.
+\end_layout
+
+\begin_layout Standard
+Y en la api nosotros siempre preferimos explícito a implicito.
+\end_layout
+
+\begin_layout Standard
+Requisitos:
+\end_layout
+
+\begin_layout Enumerate
+Ya que todo se controla desde mysql pero no existe forma de hacerlo automático
+ vamos a crear unos disparadores para la insercción y la eliminación para
+ mantener la consistencia de los datos.
+ Cuando se introduce un nuevo grupo optativo se debe comprobar que existe
+ el anterior tanto en grupo como en subgrupo para que no exista el subgrupo
+ 4 sin el 3 o el dos.
+ De la misma manera no se podrán eliminar un grupo 4 si el 2 aún existe.
+\end_layout
+
+\begin_layout Subsubsection
+API definition
+\end_layout
+
+\begin_layout Standard
+@app.route('/entities/<string:kind>', methods=['POST'])
+\end_layout
+
+\begin_layout Standard
+Para realizar la introducción de un estudiante al sistema usamos 
+\end_layout
+
+\begin_layout Standard
+el re.
+\end_layout
+
+\begin_layout Standard
+No podemos introducir un usuario que no tenga datos, al menos
+\end_layout
+
+\begin_layout Standard
+deberá pasarse el dato nombre que es úniquo mínimo que debe
+\end_layout
+
+\begin_layout Standard
+existir para el tipo alumno.
+\end_layout
+
+\begin_layout Standard
+Cuando se pide una lista de elementos y la petición se realiza correctamente
+ pero no se devuelve nada porque no existen items de ese recurso se envía
+ un 204 Success without content.
+\end_layout
+
+\begin_layout Standard
+Importante: Muchos de los detalles de control de consistencia no pueden
+ relegarse a la UI, ya que aunque en ella no se deben permitir ciertas acciones
+ por la lógica del sistema, la api no debe permitir su realización aunque
+ se haga de forma manual sin los conectores de la UI.
+\end_layout
+
+\begin_layout Standard
+Por eso no solo la seguridad sino el control de la consistencia debe
+\end_layout
+
+\begin_layout Standard
+estar presente de la mejor forma posible en todas las acciones que contra
+ esta un usuario puede hacer.
+\end_layout
+
+\begin_layout Subsubsection
+User histories
+\end_layout
+
+\begin_layout Standard
+I like 
+\end_layout
+
+\begin_layout Section
+Casos de uso
+\end_layout
+
+\begin_layout Chapter
+SCmS
+\end_layout
+
+\begin_layout Section
+About
+\end_layout
+
+\begin_layout Standard
+Students Control micro Service or SCmS is the service that provide the resources
+ to make posible tasks like ....
+ .
+\end_layout
+
+\begin_layout Standard
+All of this working independently to the rest of the system with her own
+ database.
+\end_layout
+
+\begin_layout Section
+First Iteration
+\end_layout
+
+\begin_layout Standard
+Like in every scenarios we can divide the domain of the problem in some
+ services, but in this
+\end_layout
+
+\begin_layout Standard
+case and like first iteration it has been decided leave toguether all the
+ issues thar are related with the students controls.
+\end_layout
+
+\begin_layout Subsection
+Designe
+\end_layout
+
+\begin_layout Subsubsection
+Arquitecture
+\end_layout
+
+\begin_layout Subsubsection
+Languages and tools
+\end_layout
+
+\begin_layout Subsection
+Testing strategy
+\end_layout
+
+\begin_layout Subsection
+Deploy
+\end_layout
+
+\begin_layout Chapter
+AmS
+\end_layout
+
+\begin_layout Section
+About
+\end_layout
+
+\begin_layout Standard
+Analytics micro Service or AmS.
+\end_layout
+
+\begin_layout Section
+First Iteration
+\end_layout
+
+\begin_layout Subsection
+Designe
+\end_layout
+
+\begin_layout Subsubsection
+Arquitecture
+\end_layout
+
+\begin_layout Subsubsection
+Languages and tools
+\end_layout
+
+\begin_layout Subsection
+Testing strategy
+\end_layout
+
+\begin_layout Subsection
+Deploy
+\end_layout
+
+\begin_layout Chapter
+UImS
+\end_layout
+
+\begin_layout Section
+Scope
+\end_layout
+
+\begin_layout Section
+UX basic strategy issue
+\end_layout
+
+\begin_layout Standard
+Explicación del problema.
+\end_layout
+
+\begin_layout Subsection
+All in one
+\end_layout
+
+\begin_layout Standard
+Cuando todo se trata como un boque al que se le procesan las diferencias.
+\end_layout
+
+\begin_layout Subsection
+All live mode
+\end_layout
+
+\begin_layout Standard
+Donde por cada acción se realiza una llamada a la api y no existen los botones
+ guardar, incluso cuando se escribe texto en los campos se está realizando
+ el guardado.
+\end_layout
+
+\begin_layout Subsection
+Mixed mode
+\end_layout
+
+\begin_layout Standard
+Donde la seccion de datos propios de la entidad se procesa de forma tradicional
+ y las relaciones se actualizan conforme se manipulan.
+ Esta es la que finalmente optamos por usar.
+\end_layout
+
+\begin_layout Chapter
+Acknowledgments
+\end_layout
+
+\begin_layout Itemize
+Juan Julian Merelo
+\end_layout
+
+\begin_layout Itemize
+Ignacio Zafra (The Cloud Gate)
+\end_layout
+
+\begin_layout Itemize
+Alberto Guillen 
+\end_layout
+
+\begin_layout Itemize
+Esteban Gomez Roldan (GDG Granada)
+\end_layout
+
+\begin_layout Itemize
+Steve Judd (OpenCredo LTD)
+\end_layout
+
+\begin_layout Itemize
+Victor Terrón (Google London)
+\end_layout
+
+\begin_layout Itemize
+Nacho Coloma (Extrema Sistemas)
+\end_layout
+
+\begin_layout Itemize
+José M.
+ Rodríguez (Job&Talent)
+\end_layout
+
+\begin_layout Itemize
+Al resto del equipo de ButterFlyDevs, Jose Antonio Gonzalez y Javier Perez
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "libros"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
