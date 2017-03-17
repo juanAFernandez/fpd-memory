@@ -115,6 +115,10 @@ LatexCommand tableofcontents
 Introduction
 \end_layout
 
+\begin_layout Section
+What about it?
+\end_layout
+
 \begin_layout Standard
 The idea behind of the develop ot this software isn't only to do a good
  tool for educational centers, is also an excuse to research and learn about
@@ -122,8 +126,64 @@ The idea behind of the develop ot this software isn't only to do a good
  clean, simple and easily readable sotware.
 \end_layout
 
+\begin_layout Standard
+This software has been thinked to help a lot of teachers in their work,
+ but which is exactly the problem? And how it will help? 
+\end_layout
+
+\begin_layout Standard
+Until a few years ago the digitalization of education was something imposible
+ to think, the cost of equipments and the digital illiteracy did imposible
+ to think in to do things of another way.
+ The only computers that we could see was inside the 'Computer room', where
+ students learnd to use a simple text processor, received a simple notions
+ of internet of websites, mail system or storage notions, isn't bad to start,
+ but we don't talk about this.
+ But what about teachers? Maybe a few of computers in some rooms or office
+ allow send mails, maybe build a simple website or offers some resource
+ to the students (in the better case).
+ As we can imagine, the paper was the mainly support of all about management
+ of the center.
+\end_layout
+
+\begin_layout Standard
+If we think about proccesses in a scholar center we can't imagine the amount
+ of paper that is necesary to registry all about students, teachers, subjects,
+ relationships between them and the rest of work.
+ And the worst of this is that every three months and every year the most
+ of this documents, papers, records, etc, need be redo, because the mayority
+ of this relations had changed and is necesary record all.
+\end_layout
+
+\begin_layout Standard
+Can you imagine the amout of papers that it is? We will talk more about
+ this after.
+\end_layout
+
+\begin_layout Standard
+So now all people have a smarphone, the hardware is really cheap (laptops,
+ tablets, etc...) and open a website for a inexperted person is very easy,
+ and almos free, in some clicks.
+ There are alot of system and tools about e-learning like Moodle, Chamilio
+ , etc that allows manage a lot of thigs like classroom, activities, exams,
+ ect...
+ all had been listen somethimes about it.
+\end_layout
+
+\begin_layout Standard
+This area is more or less 
+\end_layout
+
+\begin_layout Section
+Why to build a new tool?
+\end_layout
+
 \begin_layout Section
 Domain
+\end_layout
+
+\begin_layout Standard
+How 
 \end_layout
 
 \begin_layout Standard
@@ -133,6 +193,10 @@ es para un centro educativo que agilizase todas su gestión interna y que
  Además se precisaba de un sistema de control general que aportase inormación
  que pudiera servir a los administradores del centro a tomar las medidas
  necesarias para la mejora del mismo.
+\end_layout
+
+\begin_layout Section
+State of Art
 \end_layout
 
 \begin_layout Chapter

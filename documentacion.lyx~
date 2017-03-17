@@ -103,10 +103,6 @@ This is the abstract, cool right?
 \end_layout
 
 \begin_layout Standard
-En la siguiente página se podría añadir una cita o un pequeño abstract.
-\end_layout
-
-\begin_layout Standard
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
 
