@@ -80,7 +80,7 @@ Students Management System
 \end_layout
 
 \begin_layout Subtitle
-Proccess accelerator for educational centers.
+Proccess accelerator for educational centers
 \end_layout
 
 \begin_layout Subtitle
@@ -92,7 +92,12 @@ Abstract
 \end_layout
 
 \begin_layout Standard
-This is the abstract, cool right?
+Nowadays technology is everyplace, but a lot of processes are supported
+ on paper yet.
+ In spite of the cost of it, this way make imposible the effienct analysis
+ ot amounts of data, that actually have a enormous potencially but aren't
+ used because the centers haven't appropieate tools or knowlegment.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -137,10 +142,10 @@ Until a few years ago the digitalization of education was something imposible
  to think in to do things of another way.
  The only computers that we could see was inside the 'Computer room', where
  students learnd to use a simple text processor, received a simple notions
- of internet of websites, mail system or storage notions, isn't bad to start,
+ of internet of websites, mail system or storage devices, isn't bad to start,
  but we don't talk about this.
- But what about teachers? Maybe a few of computers in some rooms or office
- allow send mails, maybe build a simple website or offers some resource
+ And what about teachers? Maybe a few of computers in some rooms or office
+ allow them send mails, maybe build a simple website or offers some resource
  to the students (in the better case).
  As we can imagine, the paper was the mainly support of all about management
  of the center.
@@ -152,30 +157,46 @@ If we think about proccesses in a scholar center we can't imagine the amount
  relationships between them and the rest of work.
  And the worst of this is that every three months and every year the most
  of this documents, papers, records, etc, need be redo, because the mayority
- of this relations had changed and is necesary record all.
+ of this relations will change and will be necesary record all.
 \end_layout
 
 \begin_layout Standard
-Can you imagine the amout of papers that it is? We will talk more about
- this after.
+Can you imagine the amout of papers, time and efforce is necesary to do
+ this? We will talk more about this after.
 \end_layout
 
 \begin_layout Standard
-So now all people have a smarphone, the hardware is really cheap (laptops,
+So now all peple have a smarphone, the hardware is really cheap (laptops,
  tablets, etc...) and open a website for a inexperted person is very easy,
  and almos free, in some clicks.
  There are alot of system and tools about e-learning like Moodle, Chamilio
  , etc that allows manage a lot of thigs like classroom, activities, exams,
  ect...
- all had been listen somethimes about it.
+ all had been listen somethimes about it but they have an specific domain
+ and are builded to an specific way.
 \end_layout
 
 \begin_layout Standard
-This area is more or less 
+This area is more or less knowled for the mayority of new teachers and schooll
+ stuff.
+ Many center uses some tools like this to do a lot of tasks, but in spite
+ of it, there are another a lo of tool much very heavy that is following
+ hand made.
 \end_layout
 
 \begin_layout Section
 Why to build a new tool?
+\end_layout
+
+\begin_layout Standard
+But is really necesary build to zero a new tool for do this.
+ Well, if we want, could reuse some preexisintg tool, maybe adding some
+ module to do all things that we detect that fault, but this present a lot
+ of problem, that are closely related with the architecture and liceses
+ of this software.
+ Because of this, is putted a lot of effor in this project in the opennes
+ of code and architecture, beause this is that make possible that the platform
+ can be change, evolutionate in many forks and feedback herself.
 \end_layout
 
 \begin_layout Section
@@ -199,12 +220,16 @@ es para un centro educativo que agilizase todas su gestión interna y que
 State of Art
 \end_layout
 
+\begin_layout Standard
+As part of the research process has been analyses 
+\end_layout
+
 \begin_layout Chapter
-Decisiones previas
+Previous decisions
 \end_layout
 
 \begin_layout Section
-Arquitectura
+Architecture
 \end_layout
 
 \begin_layout Subsection
@@ -386,6 +411,21 @@ Detalles
 
 \begin_layout Chapter
 APIGmS
+\end_layout
+
+\begin_layout Subsection
+Introduction
+\end_layout
+
+\begin_layout Standard
+As has been comment before, the pattern choose to this microservices based
+ app architecture is API Gateway, this offers a lot of benefits, but also
+ some drawbacks.
+ 
+\end_layout
+
+\begin_layout Subsection
+Spikes
 \end_layout
 
 \begin_layout Chapter
