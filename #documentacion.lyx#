@@ -96,7 +96,8 @@ Nowadays technology is everyplace, but a lot of processes are supported
  on paper yet.
  In spite of the cost of it, this way make imposible the effienct analysis
  ot amounts of data, that actually have a enormous potencially but aren't
- used because the centers haven't appropieate tools or knowlegment.
+ used because the people that manage this haven't appropieate tools or knowlegme
+nt about it.
  
 \end_layout
 
@@ -137,6 +138,19 @@ This software has been thinked to help a lot of teachers in their work,
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Until a few years ago the digitalization of education was something imposible
  to think, the cost of equipments and the digital illiteracy did imposible
  to think in to do things of another way.
@@ -149,6 +163,16 @@ Until a few years ago the digitalization of education was something imposible
  to the students (in the better case).
  As we can imagine, the paper was the mainly support of all about management
  of the center.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -200,32 +224,632 @@ But is really necesary build to zero a new tool for do this.
 \end_layout
 
 \begin_layout Section
-Domain
+Domain of the problem
 \end_layout
 
 \begin_layout Standard
-How 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-La idea de crear SMS surge de la necesidad de un sistema de gestión de estudiant
-es para un centro educativo que agilizase todas su gestión interna y que
- aliviase el gasto de papel impreso.
- Además se precisaba de un sistema de control general que aportase inormación
- que pudiera servir a los administradores del centro a tomar las medidas
- necesarias para la mejora del mismo.
+The idea to build SMS arises from the need of a managment system for a specific
+ educational center in Granada, that mainly speed up all their internall
+ management, avoid the spend of printed paper and save huge amounts of time.
+ Beside this they want a system that was helpful for making better management
+ decisions, in marking paths for future improvements.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bigskip
+\end_layout
+
+\end_inset
+
+ To achieve that the system would need as core a subsystem of relationships
+ managment, teachers that imparts class to students, students that are enrollmen
+ts in subjects and in groups or courses, and a long etcetera.
+ This only as the base of the system, because with this would only be modeled
+ the kind of relations that the center have.
+ A part of this and like the minimal requirements the center need that the
+ sistem provide a simple way to do their most heavy and paper, time and
+ money cost, the attendance contros (we can start to see some requirements
+ that the system would have).
+ Appart of this but related they need a system to save marks related with
+ students and disciplinary notes.
+ Only this three things done digitally may be a small internal revolution.
 \end_layout
 
 \begin_layout Section
-State of Art
+The cost of non-digitalization
 \end_layout
 
 \begin_layout Standard
-As part of the research process has been analyses 
+here will be the exlanation of the use of papper and time of a teacher.
+\end_layout
+
+\begin_layout Section
+State of Art 
+\end_layout
+
+\begin_layout Standard
+As part of the research process has been analyses some aplications that
+ (although isn't a directly competition) represent the actual state of art
+ about the kind of sofware we are talking about.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="8">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+App
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+a
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+b
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+c
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+d
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+e
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+f
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+g
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+d
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter
-Previous decisions
+Designe Decisions 
+\end_layout
+
+\begin_layout Standard
+Nowadays we can build almost any kind of software with a lot of differents
+ language from which to choose, but as if that were not enough there are
+ also a lot of architectures that are possible to follow, and beside of
+ this it will necesary choose where deploy our software, or how doc it,
+ or how magane our work team, etc.
+ A lot of options that it will necesary to choose and that can make the
+ difference between the success or failure of our project.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ So, what about of these decisions in this project? Take a look about it.
+ 
 \end_layout
 
 \begin_layout Section
@@ -233,23 +857,62 @@ Architecture
 \end_layout
 
 \begin_layout Subsection
-Microservicios
+Why microservices?
+\end_layout
+
+\begin_layout Standard
+Much more that the trend in the develop of apps, all of change of paradigm
+ inspired in distributed system, now over http and focussed (especially)
+ in web apps as a consequence of the multiple benefits to this kind of sofwate.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bigskip
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Language agnostic, scalable, size ajustables, independently, the system
+ splited in litle pieces with this boundaries ...
+ 
 \end_layout
 
 \begin_layout Subsection
-Bases de datos distribuidas
+Why polyglot database?
+\end_layout
+
+\begin_layout Standard
+With the mircroservices approach the system will be some very differents
+ database to do some diferents things.
+ So, in general we can see our backend like a black box when the data persists
+ in a polyglot database.
+ That means that the data is save in differents ways, using diferetns formats
+ and diferents driver to manage this.
+ There are a group of data that it need saved with certain relations, due
+ to its nature, so a relational database seem perfect to do this, but this
+ kind of databases (like MySQL) can been slowly or too heavy for other tasks
+ of kind of processes, like data analysis.
 \end_layout
 
 \begin_layout Subsection
-Estructuración del respositorio
+Repository Strategie
 \end_layout
 
 \begin_layout Section
-Leguajes y Frameworks
+Languages and frameworks
 \end_layout
 
 \begin_layout Section
-Infraestructura
+Deploy scenarios
 \end_layout
 
 \begin_layout Standard
@@ -263,7 +926,11 @@ Realizar comparativa y justificar muy bien la elección.
 \end_layout
 
 \begin_layout Section
-Metodología
+Documentation
+\end_layout
+
+\begin_layout Section
+Methodology and planification.
 \end_layout
 
 \begin_layout Standard
@@ -271,7 +938,7 @@ Elección de metodologías ágiles basadas en Scrum para la gestión del equipo
  y en historias de usuario para el modelado del sistema.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Ágil, adaptación al cambio.
 \end_layout
 
@@ -291,7 +958,7 @@ Como se ha visto, el enfoque de este desarrollo es completamente ágil, esto
 \end_layout
 
 \begin_layout Section
-Copyright
+License
 \end_layout
 
 \begin_layout Subsection
@@ -299,35 +966,7 @@ Licencia y enfoque
 \end_layout
 
 \begin_layout Chapter
-Requisitos funcionales
-\end_layout
-
-\begin_layout Section
-Reuniones con clientes y metodologías ágiles.
-\end_layout
-
-\begin_layout Standard
-Explicar como el sistema se ha orientado de una forma ágil que no necesita
- estrictamente un proceso de obtención de requisitos único e inamovivle
- como en las antiguas formas de desarrollo.
-\end_layout
-
-\begin_layout Section
-Evolución
-\end_layout
-
-\begin_layout Section
-Historias de usuario
-\end_layout
-
-\begin_layout Standard
-Referenciarlas y añadirlas como un anexo para que la lectura sea más fluida
- y no divida al documento un montón de páginas con estas, así como los diagramas
- que sea repetitivos como los diagramas de secuencia que acompañan a estas.
-\end_layout
-
-\begin_layout Chapter
-Modelado de la arquitectura
+Architecture Modeling
 \end_layout
 
 \begin_layout Standard
@@ -338,7 +977,7 @@ En base a los requisitos funcionales del sistema, se ha modelado la arquitectura
 \end_layout
 
 \begin_layout Section
-Patrones generales
+General Patterns
 \end_layout
 
 \begin_layout Standard
@@ -348,7 +987,7 @@ Explica los patrones más comunes en el diseño de aplicaciones basadas en
 \end_layout
 
 \begin_layout Section
-Evolución
+Evolution
 \end_layout
 
 \begin_layout Standard
@@ -361,55 +1000,48 @@ En muchas ocasiones lo más interesante de un desarrollo, la fase propia
 \end_layout
 
 \begin_layout Subsection
-1ª Fase
+First Phase
 \end_layout
 
 \begin_layout Standard
-Problema de las materias optativas.
+Servicios básicos y no demasiado estandard
+\end_layout
+
+\begin_layout Subsection
+Second Phase
+\end_layout
+
+\begin_layout Standard
+Los microservicios básicos
+\end_layout
+
+\begin_layout Subsection
+Third Phase
+\end_layout
+
+\begin_layout Standard
+La arquitectura final
+\end_layout
+
+\begin_layout Subsection
+Not closed final state
+\end_layout
+
+\begin_layout Standard
+Estado final pero por supuesto no cerrado al cambio ni a la ampliación,
+ con los servicios que faltarían o que no estan aún externalizados.
 \end_layout
 
 \begin_layout Chapter
-Enlaces
+Core
+\end_layout
+
+\begin_layout Standard
+Talking about SPIKES in all sections that is needed, como UIKIT en la UI,
+ endpoints en la APIG, ndb, mongo, etc, etc...
 \end_layout
 
 \begin_layout Section
-Artículos
-\end_layout
-
-\begin_layout Enumerate
-http://blog.zachbjornson.com/2015/12/29/cloud-storage-performance.html
-\end_layout
-
-\begin_layout Enumerate
-http://googlecloudplatform.blogspot.com.es/2015/12/the-next-generation-of-managed-M
-ySQL-offerings-on-Cloud-SQL.html
-\end_layout
-
-\begin_layout Section
-Comunidades
-\end_layout
-
-\begin_layout Enumerate
-https://plus.google.com/+googlecloudplatform/posts
-\end_layout
-
-\begin_layout Enumerate
-https://plus.google.com/+AngularjsEspa%C3%B1ol/posts
-\end_layout
-
-\begin_layout Section
-Tecnologías
-\end_layout
-
-\begin_layout Enumerate
-https://material.angularjs.org/
-\end_layout
-
-\begin_layout Chapter
-Detalles
-\end_layout
-
-\begin_layout Chapter
 APIGmS
 \end_layout
 
@@ -428,11 +1060,11 @@ As has been comment before, the pattern choose to this microservices based
 Spikes
 \end_layout
 
-\begin_layout Chapter
+\begin_layout Section
 TDBmS
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Introducción
 \end_layout
 
@@ -451,7 +1083,7 @@ A través de este microservicio podemos realizar todas las acciones relativas
 Este microservicio se basa en una base de datos.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Problemas y diseño.
 \end_layout
 
@@ -701,18 +1333,14 @@ User histories
 \end_layout
 
 \begin_layout Standard
-I like 
+I like
 \end_layout
 
 \begin_layout Section
-Casos de uso
-\end_layout
-
-\begin_layout Chapter
 SCmS
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 About
 \end_layout
 
@@ -727,7 +1355,7 @@ All of this working independently to the rest of the system with her own
  database.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 First Iteration
 \end_layout
 
@@ -761,11 +1389,11 @@ Testing strategy
 Deploy
 \end_layout
 
-\begin_layout Chapter
+\begin_layout Section
 AmS
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 About
 \end_layout
 
@@ -773,7 +1401,7 @@ About
 Analytics micro Service or AmS.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 First Iteration
 \end_layout
 
@@ -797,15 +1425,15 @@ Testing strategy
 Deploy
 \end_layout
 
-\begin_layout Chapter
+\begin_layout Section
 UImS
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Scope
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 UX basic strategy issue
 \end_layout
 
@@ -813,7 +1441,7 @@ UX basic strategy issue
 Explicación del problema.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 All in one
 \end_layout
 
@@ -821,7 +1449,7 @@ All in one
 Cuando todo se trata como un boque al que se le procesan las diferencias.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 All live mode
 \end_layout
 
@@ -831,7 +1459,7 @@ Donde por cada acción se realiza una llamada a la api y no existen los botones
  el guardado.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Mixed mode
 \end_layout
 
@@ -839,6 +1467,164 @@ Mixed mode
 Donde la seccion de datos propios de la entidad se procesa de forma tradicional
  y las relaciones se actualizan conforme se manipulan.
  Esta es la que finalmente optamos por usar.
+\end_layout
+
+\begin_layout Section
+External Services
+\end_layout
+
+\begin_layout Standard
+Conclusiones de por qué se han usado ciertas cosas y por que no otras
+\end_layout
+
+\begin_layout Subsection
+Pub / Sub pattern
+\end_layout
+
+\begin_layout Subsection
+Firebase
+\end_layout
+
+\begin_layout Subsection
+Third Party DataBases
+\end_layout
+
+\begin_layout Standard
+Por que nos hemos quedado con las que usamos y porque no usamos otras.
+\end_layout
+
+\begin_layout Chapter
+Future Plans
+\end_layout
+
+\begin_layout Section
+Features
+\end_layout
+
+\begin_layout Section
+Architecture
+\end_layout
+
+\begin_layout Standard
+Image of all microservices in their final state
+\end_layout
+
+\begin_layout Section
+Technologies
+\end_layout
+
+\begin_layout Chapter
+Retrospective
+\end_layout
+
+\begin_layout Standard
+Solo ahora que va acabando el proyecto es posible ver todos los problemas
+ que se han tenido y la forma de ponerles solución de una forma más amplia,
+ viendo donde se cometieron erroes y cuales han sido los beneficios y cuellos
+ de botella del desarrollo del proyecto.
+\end_layout
+
+\begin_layout Section
+DRY
+\end_layout
+
+\begin_layout Standard
+Comentar algunas de las cosas en las que se ha caido, como el escribir cosas
+ desde cero cuando habías soluciones o cosas parecidas ya hechas.
+ 
+\end_layout
+
+\begin_layout Standard
+La validación de envíos en las apis, los ORMs, la documentación, el testing,
+ etc, etc...
+\end_layout
+
+\begin_layout Section
+KISS
+\end_layout
+
+\begin_layout Section
+The heaven of frameworks
+\end_layout
+
+\begin_layout Standard
+Existen un montón de frameworks distintos para hacer lo mismo, cada uno
+ en su lenguaje, y cada uno con sus detalles.
+ ahora que terminamos el proyecto, evaluamos los beneficios y problemas
+ que hemos encontrado en unos y otros, atendiendo entre otras cosas a la
+ demanda y uso d elos mismos, desde el número de oportunidades laborales,
+ el número de preguntas en stackoverflow .
+\end_layout
+
+\begin_layout Section
+Community
+\end_layout
+
+\begin_layout Standard
+el contacto con la comunidad, debería de haber sido mucho mayor y previo,
+ (comunidades profesionales) 
+\end_layout
+
+\begin_layout Section
+The strategie
+\end_layout
+
+\begin_layout Standard
+Los problemas de la planificación, las virtudes de hacer algo así, lo aprendido
+ con las historias de usuario y como es muy dificil abordar un problema
+ de este tamaño solo, la dificultad de encontrar colaboradores, etc, etc...
+ 
+\end_layout
+
+\begin_layout Section
+DevOps and storms in the cloud
+\end_layout
+
+\begin_layout Standard
+Conocimientos, lugares donde desplegar, infrastructura de google, los problemas
+ que se han encontrado, como diferencia esto de un despliegue en otro sitio
+ (en cuanto a curvas de aprendizaje).
+\end_layout
+
+\begin_layout Chapter
+Resources 
+\end_layout
+
+\begin_layout Section
+Articles
+\end_layout
+
+\begin_layout Enumerate
+http://blog.zachbjornson.com/2015/12/29/cloud-storage-performance.html
+\end_layout
+
+\begin_layout Enumerate
+http://googlecloudplatform.blogspot.com.es/2015/12/the-next-generation-of-managed-M
+ySQL-offerings-on-Cloud-SQL.html
+\end_layout
+
+\begin_layout Section
+Communities
+\end_layout
+
+\begin_layout Enumerate
+https://plus.google.com/+googlecloudplatform/posts
+\end_layout
+
+\begin_layout Enumerate
+https://plus.google.com/+AngularjsEspa%C3%B1ol/posts
+\end_layout
+
+\begin_layout Section
+Technologies
+\end_layout
+
+\begin_layout Enumerate
+https://material.angularjs.org/
+\end_layout
+
+\begin_layout Section
+Books
 \end_layout
 
 \begin_layout Chapter
