@@ -108,6 +108,25 @@ nt about it.
 
 \end_layout
 
+\begin_layout Minisec
+Responsability
+\end_layout
+
+\begin_layout Standard
+Everything that is writed and explained here comes from opinion and own
+ experience of the author and don't represent a correct or exactly way that
+ do things.
+ All decisions can be discussed and obviously it may not represent the best
+ decision.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
@@ -1053,11 +1072,104 @@ Introduction
 As has been comment before, the pattern choose to this microservices based
  app architecture is API Gateway, this offers a lot of benefits, but also
  some drawbacks.
+ The mainly idea is to have a service working like as the gateway of the
+ service, so the backend becomes in a black box where all inside is behind
+ of this service, transparent to the customers of this.
+\end_layout
+
+\begin_layout Standard
+So, this service works basically like a dispatcher, it receives the calls
+ from user interface and decide where send the request.
  
 \end_layout
 
 \begin_layout Subsection
 Spikes
+\end_layout
+
+\begin_layout Standard
+To build this services was tryed some diferents approach.
+ Like almost in every modules, the same functionality can be writed for
+ may ways.
+ So, in this case specially (a service thinkied to run in GAE) the platform
+ offer us a speciall way to do this, better than standard, according to
+ them.
+ 
+\end_layout
+
+\begin_layout Subsection
+Testing and docs
+\end_layout
+
+\begin_layout Standard
+As is a dispatcher, the testing strategie isn't like others.
+ Don't have sense write (be automatic or not) a lot of test that redo the
+ same checks only using another port (in local) or url (in production).
+ To do this easier, a simple strategie is execute the same test that are
+ executed over the microservices isolated from the APIGmS, exactly the same.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bigskip
+\end_layout
+
+\end_inset
+
+ How do this? The tests writed uses a url that included a port of execution
+ (because all servies using the same url in local) so if we want to know
+ if the response is equal from APIGmS we only need change the port of execution.
+ So, for example if the tests suite to serviceA runing over localhost:8003
+ the test that check this service throught APIGmS (must be exactly the same
+ behaviour) will use localhost:8001.
+\end_layout
+
+\begin_layout Standard
+The tool used to do all test (except for the UI) is the python framework
+ PyTest allow easily, writing scenarios.
+ This technique allow repeat all test first over the service and after from
+ the distpacher (showing all result as well).
+\end_layout
+
+\begin_layout Standard
+Besides of this, the service can have functions of modules that need be
+ tested independently, these need a specific tests.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bigskip
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+On the other had with docs something similar happens, don't have sense write
+ a doc defining the behaviour of all sections of api gateway if this doc
+ already exists in each service.
+ It's redundant and complex to mantain.
+ Because of this a simple approach is link the docs to services docs, so
+ the task of write it relegate to them.
+ 
+\end_layout
+
+\begin_layout Standard
+As is saided the tool Sphinx is used to build the doc of the service.
+ That basically inspect the code files mixing this with all the files that
+ we write (pure doc) to show this as a web based documetnation (easy to
+ read and understand).
 \end_layout
 
 \begin_layout Section
