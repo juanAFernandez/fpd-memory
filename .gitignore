@@ -1,3 +1,11 @@
 *~
 
 *.pdf
+
+auto/
+*.aux
+*.blg
+*.bbl
+*.log
+*.out
+*.toc
