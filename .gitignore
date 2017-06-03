@@ -8,4 +8,5 @@ auto/
 *.bbl
 *.log
 *.out
-*.toc
+*.toc.memory*
+.memory*

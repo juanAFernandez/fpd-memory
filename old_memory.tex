@@ -1,0 +1,418 @@
+\documentclass[oneside,english,titlepage]{scrbook}
+\usepackage[T1]{fontenc}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{babel}
+\usepackage{fancybox}
+\usepackage{calc}
+\usepackage{pifont} %For ding marks, http://willbenton.com/wb-images/pifont.pdf
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[unicode=true]
+ {hyperref}
+
+ %Own colors:
+\definecolor{ownRed}{rgb}{0.858, 0.188, 0.478}
+\definecolor{ownGreen}{rgb}{0.073, 0.532, 0.062}
+\definecolor{ownOrange}{rgb}{0.6,0.6,0.0}
+
+ %Own commands for own symbols:
+\newcommand{\completeValue}{\textcolor{ownGreen}{\ding{51}}}
+\newcommand{\noneValue}{\textcolor{ownRed}{\ding{55}}}
+\newcommand{\partialValue}{\textcolor{ownOrange}{\ding{120}}}
+
+
+
+
+
+\begin{document}
+
+\title{Students Management System}
+% The title of the memory can be different to the name of the
+% application. For instance, SMS, a process accelerator for
+% educational centers.
+
+\subtitle{Proccess accelerator for educational centers}
+% Check spelling. And then again, Check spelling - JJ
+
+\subtitle{Juan Antonio Fern\'andez S\'anchez}
+\maketitle
+
+\minisec{Abstract}
+% "empty" sentences like this one shouldn't go in the abstract. Just
+% say your motivation, what you are going to do, what technologies are
+% involved and be done with it. - JJ
+Nowadays technology is everyplace, but a lot of processes are supported
+on paper yet. In spite of the cost of it, this way make imposible
+the effienct analysis ot amounts of data, that actually have a enormous
+potencially but aren't used because the people that manage this haven't
+appropieate tools or knowlegment about it.
+
+\pagebreak{}
+
+\minisec{Responsability}
+
+Everything that is writed and explained here comes from opinion and
+own experience of the author and don't represent a correct or exactly
+% apostrophes not used in a formal setting - JJ
+way that do things. All decisions can be discussed and obviously it
+may not represent the best decision.
+
+\pagebreak{}
+
+\tableofcontents{}
+
+
+
+\chapter{Architecture Modeling}
+
+En base a los requisitos funcionales del sistema, se ha modelado la
+arquitectura en base a ciertos subsistemas o microservicio
+
+2
+
+\section{General Patterns}
+
+
+en microservicios, entre ellos el basado en una API GATEWAY que es
+el adoptado por nosotros.
+
+\section{Evolution}
+
+En muchas ocasiones lo más interesante de un desarrollo, la fase propia
+
+En este caso se pierden las conclusiones y decisiones tomadas por
+el equipo de desarrollo que les han llevado a toma una u otra decisi
+Por eso se intentará reflejar lo más fielmente posible como ha sido
+el proceso que ha llevado el sistema al su fase de entrega final.
+
+\subsection{First Phase}
+
+Servicios básicos y no demasiado estandard
+
+\subsection{Second Phase}
+
+Los microservicios básicos
+
+\subsection{Third Phase}
+
+La arquitectura final
+
+\subsection{Not closed final state}
+
+Estado final pero por supuesto no cerrado al cambio ni a la ampliac
+con los servicios que faltarían o que no estan aún externalizados.
+
+\chapter{Core}
+
+Talking about SPIKES in all sections that is needed, como UIKIT en
+la UI, endpoints en la APIG, ndb, mongo, etc, etc...
+
+\section{APIGmS}
+
+\subsection{Introduction}
+
+As has been comment before, the pattern choose to this microservices
+based app architecture is API Gateway, this offers a lot of benefits,
+but also some drawbacks. The mainly idea is to have a service working
+like as the gateway of the service, so the backend becomes in a black
+box where all inside is behind of this service, transparent to the
+customers of this.
+
+So, this service works basically like a dispatcher, it receives the
+calls from user interface and decide where send the request.
+
+\subsection{Spikes}
+
+To build this services was tryed some diferents approach. Like almost
+in every modules, the same functionality can be writed for may ways.
+So, in this case specially (a service thinkied to run in GAE) the
+platform offer us a speciall way to do this, better than standard,
+according to them.
+
+\subsection{Testing and docs}
+
+As is a dispatcher, the testing strategie isn't like others. Don't
+have sense write (be automatic or not) a lot of test that redo the
+same checks only using another port (in local) or url (in production).
+To do this easier, a simple strategie is execute the same test that
+are executed over the microservices isolated from the APIGmS, exactly
+the same.\bigskip How do this? The tests writed uses a url that included
+a port of execution (because all servies using the same url in local)
+so if we want to know if the response is equal from APIGmS we only
+need change the port of execution. So, for example if the tests suite
+to serviceA runing over localhost:8003 the test that check this service
+throught APIGmS (must be exactly the same behaviour) will use localhost:8001.
+
+The tool used to do all test (except for the UI) is the python framework
+PyTest allow easily, writing scenarios. This technique allow repeat
+all test first over the service and after from the distpacher (showing
+all result as well).
+
+Besides of this, the service can have functions of modules that need
+be tested independently, these need a specific tests.
+
+\bigskip
+
+
+
+
+\section{TDBmS}
+
+\subsection{Introduction}
+
+
+
+\subsection{Design}
+
+
+
+
+
+\subsubsection{mService API}
+
+\subsection{Stones and evolution}
+
+
+\subsubsection{Delete items strategy}
+
+dfasdf
+
+\subsubsection{Item's metadata.}
+
+\subsubsection{Input / Output convention}
+
+All in JSON except the values with NULL in the input and in the output.
+
+\subsubsection{How to save the deleted items.}
+
+In the way to develop the microservice we have the question, we want
+to save the deleted items? For one hand we could want to know
+
+
+
+\section{SCmS}
+
+\subsection{Introduction}
+
+Students Control micro Service or SCmS is the service that provide
+the resources to make posible tasks like .... .
+
+All of this working independently to the rest of the system with her
+own database.
+
+\subsection{User Stories}
+
+sdfsdfds
+
+\subsection{Deficiencies Analysis}
+
+\subsubsection{D1}
+
+Deficiencias el proceso posterior a la corrección de un examen.
+
+Un profesor cualquiera (A en este caso) corrige un curso de exámenes (30 por ejemplo) y después pasa las notas a una libreta/cuaderno que les suministra el centro. Esto solo como lugar intermedio de registro, y aque después es necesario pasarlo al sistema SENECA (externo).
+El profesor para de media 10 min haciendo solo el paso de las notas a su libreta y otros 5 min en hacer el paso a SENECA. Un total de unos 12/14 min de media de trabajo extra que no aporta ningún valor al proceso de correción de exámenes.
+
+Además de esto, existen muchos datos que se pierden por la forma de procesar los datos.
+
+Imaginemos que el profeso quiere saber la nota media que el curso ha sacado en ese examen, debería de calcularla a mano, o compararla co nuna notar de un examen anterior (ya sea a nivel de grupo o a nivel individual). O por ejemplo quien ha sacado mejores notas, si los chicos o las chicas, o cierto grupo de control con otro.
+
+Por otra parte se hace imposible el acceso a procesamientos más complejos como lo que podría ofrecer el sistema:
+
+Puedes comparar la nota de un persona porque al anotarla tienes su nota anterior al lado, pero y si quieres ver la evolución general del grupo no puedes.
+¿Y si quieres ver que competencia de ese examen ha salido mejor o peor? Como que se les ha dado mejor, si la parte de redacción o la parte de listening, por ejemplo, para esto se podrían registrar más notas a parte de el simple resultado general del examen. Pudiendo hacer un sistema muchísimo más
+potente para el análisis de datos de estudiantes y así su mejora.
+
+Eleva la potencia del examen por mil.
+
+
+
+
+
+
+\subsection{First Iteration}
+
+Like in every scenarios we can divide the domain of the problem in
+some services, but in this
+
+case and like first iteration it has been decided leave toguether
+all the issues thar are related with the students controls.
+
+\subsection{Designe}
+
+\subsubsection{Arquitecture}
+
+\subsubsection{Languages and tools}
+
+\subsection{Testing strategy}
+
+\subsection{Deploy}
+
+\section{AmS}
+
+\subsection{About}
+
+Analytics micro Service or AmS.
+
+\subsection{First Iteration}
+
+\subsection{Designe and arquitecture}
+
+
+
+\subsubsection{Languages and tools}
+
+\subsection{Testing strategy}
+
+\subsection{Deploy}
+
+\section{UImS}
+
+\subsection{Scope}
+
+\subsection{UX basic strategy issue}
+
+Explicacin del problema.
+
+\subsubsection{All in one}
+
+Cuando todo se trata como un boque al que se le procesan las diferencias.
+
+\subsubsection{All live mode}
+
+Donde por cada accin se realiza una llamada a la api y no existen
+los botones guardar, incluso cuando se escribe texto en los campos
+se está realizando el guardado.
+
+\subsubsection{Mixed mode}
+
+Donde la seccion de datos propios de la entidad se procesa de forma
+tradicional y las relaciones se actualizan conforme se manipulan.
+Esta es la que finalmente optamos por usar.
+
+\section{External Services}
+
+Conclusiones de por qué se han usado ciertas cosas y por que no otras
+
+\subsection{Pub / Sub pattern}
+
+\subsection{Firebase}
+
+\subsection{Third Party DataBases}
+
+Por que nos hemos quedado con las que usamos y porque no usamos otras.
+
+\chapter{Future Plans}
+
+\section{Features}
+
+\section{Architecture}
+
+Image of all microservices in their final state
+
+\section{Technologies}
+
+\chapter{Retrospective}
+
+Solo ahora que va acabando el proyecto es posible ver todos los problemas
+que se han tenido y la forma de ponerles solucin de una forma +
+amplia, viendo donde se cometieron erroes y cuales han sido los beneficios
+y cuellos de botella del desarrollo del proyecto.
+
+\section{DRY}
+
+Comentar algunas de las cosas en las que se ha caido, como el escribir
+cosas desde cero cuando habías soluciones o cosas parecidas ya hechas.
+
+La validacin de envíos en las apis, los ORMs, la documentacin, el
+testing, etc, etc...
+
+\section{KISS}
+
+\section{The heaven of frameworks}
+
+Existen un monn de frameworks distintos para hacer lo mismo, cada
+uno en su lenguaje, y cada uno con sus detalles. ahora que terminamos
+el proyecto, evaluamos los beneficios y problemas que hemos encontrado
+en unos y otros, atendiendo entre otras cosas a la demanda y uso d
+elos mismos, desde el número de oportunidades laborales, el número
+de preguntas en stackoverflow .
+
+\section{Community}
+
+el contacto con la comunidad, debería de haber sido mucho mayor y
+previo, (comunidades profesionales)
+
+\section{The strategie}
+
+Los problemas de la planificacin, las virtudes de hacer algo as,
+lo aprendido con las historias de usuario y como es muy dificil abordar
+un problema de este tamao solo, la dificultad de encontrar colaboradores,
+etc, etc...
+
+\section{DevOps and storms in the cloud}
+
+Conocimientos, lugares donde desplegar, infrastructura de google,
+los problemas que se han encontrado, como diferencia esto de un despliegue
+en otro sitio (en cuanto a curvas de aprendizaje).
+
+\chapter{Achievements}
+
+This project, whitout to be the most innovation project has been enough interesentign (for any reason) to give some profesional oportunities.
+
+For one hand, this project has been enrolled in the Talefonica Talentum Program (2016 Edition), give us the oportunity to join to an interdsiciplinar group of people (students of Computer and Telecomunications Engenier), some one with own project, shanring experiences and work. Finally this porject wasn't selected to the next phase, another projects with more commercial projection that a open source project was more interesting, for oviously reasons. But he experience was really interesting and (motivadora).
+
+For other hand and most important, the oportunity to join to a really interesting StartUp in Granada. This young company named CocktaiLabs saw this project in the list of project enrollment in Open Project OSL Contests 2016-2017 and (se puso en contacto) with the main autor, offer it hire it, to join in a develop group to build a system that share some ideas with the project developed to the contest and explained here.
+
+Beside of this, the born of this project and the iinmersion in the open source concept also did that if formed a open source developers group (Butterfly Devs) where some friends join kwowlements working in some projects
+
+
+\chapter{Resources }
+
+\section{Articles}
+\begin{enumerate}
+\item http://blog.zachbjornson.com/2015/12/29/cloud-storage-performance.html
+\item http://googlecloudplatform.blogspot.com.es/2015/12/the-next-generation-of-managed-MySQL-offerings-on-Cloud-SQL.html
+\end{enumerate}
+
+\section{Communities}
+\begin{enumerate}
+\item https://plus.google.com/+googlecloudplatform/posts
+\item https://plus.google.com/+AngularjsEspa\%C3\%B1ol/posts
+\end{enumerate}
+
+\section{Technologies}
+\begin{enumerate}
+\item https://material.angularjs.org/
+\end{enumerate}
+
+\section{Books}
+
+\chapter{Acknowledgments}
+
+Special acknowledments to my family, for all time (invertido) on mine, the (patient) and for their ehternal and infine support. Of course also to Susana, for her pattient with me, (a pesar) of not understand (all that I do). Speciall mention to JJ. Merelo for the oportunity to work with him (elevating this projecto to other level of concpet and profionalidad) and JJRamos (mentor of Telefonica Talentum Program) for all their energy, (animo), entusiasmo contagioso y por todos los buenos ratos que hemos pasado trabajando (entre otras cosas).
+
+And another list of people that (de una forma u otra and ayudado conceptualmente al projecto).
+
+
+Alan O'Rourke por la imagen de toobusy toimprove
+
+\begin{itemize}
+\item Al resto del equipo de ButterFlyDevs, Jose Antonio Gonzalez y Alvaro Maximino Herrera por sus esporádicas pero inestimables contribuciones al projecto.
+\item Ignacio Zafra (The Cloud Gate)
+\item Alberto Guillen
+\item Esteban Gomez Roldan (GDG Granada)
+\item Steve Judd (OpenCredo LTD)
+\item Victor Terrn (Google London)
+\item Nacho Coloma (Extrema Sistemas)
+\item José M. Rodríguez (Job\&Talent)
+\end{itemize}
+\bibliographystyle{plain}
+\nocite{*}
+\bibliography{books}
+
+\end{document}
