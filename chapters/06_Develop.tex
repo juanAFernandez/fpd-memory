@@ -1,0 +1,206 @@
+\chapter{Develop}
+
+
+\section{Api Gateway}
+\subsection{Cloud Endpoint spike}
+
+API Rest with flask, not Google CloudEndpoints
+
+Before to spends some weeks with the recomended technology by Google, was
+detected some drawbacks that was upper than the benefits of this technology,
+in spite of that it had a better performance.
+
+This is an example of the spike related, it can see in the first phases of the
+project.
+
+\begin{lstlisting}[language=python,frame=none]
+...
+
+import endpoints
+from protorpc import messages
+
+...
+
+class Alumno(messages.Message):
+  nombre = messages.StringField(1)
+  apellidos = messages.StringField(2)
+  id = messages.StringField(3)
+
+class ListaAlumnos(messages.Message):
+  alumnos = messages.MessageField(Alumno, 1, repeated=True)
+
+...
+
+@endpoints.api(name='gateway', version='v1')
+class GatewayApi(remote.Service):
+  """Gateway API v1."""
+
+  @endpoints.method(message_types.VoidMessage, ListaAlumnos,
+                    #path=nombre del recurso a llamar
+                    path='alumnos/getAlumnos', http_method='GET',
+                    #Puede que sea la forma en la que se llama desde la api:
+                    #response = service.alumnos().listGreeting().execute()
+                    name='alumnos.getAlumnos')
+
+  def getAlumnos(self, unused_request):
+    ...
+    students_list = []
+    ...
+    # Logic to get the students list from another service with maybe more logic.
+    ...
+    alumnosItems.append(Alumno( id=idAlumno, nombre=nombreAlumno.decode('utf-8'), apellidos=apellidosAlumno.decode('utf-8') ) )
+    return ListaAlumnos(alumnos=alumnosItems)
+...
+\end{lstlisting}
+About 2000 lines in the endpoint first aproximation of the Gateway API microService
+
+
+
+
+Now take a look to the \emph{flask} version:
+
+\begin{lstlisting}[language=python,frame=none]
+@api_gateway.route('/students', methods=['GET'])
+def get_students():
+    ...
+    students_list = []
+    ...
+    # Logic to get the students list from another service with maybe more logic.
+    ...
+    return students_list
+\end{lstlisting}
+
+\section{Api Gateway}
+
+\section{Teaching Data Base microService}
+
+\subsubsection{Optional subjects, the ``class'' Table.}
+
+In the domain of the problem can be exists optative subjects and is
+needed search a way to implement this because has a specific details
+that aren't like the rest.
+
+\paragraph{The details.}
+
+The studies plan forces in certain courses to select one or several
+optional subjects. For example, if a student has enrollment in 2ºESO
+(independently of the group, A, B...) the law and consequently the
+studies plan force to the student to choose between some optional
+subjects. So, maybe this subjects exists only in this optional case
+as `` rare subjects'' but in other cases this are only normal subjects
+but that in this course are offer like optional.
+
+A simple example of this is French subject, it in some courses like
+3ESO and 4ESO is obligatory but it in Bachiller (the upper level)
+is optional because the students can be select if they want make the
+final exam with this second language or select another like English
+or Greek or Latin p.e.
+
+To obtain this we decide develop a simple solution without change
+the original database logic schema. So, how we have an entity that
+save the classes and it have three attributes, course, word and level
+mainly we going to add three more to this special cases, optative,
+groupNumber and subgroupNumber. Like this special cases haven't word
+param when they have value word don't have and when the item have
+word (A, B, C...) then don't have this special attributes.
+
+Maybe this don't be the best solution, but is a simple in the point
+of develop.
+
+Obviously like we can't have two autoincrement values in the same
+table definition in MySQL we will need control this programatically,
+but is something that we can assume to get our goal easily.
+
+Problema:
+
+La misma ventaja que nos ofrece UNIQUE para el caso de los eliminados
+ahora nos muerde aquí. Mientras que allí beneficiaba porque esta clausula
+no incluye a los item que tengan campos a null y permite que no de
+conflicto en este caso si insertamos un grupo optativo obviamente
+deberá tener el camo word a null y si es así podemos tener exactamente
+dos grupos iguales sinque de conflicto.
+
+course
+
+1 <null> ESO 1 1 1 0
+
+1 <null> ESO 1 1 1 0
+
+Sin dar conflicto, lo que no puede ser.
+
+
+
+está a null o no para le resto de los procedimientos.
+
+Por esta razon decidimos usar el mismo campo word, con una nomenclatura
+especial, ya que no se va a ser usada para los grupos generales que
+indique que se trata de un grupo optativo y además especifique el
+grupo y el subgrupo, en concreto:
+
+OPT\_n\_m
+
+donde n será el número del grupo (que habrá que incrementar prograticamente
+a mano) y m el número del subgrupo que tambi\'{n}e habrá que incrementar
+a mano en caso de que se creen más.
+
+Esto siempre a falta de un mejor solucion que se adopte en iteraciones
+posteriores.
+
+Y en la api nosotros siempre preferimos explícito a implicito.
+
+Requisitos:
+\begin{enumerate}
+\item Ya que todo se controla desde mysql pero no existe forma de hacerlo
+automatico vamos a crear unos disparadores para la inserccion y la
+eliminacion para mantener la consistencia de los datos. Cuando se
+introduce un nuevo grupo optativo se debe comprobar que existe el
+anterior tanto en grupo como en subgrupo para que no exista el subgrupo
+4 sin el 3 o el dos. De la misma manera no se podrán eliminar un grupo
+4 si el 2 aún existe.
+\end{enumerate}
+
+\paragraph{API definition}
+
+@app.route('/entities/<string:kind>', methods={[}'POST'{]})
+
+Para realizar la introduccion de un estudiante al sistema usamos
+
+el re.
+
+No podemos introducir un usuario que no tenga datos, al menos
+
+deberá pasarse el dato nombre que es úniquo mínimo que debe
+
+existir para el tipo alumno.
+
+Cuando se pide una lista de elementos y la peticin se realiza correctamente
+pero no se devuelve nada porque no existen items de ese recurso se
+envía un 204 Success without content.
+
+Importante: Muchos de los detalles de control de consistencia no pueden
+relegarse a la UI, ya que aunque en ella no se deben permitir ciertas
+acciones por la logica del sistema, la api no debe permitir su realizacin
+aunque se haga de forma manual sin los conectores de la UI.
+
+Por eso no solo la seguridad sino el control de la consistencia debe
+
+estar presente de la mejor forma posible en todas las acciones que
+contra esta un usuario puede hacer.
+
+\paragraph{User histories}
+
+El microservicio de Base de Datos acota el dominio de la gestin docente
+dentro del sistema, quizs se le cambie el nombre a TmS teachingMicroService.
+
+A través de este microservicio podemos realizar todas las acciones
+relativas a.
+
+Este microservicio se basa en una base de datos.
+
+I like
+
+\subsection{Deleted items strategy}
+
+\section{Students Control microService}
+
+\section{Analysis microService}
