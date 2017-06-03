@@ -9,3 +9,4 @@ auto/
 *.log
 *.out
 *.toc
+vendor/

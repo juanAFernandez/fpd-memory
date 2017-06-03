@@ -1,2 +1,8 @@
-# dfp-memory
-Memory of Degree Final Project 
+# SMS
+Branch to slides.
+
+
+
+**Requirements:**
+
+Execute `bower install` to download dependencies in `gh-pages` branch.

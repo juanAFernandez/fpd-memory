@@ -1,0 +1,10 @@
+{
+  "name": "sms-slides",
+  "authors": [
+    "Juan Antonio  <juan.antonio.fernandez.sanchez.88@gmail.com>"
+  ],
+  "version": "0.0.1",
+  "dependencies": {
+    "reveal-js": "^2.6.2"
+  }
+}
