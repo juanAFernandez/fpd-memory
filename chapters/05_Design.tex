@@ -116,6 +116,17 @@ This is the real situation of the develop
 
 CODIGOS Y POR QUE ELEGIMOS LOS QUE ELEGIMOS
 
+\subsection{Pesistence Strategy}
+
+  Metadata parameters
+  createdBy       INT,
+  createdAt       DATETIME,
+  modifiedBy      INT,
+  modifiedAt      DATETIME,
+  deletedBy       INT,
+  deletedAt       DATETIME,
+  deleted         BOOL,
+
 \subsection{API Gateway microService}
 
 On the other had with docs something similar happens, don't have sense
@@ -206,5 +217,13 @@ of raw sql sencences and drivers whiout ORM (by easy that it was).
 
 \subsection{Students Control microService}
 
+\begin{center}
+\includegraphics[scale=0.4]{img/graphics/scms.png}
+\end{center}
+
 
 \subsection{Analysis microService}
+
+\begin{center}
+\includegraphics[scale=0.4]{img/graphics/ams.png}
+\end{center}

@@ -14,34 +14,221 @@ How is talking about software, it will need run in somewhere, and they what to b
 For other hand exists an essential requirements, must be run in any devide for the same person, independently of the machine where it be (sometimes in laptop and sometimes in smartphone, for example).
 
 \bigskip
-\subsubsection{Management System}
+\subsubsection{Academic Management System}
 \bigskip
 
 
 As base of requirements process have been used user stories.
 
-\noindent\shadowbox{\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}%
-\textbf{\#1 }
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+As manager, I want to save students to can to register them.
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be this fields.
+\begin{enumerate}
+\item Name
+\item Surname
+\item Birthdate
+\item Card-id
+\item Location
+\item Address
+\item City
 
-Me as manager, I want save subjects, teachers, students and classes.%
-\end{minipage}}
+\end{enumerate}
+\item The item must be inserted, readed, updated and deleted.
 
+\end{enumerate}
+
+
+\hrule
 \bigskip
-
-\noindent\shadowbox{\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}%
-\textbf{\#2}
-
-Me as manager, I want can relate teachers with subjects.%
+\textbf{AMS \#1 } - High priority
 \end{minipage}}
+
+
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+As manager, I want to save teachers to can to register them.
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be this fields.
+\begin{enumerate}
+\item Name
+\item Surname
+\item Card-id
+\item Address
+\item Location
+\item City
+\item Birthdate
+\item Phone
+\item Image
+\item Gender
+
+\end{enumerate}
+\item The item must be inserted, readed, updated and deleted.
+
+\end{enumerate}
+
+
+\hrule
+\bigskip
+\textbf{AMS \#2 } - High priority
+\end{minipage}}
+
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+
+As manager, I want to save subjects to can to register them.
+\bigskip
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be this fields.
+\begin{enumerate}
+\item Name
+\item Description
+
+\end{enumerate}
+\item The item must be inserted, readed, updated and deleted.
+
+\end{enumerate}
+
+\hrule
+\bigskip
+\textbf{AMS \#3 } - High priority
+\end{minipage}}
+
+
+% USER STORY #4
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+
+
+As manager, I want to save classes to can to can to register them.
+\bigskip
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be this fields.
+\begin{enumerate}
+\item Course
+\item Word
+\item Level
+\item Description
+
+\end{enumerate}
+\item The item must be inserted, readed, updated and deleted.
+
+\end{enumerate}
+
+\hrule
+\bigskip
+\textbf{AMS \#4 } - High priority
+\end{minipage}}
+% ############
+
+% USER STORY #5
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+
+
+As manager, I want to save relation between subjects and classes.
+\bigskip
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be inserted, readed, updated and deleted.
+
+\end{enumerate}
+\bigskip
+\hrule
+\bigskip
+\textbf{AMS \#5 } - High priority
+\end{minipage}}
+% #################
+
+% USER STORY #6
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+
+
+As manager, I want to save relation between teachers and the
+relation between subjects and classes.
+\bigskip
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be inserted, readed, updated and deleted.
+
+\end{enumerate}
+\bigskip
+\hrule
+\bigskip
+\textbf{AMS \#6 } - High priority
+\end{minipage}}
+% ################
+
+% USER STORY #7
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+
+As manager, I want to save relation between students and the
+relation between subjects and classes.
+\bigskip
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be inserted, readed, updated and deleted.
+
+\end{enumerate}
+\bigskip
+\hrule
+\bigskip
+\textbf{AMS \#7 } - High priority
+\end{minipage}}
+% ##############
 
 As we can imagine, a center have a lot of differents kind of relationships, and as obligatory part of the system it must be offer a simple way to do this. Teachers imparts subjects to group of students (called classes), students are enrolled in subjects, and so on. These cases of use and all it can see below will be revised as \textit{User Stories} in detail later.
 
-\bigskip
+\break
 \subsubsection{Attendance Controls}
 \bigskip
 
-One of most importat proccess to digitaly, the amount of data tha is saved on papper and also imposible to manage before and much less do it an analysis.
-They need a simple way, a simple interface to do this that allow this save time (doing it, analysis and mangement it), paper and effort.
+One of most importat proccess to digitaly, the amount of data tha is saved on
+papper and also imposible to manage before and much less do it an analysis.
+They need a simple way, a simple interface to do this that allow this save time
+(doing it, analysis and mangement it), paper and effort.
+
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+
+As teacher, I want to save attendance of students to can to register them.
+\bigskip
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be this fields.
+\begin{enumerate}
+\item Attendance
+\item Delay
+\item Justification
+
+
+\end{enumerate}
+\item The item must be inserted, readed, updated and deleted, in a list of
+all students of the class.
+
+\end{enumerate}
+
+\hrule
+\bigskip
+\textbf{AC \#1 } - High priority
+\end{minipage}}
+
+
 
 
 \bigskip
