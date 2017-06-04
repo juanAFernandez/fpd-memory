@@ -1,15 +1,101 @@
 \chapter{Design}
 
-\subsection{Architecture}
+Once the requirements have been decided, is time to make the design of the system
+ that will do all needed to cover them. First we are going to take a look over
+ the general arquitecture, the distribution of the domain of the services and
+ how delimit their behaviour and communications with each others to after enter
+ each one to know how work in each domain and how have been solved all problems
+ that this design present.
+
+\subsection{Responsabilites distribution}
+
+At the moment that we decided split the functionality of the system between
+services we found the problem that how decide which is the domain
+
+At the moment that we decided split the functionality of the system between
+services, we found the problem that how decide which is the domain of each one.
+In the majority of the cases we are begining from a monolithic system that we
+want split, in this case is some like this but at first it was thinked to be splited.
+
+In the common app (whatever kind of it) we have three well defined layers, user
+interface, logic and storage, something as common MVC\footnote{Model–view–controller
+(MVC) is a software architectural pattern for implementing user interfaces on
+computers. It divides a given application into three interconnected parts in
+order to separate internal representations of information from the ways that
+information is presented to and accepted from the user, user interfaces pattern,
+introduced by Trygve Reenskaug into Smalltalk-76 at Palo Alto Research Center in the 1970s}
+A part of user interface make the necessary to present the info and offer the
+way to interact with this to the user while the logic layer do this possible
+doing the logic steps to work with data structures saved in some kind of storage.
+
+There are some frameworks as Django wherein all this layer can be developed
+toguether, is not strange their popularity, but if we use other as AngularJS
+this only help us in the user interface layer, not in the rest, but for other
+hands have another advantages.
+
+So, that as it may, this would be the more simple schema to start to work in
+our domain, with the difference that we work with service instead of layer in a
+single program, but essentially, the concept is the same.
+
+As we can see in the next picture, we will have a user interface, when  will
+builded all views and controllers that work with this to buil complete user
+interface, a logic section layer, here labeled as APIGmService (as a first
+approach) that will do the logic of the system, transform the data,
+restructuring and offering the interaction form UI to database.
+And at end, the database system, mainly a engine of the database and the drivers
+neccesary to work with the.
 
 \begin{center}
 \includegraphics[scale=0.3]{img/graphics/initial_microservices_distribution.png}
 \end{center}
 
+As we can imagine this work fine, is compact and stable when we are talking about
+the same code in the same machine but now we are going to split that in
+different services, maybe runing at diferents places and maybe in different
+languages, so when we talk about split the domain is about split the logic with
+the database access layer.
+
+Next picture show us perfectly what are talking about. This is an example
+of migration from monolithic to microservices from Nginx resources.
+
+\begin{center}
+\includegraphics[scale=0.4]{img/graphics/refactoring.png}
+\end{center}
+
+So, for us, each service will be always mainly the same components,
+communication protocol and logic layer. Database layer is always optional,
+a service can be do some logic without need a database, imagine a simple service
+to do calcs, that consume the data from another service or act as third party
+services gateway, a social network, a payment service, whatever.
+
+Coming back again to our problem we have decided to split all the back end in
+four services that will cover the domain of the problem, following a Domain
+Driven Development principles. Each one will be described with details after,
+for now, only a some reasons that why is so. We need a logic part that control
+any call to the system, some as gateway that act as dispatcher of request, that
+call to the service (maybe not only one) that can help it to resolve the requests
+and give back the info. For another and, we need cover all requierements specified,
+and to achieve this we  are going to design three services that split all logic
+issues, teaching database, students control and analysis microservice. All toguether
+compose the backend of the app.
+
 \begin{center}
 \includegraphics[scale=0.3]{img/graphics/backend.png}
 \end{center}
 
+Further on we will talking about the reason to choose API Gateway as pattern.
+
+
+Diferents aproximations in the two mainly platforms to work:
+
+\begin{center}
+\includegraphics[scale=0.35]{img/graphics/aws_approach.jpg}
+\end{center}
+
+
+\begin{center}
+\includegraphics[scale=0.35]{img/graphics/gae_approach.jpg}
+\end{center}
 
 
 
@@ -38,7 +124,17 @@ if this doc already exists in each service. It's redundant and complex
 to mantain. Because of this a simple approach is link the docs to
 services docs, so the task of write it relegate to them.
 
+
+\begin{center}
+\includegraphics[scale=0.35]{img/graphics/apigateway.png}
+\end{center}
+
 \subsubsection {API Definition}
+
+
+
+
+
 
 \subsection{Teaching Data Base microService}
 
@@ -60,21 +156,6 @@ offer also PostgreSQL.
 \subsubsection{Design}
 
 
-As base of requirements process have been used user stories.
-
-\noindent\shadowbox{\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}%
-\textbf{\#1 }
-
-Me as manager, I want save subjects, teachers, students and classes.%
-\end{minipage}}
-
-\bigskip
-
-\noindent\shadowbox{\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}%
-\textbf{\#2}
-
-Me as manager, I want can relate teachers with subjects.%
-\end{minipage}}
 
 
 
@@ -87,7 +168,7 @@ is only a wraper of the SQLAlchemy to keep apart the apirest of the
 service to the database access layer.
 
 \begin{center}
-\includegraphics[scale=0.4]{img/graphics/dbms_diagram.png}
+\includegraphics[scale=0.35]{img/graphics/tdbms.png}
 \end{center}
 
 \subsubsection{Database logical design}
