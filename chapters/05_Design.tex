@@ -7,7 +7,7 @@ Once the requirements have been decided, is time to make the design of the syste
  each one to know how work in each domain and how have been solved all problems
  that this design present.
 
-\subsection{Responsabilites distribution}
+\section{Responsabilites distribution}
 
 At the moment that we decided split the functionality of the system between
 services we found the problem that how decide which is the domain
@@ -127,7 +127,7 @@ CODIGOS Y POR QUE ELEGIMOS LOS QUE ELEGIMOS
   deletedAt       DATETIME,
   deleted         BOOL,
 
-\subsection{API Gateway microService}
+\section{API Gateway microService}
 
 On the other had with docs something similar happens, don't have sense
 write a doc defining the behaviour of all sections of api gateway
@@ -215,14 +215,46 @@ it easy to understand that only in few projects is justified the use
 of raw sql sencences and drivers whiout ORM (by easy that it was).
 
 
-\subsection{Students Control microService}
+\section{Students Control microService}
+
+\subsection{Domain and design}
 
 \begin{center}
 \includegraphics[scale=0.4]{img/graphics/scms.png}
 \end{center}
 
+\subsection{Api definition}
 
-\subsection{Analysis microService}
+skjsñdf
+asflkafkdafldañfdsfl
+
+
+\subsubsection{Attendance Controls Subsection}
+
+This is a simple collection behaviour resource.
+
+This is a RAML0.8 definition file:
+
+\begin{lstlisting}[language=python,frame=none]
+  /ac GET POST
+   Description:
+
+
+  /ac/{ac_id} GET PUT DELETE
+   Description:
+
+
+  /ac/base/{ac_id} GET
+   Description:
+\end{lstlisting}
+
+
+
+
+
+
+
+\section{Analysis microService}
 
 \begin{center}
 \includegraphics[scale=0.4]{img/graphics/ams.png}
