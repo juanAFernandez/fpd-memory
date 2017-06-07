@@ -1,21 +1,21 @@
 \chapter{Requirements}
 
+In this chapter wer are going to describe which are the requirement that
+actually we system have to do that is expected from it.
+It will be used User Stories methodology (footer y referencia a libro) which
+it will be talked a bit more in the next chapter.
+This tool will be usedfull to identify the requirements of the system by a
+human readable way. Removing all possible layer between desing and user requisites.
 
-
-\subsection{Minimal requirements}
+\section{Minimal user requirements}
 
 The managers of the center can't have a precise idea about which must be the functions of the sofware. They have a clear idea about what kind of process in their daily work there are the most heavy and consume more paper, that are which they want to digitalice, but they haven't think about navbars, icons, colors palettes, designe of user interfaces or something like this.  They have abstract ideas that will need dimensioning and shaping but which in synthesis offer the minimun system requirements.
 
-\bigskip
-\subsubsection{General needs}
-\bigskip
-
+\subsection{General needs}
 How is talking about software, it will need run in somewhere, and they what to be cheap and easy to run. And at first there aren't any prerequirements. Maybe they preffer that this can run in devices like smartphones, tablets, laptops, but they don't have a good technical knowlements and is indiferents that be a native app, a web app or some strange artefact.
 For other hand exists an essential requirements, must be run in any devide for the same person, independently of the machine where it be (sometimes in laptop and sometimes in smartphone, for example).
 
-\bigskip
-\subsubsection{Academic Management System}
-\bigskip
+\subsection{Academic Management System}
 
 
 As base of requirements process have been used user stories.
@@ -232,34 +232,164 @@ all students of the class.
 
 
 \bigskip
-\subsubsection{Class Controls}
+\subsection{Class Controls}
 \bigskip
 
 A part of manage of classrooms they must offers a say to follow the students evolution in class, behaviour, positives and negativss and another lot of things like paper save, time and effort as section above.
 
 \bigskip
-\subsubsection{Marks} % I would say this is grades. You really have to check
+\subsection{Marks} % I would say this is grades. You really have to check
                 % the terminology in this particular context - JJ
+
+% Marks USER STORY n1 #########################################################
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+
+
+As teacher or educator, I want to record bad behaviour of a student.
 \bigskip
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be this fields.
+\begin{enumerate}
+\item Course
+\item Word
+\item Level
+\item Description
+
+\end{enumerate}
+\item The item must be inserted, readed, updated and deleted.
+
+\end{enumerate}
+
+\hrule
+\bigskip
+\textbf{MRKS \#1 } - High priority
+\end{minipage}}
+% ##############################################################################
+
+
+
+
+
+
+
+
+
 
 As another of proccess that more paper consumes is the marks management. They want a system that simplity the proccess of insertion, analysis and management. Without any specially idea in mind are open to any good user interface that simplify this.
 
 
 \bigskip
-\subsubsection{Disciplinary Notes}
+\subsection{Disciplinary Notes}
 \bigskip
 
 It also must provide a management of this kind of notes, in which a bad behaviour of a studnet is saved, managed and fully reported to the specific users inside of app, as tutors, pedagogue, etc, for example.
 
+% Disciplinary Notes USER STORY n1 #############################################
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+
+
+As teacher or educator, I want to record bad behaviour of a student.
 \bigskip
-\subsubsection{Simple and advance reports}
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be this fields.
+\begin{enumerate}
+\item Course
+\item Word
+\item Level
+\item Description
+
+\end{enumerate}
+\item The item must be inserted, readed, updated and deleted.
+
+\end{enumerate}
+
+\hrule
+\bigskip
+\textbf{DN \#1 } - High priority
+\end{minipage}}
+% ##############################################################################
+
+% Disciplinary Notes USER STORY n2 #############################################
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+
+
+As teacher or educator, I want to know most common disciplinary notes and
+data related.
+\bigskip
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be this fields.
+\begin{enumerate}
+\item Course
+\item Word
+\item Level
+\item Description
+
+\end{enumerate}
+\item bla bla bla.
+
+\end{enumerate}
+
+\hrule
+\bigskip
+\textbf{DN \#2 } - High priority
+\end{minipage}}
+% ##############################################################################
+
+
+
+\bigskip
+\subsection{Simple and advance reports}
 \bigskip
 
 Another part interesting for they is improve the reports that they obtains from their data. The on paper support do this almost imposible to big scale, an a important feature must be do this posible. Advanced reports about a lot of kind of items, like students, state of subjects, marks, etc, in seconds with some cliks.
 This will improve the take of decisions and will do better meetings with better decisions based on good and crontastable data.
 
+
+An user stoire by subsystem: repot by marks, report by attendance control..
+reports by.., etc ,etc etc....
+
 \bigskip
-\subsubsection{Autonomic Official System Connection}
+\subsection{Autonomic Official System Connection}
 \bigskip
 
 The national system of education in which this center is framed have a diferents informatic reginal system. In this case, in Andalucia, where the certer is it called SENECA (other in other places of the country). All public and semipublic educaitonal centers need save data in this systems necessarily, and this haven't a simple public API where connet us. They must be done dirty way, making a maxed mode way to simplify the download and download of data that minify the interaction with the official system.
+
+% Seneca USER STORY n1 #########################################################
+\noindent\shadowbox{
+\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
+
+
+As a teacher, I need not interact manually with the official system.
+\bigskip
+\break
+Aceptance criteria:
+\begin{enumerate}
+\item The item must be this fields.
+\begin{enumerate}
+\item Course
+\item Word
+\item Level
+\item Description
+
+\end{enumerate}
+\item The marks of students must be updload automat
+
+\end{enumerate}
+
+\hrule
+\bigskip
+\textbf{SNC \#1 } - High priority
+\end{minipage}}
+% ##############################################################################
+
+
+\section{System requirements}
