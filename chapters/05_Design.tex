@@ -116,8 +116,79 @@ This is the real situation of the develop
 
 CODIGOS Y POR QUE ELEGIMOS LOS QUE ELEGIMOS
 
+
+
+\begin{table}[H]
+\centering
+
+\begin{tabular}{@{}lllllll@{}}
+
+Status Code & Meaning\\
+\midrule
+
+200 & Ok.The request has succeeded. Information will be returned \\
+201 & Created. \\
+204 & Ok without body. \\
+404 & Not found. \\
+422 & Unprocesable entity. \\
+500 & Server error. \\
+
+\end{tabular}
+\caption{HTTP1.1 Status Code common used}
+\label{my-label}
+\end{table}
+
+Todo obedecen al estandar y siguen un significado dado por el primer dígito.
+
+\begin{table}[H]
+\centering
+
+\begin{tabular}{@{}lllllll@{}}
+
+Class & Meaning\\
+\midrule
+
+2xx & Successful\\
+3xx & Redirection\\
+4xx & Client Error\\
+5xx & Server Error\\
+
+
+\end{tabular}
+\caption{HTTP1.1 Status Code common used}
+\label{my-label}
+\end{table}
+
+
 \subsection{Pesistence Strategy}
 
+When we are talking aobut persitency that meaning how the data that change
+their state in the database is manage. Obviously we are talking of the changes
+between created, deleted and the between states.
+
+Is been identified three ways to do this:
+
+1. non persistence
+When a item is updated or deleted any information of the last state remain.
+
+2. Half persistence
+When a data is logically erased, the data remain in the database but will never
+accesible by the user. In this case is isseful if we want develop some mechanism
+to redo acctions, in this case only deletion actions.
+
+3. Complete persistence
+When not only the elements erased can be restored, all items can be restored in
+any point of the hisory of the system. This is the more complex mechanism to persistence
+but also the most powerfull and usseful for the users, because as in a simple
+text editor allow do an infinite redo over acctions realized.
+
+Afte study all options have been decided use the second approach, and to achieve
+this is necessary get some kind of metadata pluged to our objects stored in databases
+to control their state in all moment.
+To do this has been designed this metadada patter for all objects saved in any
+service or database:
+
+\begin{lstlisting}[language=python,frame=none]
   Metadata parameters
   createdBy       INT,
   createdAt       DATETIME,
@@ -126,6 +197,11 @@ CODIGOS Y POR QUE ELEGIMOS LOS QUE ELEGIMOS
   deletedBy       INT,
   deletedAt       DATETIME,
   deleted         BOOL,
+
+\end{lstlisting}
+
+With this nosotros coneguios.....
+
 
 \section{API Gateway microService}
 
@@ -147,8 +223,9 @@ services docs, so the task of write it relegate to them.
 
 
 
-\subsection{Teaching Data Base microService}
+\section{Teaching Data Base microService}
 
+\subsection{Domain and design}
 
 This mService offers the managment of the teaching of the center.
 This means that persist in a relational database all relations between
@@ -164,14 +241,7 @@ and also because GCP offers as a cloud product Google Cloud SQL Databases.
 Until recently only offerts MySQL but now (since March of 2017) they
 offer also PostgreSQL.
 
-\subsubsection{Design}
-
-
-
-
-
-
-\subsubsection{Access Library}
+Access Library design
 
 In the old version it was a little ORM that offers simple methods
 to access data transform this in SQL raw sencentes. Now this library
@@ -181,6 +251,75 @@ service to the database access layer.
 \begin{center}
 \includegraphics[scale=0.35]{img/graphics/tdbms.png}
 \end{center}
+
+\subsection{Api definition}
+\begin{lstlisting}[language=python,frame=none]
+
+  #%RAML 0.8
+  title: Attendance Controls API
+  version: 1.0
+  baseUri: ---
+  /ac:
+    description: The resource to work with attendance controls database saved-
+    get:
+      description: Get a list of all attendance controls
+      responses:
+        200:
+          description: Ok. Successful requests. An item will be returned.
+
+    post:
+      description:
+      responses:
+        201:
+          description: Created without response. The item was added to database will not
+                       returned body.
+        422:
+          description: Unprocessable Entity. Probably because of the payload
+                       sendes has not correct format.
+
+    /{ac_id}:
+      uriParameters:
+       ac_id:
+         displayName: Attendance control ID
+         type: integer
+      get:
+        description: Return an item of the attendance controls collection.
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+      put:
+        description: Save a new attendance control in the database.
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+      delete:
+        description:
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+    /schema:
+      uriParameters:
+       ac_id:
+         displayName: Attendance control ID
+         type: integer
+      get:
+        description:
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+
+\end{lstlisting}
+
+
+
 
 \subsubsection{Database logical design}
 
@@ -236,26 +375,235 @@ This is a simple collection behaviour resource.
 This is a RAML0.8 definition file:
 
 \begin{lstlisting}[language=python,frame=none]
-  /ac GET POST
-   Description:
 
+  #%RAML 0.8
+  title: Attendance Controls API
+  version: 1.0
+  baseUri: ---
+  /ac:
+    description: The resource to work with attendance controls database saved-
+    get:
+      description: Get a list of all attendance controls
+      responses:
+        200:
+          description: Ok. Successful requests. An item will be returned.
 
-  /ac/{ac_id} GET PUT DELETE
-   Description:
+    post:
+      description:
+      responses:
+        201:
+          description: Created without response. The item was added to database will not
+                       returned body.
+        422:
+          description: Unprocessable Entity. Probably because of the payload
+                       sendes has not correct format.
 
+    /{ac_id}:
+      uriParameters:
+       ac_id:
+         displayName: Attendance control ID
+         type: integer
+      get:
+        description: Return an item of the attendance controls collection.
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+      put:
+        description: Save a new attendance control in the database.
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
 
-  /ac/base/{ac_id} GET
-   Description:
+      delete:
+        description:
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+    /schema:
+      uriParameters:
+       ac_id:
+         displayName: Attendance control ID
+         type: integer
+      get:
+        description:
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+
 \end{lstlisting}
 
+\subsubsection{Disciplinary Notes Subsection}
 
+This is a simple collection behaviour resource.
 
+This is a RAML0.8 definition file:
 
+\begin{lstlisting}[language=python,frame=none]
+
+  #%RAML 0.8
+  title: Attendance Controls API
+  version: 1.0
+  baseUri: ---
+  /ac:
+    description: The resource to work with attendance controls database saved-
+    get:
+      description: Get a list of all attendance controls
+      responses:
+        200:
+          description: Ok. Successful requests. An item will be returned.
+
+    post:
+      description:
+      responses:
+        201:
+          description: Created without response. The item was added to database will not
+                       returned body.
+        422:
+          description: Unprocessable Entity. Probably because of the payload
+                       sendes has not correct format.
+
+    /{ac_id}:
+      uriParameters:
+       ac_id:
+         displayName: Attendance control ID
+         type: integer
+      get:
+        description: Return an item of the attendance controls collection.
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+      put:
+        description: Save a new attendance control in the database.
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+      delete:
+        description:
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+    /schema:
+      uriParameters:
+       ac_id:
+         displayName: Attendance control ID
+         type: integer
+      get:
+        description:
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+
+\end{lstlisting}
+
+\subsubsection{Maks Subsection}
+
+This is a simple collection behaviour resource.
+
+This is a RAML0.8 definition file:
+
+\begin{lstlisting}[language=python,frame=none]
+
+  #%RAML 0.8
+  title: Attendance Controls API
+  version: 1.0
+  baseUri: ---
+  /ac:
+    description: The resource to work with attendance controls database saved-
+    get:
+      description: Get a list of all attendance controls
+      responses:
+        200:
+          description: Ok. Successful requests. An item will be returned.
+
+    post:
+      description:
+      responses:
+        201:
+          description: Created without response. The item was added to database will not
+                       returned body.
+        422:
+          description: Unprocessable Entity. Probably because of the payload
+                       sendes has not correct format.
+
+    /{ac_id}:
+      uriParameters:
+       ac_id:
+         displayName: Attendance control ID
+         type: integer
+      get:
+        description: Return an item of the attendance controls collection.
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+      put:
+        description: Save a new attendance control in the database.
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+      delete:
+        description:
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+    /schema:
+      uriParameters:
+       ac_id:
+         displayName: Attendance control ID
+         type: integer
+      get:
+        description:
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+
+\end{lstlisting}
 
 
 
 \section{Analysis microService}
 
+\subsection{Domain and design}
 \begin{center}
 \includegraphics[scale=0.4]{img/graphics/ams.png}
+\end{center}
+
+
+\section{User Interface microService}
+
+\subsection{Domain and design}
+\begin{center}
+\includegraphics[scale=0.4]{img/graphics/ui.png}
+\end{center}
+
+
+\section{Auxiliar tools}
+
+
+\subsection{Provisioner}
+
+\begin{center}
+\includegraphics[scale=0.4]{img/graphics/provisioner.png}
 \end{center}
