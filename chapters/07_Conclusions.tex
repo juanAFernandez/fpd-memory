@@ -41,7 +41,9 @@ the spike of some of these.
 
 \noindent About the API frameworks, Flask was a good selection, because their ease of use
 and lightness does it perfectly. However, when we analyze the performance, there are
-other solutions also in python faster. An example of this is Falcon. As can be
+other solutions also in python faster. An example of this is Falcon\footnote{Defined as: \textit{"A
+very fast, very minimal Python web framework for building microservices, app backends,
+and higher-level frameworks"}. More info at: \textit{falconframework.org}}. As can be
 seen in the next picture, extracted from py-frameworks-bench\footnote{
 http://klen.github.io/py-frameworks-bench/} project, we can see how Falcon has
 better performance than Flask. In this grapihc is measure the response in ms
@@ -88,6 +90,37 @@ About database, without doubt MongoDB is nowadays the better solution that
 can be used in a project with low relational requirements, because their learning
 curve is so good that is easy to have a good prototipe of database layer soon,
 and the resources of the community is greatly assist.
+
+\subsection {Design}
+
+\subsubsection{About the user interface}
+
+There are any that has been critical in the develop and is that the assumption
+as a good idea that all interface always is loaded when a user enters to the app,
+but after some tests have been seen that is not the best way.  For this reason,
+many teams that work with Angular choose an alternative, use a library specially
+designed to load the javascript files of the app needed in each part of the interface.
+So, if a user is in the teaching section don't need all files of the reports section
+and this files only will be loaded when the user insert in this section. To do this,
+the teams use the Require.js\footnote{Literraly from their website ,requirejs.org: \textit{"RequireJS is a
+JavaScript file and module loader. It will improve the speed and quality of your code."}} library as
+the standard dynamically loader and their use will be the next step to do the
+load of the app faster.
+
+\subsubsection{About the compression of APIs}
+
+Is easy to notice that the API of Students Control microService is very semantic
+but very big also (become more complex to maintain and change) while of the
+teaching service API is very compact and little but less semantic, because the
+meaning of their resources is not clear and therefore their behavior neither.
+It was made on purpose it to check in the development which approach was more
+problematic or simple to explain or update.
+
+And the conclusion is that to maintain the coherency between the domain drive
+development of the service and the expressivity of the API the customers do not
+need to know the internal work of the service, but need understand the logic
+behind of the items, so, in the future it will be moved to an approach more human
+readable (in spite of all disadvantages, talking about code and maintenance). 
 
 \subsection{The develop process}
 

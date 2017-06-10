@@ -256,65 +256,85 @@ service to the database access layer.
 \begin{lstlisting}[language=python,frame=none]
 
   #%RAML 0.8
-  title: Attendance Controls API
+  title: Teaching Data Base API
   version: 1.0
   baseUri: ---
-  /ac:
-    description: The resource to work with attendance controls database saved-
+
+  /test:
+    description:
     get:
-      description: Get a list of all attendance controls
+      description:
       responses:
         200:
-          description: Ok. Successful requests. An item will be returned.
+          description: Ok. Successful requests.
 
+  /test_mysql:
+    description:
+    get:
+      description:
+      responses:
+        200:
+          description: Ok. Successful requests.
+
+  /entities/{kind}:
+    description:
+    get:
+      description:
+      responses:
     post:
+      description: INSERT a entity in the database, with a special input format:
+      responses:
+
+  /entities/{kind}/{entity_id}:
+    description:
+    get:
+      description:
+      responses:
+        200:
+          description:
+    put:
       description:
       responses:
         201:
-          description: Created without response. The item was added to database will not
-                       returned body.
-        422:
-          description: Unprocessable Entity. Probably because of the payload
-                       sendes has not correct format.
+    delete:
+      description:
+      respones:
+        204
 
-    /{ac_id}:
-      uriParameters:
-       ac_id:
-         displayName: Attendance control ID
-         type: integer
-      get:
-        description: Return an item of the attendance controls collection.
-        responses:
-          200:
-            description: Ok. Successful requests. An item will be returned.
-          404:
-            description: Not found. The item required does not exists.
-      put:
-        description: Save a new attendance control in the database.
-        responses:
-          204: No content. The server has fulfilled the request but does not need to return an entity-body.
-          404:
-            description: Not found. The item required does not exists.
 
-      delete:
+  /entities/{kind}/{entity_id}/{nested_kind}/{onk_entity_id}:
+  description:
+
+    delete:
+      description:
+      respones:
+        204
+
+  /entities/{kind}/{entity_id}/{related_kind}:
+  description:
+  get:
+    description:
+    responses:
+      200:
         description:
-        responses:
-          204: No content. The server has fulfilled the request but does not need to return an entity-body.
-          404:
-            description: Not found. The item required does not exists.
 
-    /schema:
-      uriParameters:
-       ac_id:
-         displayName: Attendance control ID
-         type: integer
-      get:
+  /entities/{kind}/{entity_id}/{relared_kind}/{rk_entity_id}/{subrelated_kind}:
+  description:
+  get:
+    description:
+    response:
+      200:
         description:
-        responses:
-          200:
-            description: Ok. Successful requests. An item will be returned.
-          404:
-            description: Not found. The item required does not exists.
+
+  /entities/{kind}/{entity_id}/report:
+  description:
+  get:
+    description:
+    response:
+      200:
+        description:
+
+
 
 \end{lstlisting}
 
@@ -603,6 +623,16 @@ This is a RAML0.8 definition file:
 
 
 \subsection{Provisioner}
+
+A provisioner is simply a tool used to provide a system to insert test data, to avoid to do this hand-made, in our services. Normally this work without knowledge of the internal parts of the backend, only working with their api gateway (or api if we want only fill the database of service), understanding it as black box.
+this is only an approach, we can design our provisioner to fill data directly in the databases, which will required stablished a conections with them without the interaction of the services or their connection libraries. This is faster but in some occasions we do not want to do this, because another of their goal is check at the same time the corretly of all parts of apis involved in the data insertion.
+So, the execution the this kind of program required that the system has full launched.
+
+This will be the most used tool when we want try some feature that required a lot of data in the system.
+
+How it works?
+
+Easy, only need a simple parameters as entry and based in some rules it will do all calls to the api gateway to insert all data required, besides to save all operations in a register or log file because is necessary to check this in a debug operation.
 
 \begin{center}
 \includegraphics[scale=0.4]{img/graphics/provisioner.png}

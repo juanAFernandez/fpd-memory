@@ -1,7 +1,7 @@
 \chapter{Develop}
 
 
-\section{Api Gateway}
+\section{Api Gateway microService}
 \subsection{Cloud Endpoint spike}
 
 API Rest with flask, not Google CloudEndpoints
@@ -70,7 +70,6 @@ def get_students():
     return students_list
 \end{lstlisting}
 
-\section{Api Gateway}
 
 \section{Teaching Data Base microService}
 
@@ -207,17 +206,109 @@ I like
 
 
 
-\subsection{Saving flows}
-alternativas a los flujos de guardado.
+\subsection{Save processes flows}
 
-1. Hay que pulsar en guardar
-2. Se guarda automaticamente
+The logical process of saving data is apparently easy but it hides some details
+when we talk about update existing data. These and how to solve the problem that
+it presents will define how the user will use our interface. And spite of this is
+a design phase issue is in the develop moment when this appeared and is why it
+is explained here.
+\linebreak
+\linebreak
+\noindent Focused on the problem, we have an object load in the interface, as a complete
+profile info of a student, and we want to update their data (change or add some
+new data) and this is not trivial because will define the signature between the
+API of service and the user interface.So, basically, we have found three ways to do this so we are going to analysis
+each one to choose the best, even though there are combinations.
+When the object is loaded in our interface we modify some field and push the save
+button if all the form requirements are satisfied then the complete object is sent
+without any else requirements.
 
-3. Hay que pulsar en guardar y además va detectando si los cambios realizados
-alteran de alguna manera al objeto original para habilitar el botón de guardado o no.
-Esto sobrecarga algo la interfaz pero aligera mucho el server ahorando algunas llamadas.
-Esto también permite la cancelación de una modificación sin pérdida.
+\begin{enumerate}
+\item \textbf{Common save button}
 
+The object is sent always, independently if it really has suffered changes.
+Save button is always available while the requirements of the form are satisfied.
+
+\textbf{Disadvantages}:
+The object is always sent, even if is not necessary because it has not suffered
+changes, hence a lot of bytes will be sent without sense.
+
+\textbf{Advantages}:
+Is the simplest and faster implementation for the user interface and the server
+do not need to check anything
+only override the object updating their metadata.
+
+\item \textbf{Automatically saved}
+
+The object is sent each time as it suffered any change,
+save button not exists. Their behavior is similar to an online text editor where
+all changes are saved implicitly.
+
+\textbf{Disadvantages}:
+The calls needed are huge if the user to do a lot of changes. Is necessary another
+parallel mechanism to maintain the possibility to do undo because if all changes
+are saving at the moment in the server there are not any way to do a simply undo action.
+A number of calls needed are huge.
+
+\textbf{Advantages}:
+Is really futurist because the user does not to need to push any button after of
+update their data. All forms become more clear.
+
+\item \textbf{Totally checked}
+
+Is a more efficient way that the rest. In this case, when the object is loaded
+in the interface a copy is done and
+saved also, always, independently of the interaction of the user. With this, we
+achieve to get a copy of the object without any modification when the user is updating some field.
+
+So, each way that user change some field of the form the logic check if there are
+any difference between both objects (original copy and the modified) and only
+when this difference exists and the requirements of the form are satisfied the
+save button will change to enable.
+This way if the user cancels the update of the object or after of thousand
+modifications leave the object exactly with the same data the send button will
+not enable because there are not any to update in the server.
+
+\textbf{Disadvantages}:
+The computing requirements in the user device it will high because it will be
+needed hundred of checks in a simple interaction.
+
+\textbf{Advantages}:
+The server is not involved until the object is really updated. It supposes a user
+ experience that gives to interface more intelligent aspect.
+\end{enumerate}
+
+\noindent As is easy to imagine the option chosen is the third because the reason explained
+above. Down below is shown a piece of code which we have developed the feature of object copy.
+When we can to see how is used a variable to save the state of the object, after
+the object is saved and watches is enabled with it to detect any possible change
+that will modify the state of save button, all after of the student object has been returned.
+
+\begin{lstlisting}[language=java,frame=none, title=studentProfile.js]
+...
+function loadData() {
+    vm.student = StudentsService.get({id: vm.studentId}, function () {
+        ...
+        vm.studentOriginalCopy = angular.copy(vm.student);
+        $scope.studentModelHasChanged = false;
+        $scope.$watch('vm.student', function (newValue, oldValue) {
+            $scope.studentModelHasChanged = !angular.equals(vm.student, vm.studentOriginalCopy);
+            if ($scope.studentModelHasChanged)
+                vm.updateButtonEnable = true;
+            else
+                vm.updateButtonEnable = false;
+        }, true);
+    }, function () {
+        console.log('Student not found')
+        ...
+    });
+    ...
+}
+...
+\end{lstlisting}
+
+\noindent So, this behaviour is replied in all places where this kind of interaction appears.
 
 \section{Analysis microService}
 
