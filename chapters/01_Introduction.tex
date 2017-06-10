@@ -87,55 +87,57 @@ not evident.
 
 How many papers are spended by a normal teacher in a high?
 
-
-\subsubsection{Standard controls}
-
-Marks and nottations.
-
 If we think that a normal teacher have a 8 groups of students (if it works in a
-full time) ,  this means 25 houres approximately at week, and each group have
-25-30 student of average. In all there are 200 students which a teacher have relation.
+full time), this means 25 houres approximately at week, and each group have
+25-30 student of average. In all, there are 200 students which a teacher have
+relation approximately every year.
 
-Each educational center have a own control sytem but normally and like is in this
-case, there are a lot of standard document that each teacher manages to follow
-the evolution of their students.
+Each educational center has an own control sytem but normally and like is in this
+case, there are a lot of standard documents that each teacher manages to follow
+the evolution of their students (if it does their work fine).
 
-We are going to make the calculus of  these through the summary of the mainly
+We are going to make the calculus of these through the summary of the mainly
 processes that they do.
 
-To begin each teacher need to follow the evolution of each children in their
+\subsubsection{Marks and nottations}
+
+To begin each teacher need to follow the evolution of each student in their
 subject quarterly, to do this they uses an official document where they write
 all interesting anotations about the student, from marks of partials or final
-exams to marks about homeworks or class issues.
+exams to annotation about homeworks or class issues.
 
-If the common teacher (here "teacher") have 200 students make up a total of 600
-pages. Normally each center give to teacher a book with all this pages officialley
-formated to this task.
+If the common teacher (here "teacher") have 200 students and in the Spanish
+system we have three quarter this make up a total of 600 sheets of paper,
+more another 50 by differents uses that a teacher spend commonly.
+Normally each center give to teacher a book with all this pages officialley
+formated to this task, so the cost is upper that only the paper and ink.
 
-
-
-
+If we multiply this number by 40 teachers aproximatly we have 2400.
 
 \subsubsection{Tutorizing}
 
-Each time that a parent want to check the evolution of his son  . Mas
-
-30 estudiantes por 3 reuniones con padres, por 14 papeles por
-asignatura es igual a : 1260 pages.
+Each time that a parent want to check the evolution of his son the mentor
+of the student need to do a simple but time and money expensive process.
 
 
-
-Tutorias, dos hojas de info peronsal, hoja de tutoria por asignatura , 10 subject
-per boy, ms otras dos hojas para la pedagoga.
-
+So,if in a medium center we hace 15 mentors and each one mentorizing about
+30 students, and technically each of this students need a meet with their
+parents each quarter, this mean 15 * 30 * 3 * 10 subjects that the student have
+ and that need an inform is equal to: 9000 pages.
+Including some to the pedagogic center control.
 
 
 \subsubsection{Delays}
 
-Retrasos, con otro papelito.
+Delays record is another process which spend paper. It is a very inefficient
+whole of steps. To understand this better we are give you an example, when a
+student is late (whatever the reason) a teacher need write in a officialy formated
+page when it was late and why (according to it). After the student will move to
+another palce of the center to give this paper to an admin stuff person that will
+notify this to their parents (because the delay is not justified or them did not
+konw).
 
-5 per week, per 32 weeks: 160 pages
-
+This process means another 125 sheets per week between all students on average.
 
 \subsubsection{Class attendances}
 
@@ -148,19 +150,28 @@ if the course have 32 weeks, the result is aproximately 1280 sheets of paper.
 
 
 
-\textbf{Another center communications}
-Nofifications
-Reports
-Evaluations
+\subsubsection{Another center communications}
+
+In addition to the above there are another kind of process in which big amounts
+of paper is spended. When the direction of center want communicate something,
+in some special days when is necesarry to do this or in some activities that
+simply require paper.
+In the most of cases the spend is only because there are not another better way
+to do this, only for this reason. Somethimes some so easy as email or website or
+simple a share document would be save a lot of money but the culture and the
+dynamic of many places do difficult put into practice.
 
 
-\textbf{Summarize}
+\subsubsection{Summarize}
 
 With the follow constraint:
 
 \begin{itemize}
 \item A scholar course have 32 weeks at year on average (32-36 with 160-180 days).
 \item The cost by printed page is about 0.03 cents of euros.
+\item We are going to considere that a medium center have 1000 students an 40 teachers of average.
+\item More or less 25 group of students
+\item Each center have 15 mentors.
 \end{itemize}
 
 
@@ -174,13 +185,17 @@ So, with this we can obtains this conclusion.
 Process & Per week  & Per year  & Cost  \\
 \midrule
 
-Class attendance  &  40  &  1280  &   38,4   \euro  \\
+Marks and annotations  &  --  &  26000  &   780      \euro  \\
+Tutorizing             &  --  &  9000   &   270      \euro  \\
+Delay                  &  125 &  4000   &   120      \euro  \\
+Class attendance       &  40  &  1280   &   38,4     \euro  \\
+Anothers               &  --  &  1000   &   30       \euro  \\
 
 %Admin       &  3   &  10    &   270 h   & 15 \euro  & 4050   \euro  \\
 %Direction   &  4   &  10    &   360 h   & 20 \euro  & 7200   \euro  \\
 
 \midrule
-& & & & Total & 38250 \euro \\
+& & & & Total & 1238,4 \euro \\
 \end{tabular}
 \caption{Equivalent stuff cost in managment tasks. }
 \label{my-label}
@@ -259,40 +274,35 @@ bunisses value of the data that help to manage.
 
 \section{State of Art }
 
-As part of the research process has been analyses some aplications
-that (although isn't a directly competition) represent the actual
-state of art about the kind of sofware we are talking about.
+The develop of a new complete system have no sense if before have not been
+analyzed other existent solutions. As part of the research process has been
+analyses some aplications that (although is not a directly competition) represent
+the actualstate of art about the kind of sofware we are talking about.
 
+First we are take a look over the main features that are important in our domain
+to see how many applications have covered them. This is a bit of requirements
+analysis but not very formal, we will discuss about this after.
 
-\begin{table}[]
+In the follow table we are going to compare the rest of app with our idylical
+software (with the features we hope it will cover).
+
+\begin{table}[H]
 \centering
 
 \begin{tabular}{@{}lllllll@{}}
 
 Feature & classDojo & TeacherKit & A+ & iDoceo & Additio & SMS \\ \midrule
-
 Attendance & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
-
 Discipline & \partialValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
-
 Attitude & \partialValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
-
 Marks & \noneValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
-
 Competencias & \noneValue & \noneValue & \noneValue & \completeValue & \completeValue & \completeValue \\
-
 Rubrics & \noneValue & \noneValue & \noneValue & \completeValue & \completeValue & \completeValue \\
-
 Message & \completeValue & \completeValue & \completeValue & \noneValue & \noneValue &	\completeValue \\
-
 patters & \noneValue & \noneValue & \noneValue & \completeValue & \completeValue & \completeValue \\
-
 reports & \noneValue & \completeValue & \completeValue & \partialValue & \completeValue & \completeValue \\
-
 analysis & \partialValue & \completeValue & \partialValue & \partialValue & \partialValue & \completeValue \\
-
 models and predictions & \noneValue & \noneValue & \noneValue & \noneValue & \noneValue & \completeValue \\
-
 Centralizate and jerarqy & \noneValue & \partialValue & \noneValue & \noneValue & \noneValue & \completeValue \\ \midrule
 
 Total & 58.3\% & 80.5\% & 72.2\% & 	72.2\% & 80.5\% & 99\% \\
@@ -301,31 +311,40 @@ Total & 58.3\% & 80.5\% & 72.2\% & 	72.2\% & 80.5\% & 99\% \\
 \label{my-label}
 \end{table}
 
+As we can see there are some apps that are so focused on their specific domain
+that are very defficient in the rest. in spite of this are really referents in
+their area and their numbers of users is huge (only have been compared apps that
+really have a good acceptance by users).
 
-\begin{table}[]
+But is not only important the features of the software, because with time and
+effort any feature can be added. There are another things in the background that
+are really important too and that can be that to grow our app steadily or that crash
+when we have thousand of users. We are talking about something as data control,
+performance, sacalability or centralización (we are not explain at detail each one because
+is out of his work but we think is also very important).
+And of course, all related with interface and user experience, that in most of
+cases can represent the differnce between the successful and failure of our
+project.
+
+So, based of it this is our comparative:
+
+
+
+\begin{table}[H]
 \centering
 
 \begin{tabular}{@{}lllllll@{}}
 
 Feature & classDojo & TeacherKit & A+ & iDoceo & Additio & SMS \\ \midrule
-
 Personalization & \noneValue & \noneValue & \noneValue & \noneValue & \noneValue & \noneValue \\
-
-Good UI & \partialValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
-
-Buena UX & \partialValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
-
+UI & \partialValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
+UX & \partialValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
 Price & \noneValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
-
 Performance & \noneValue & \noneValue & \noneValue	 & \completeValue & \completeValue & \textcolor{ownGreen}{\completeValue} \\
-
-Scalable & \noneValue & \noneValue & \noneValue & \completeValue & \completeValue & \completeValue \\
-
+Scalability & \noneValue & \noneValue & \noneValue & \completeValue & \completeValue & \completeValue \\
 Data control & \completeValue & \completeValue & \completeValue & \noneValue & \partialValue & \completeValue \\
-
 Multiplatform & \noneValue & \noneValue & \noneValue & \completeValue & \completeValue & \completeValue \\
-
-Centralized & \noneValue & \completeValue & \completeValue & \partialValue & \completeValue & \completeValue \\ \midrule
+Centralization & \noneValue & \completeValue & \completeValue & \partialValue & \completeValue & \completeValue \\ \midrule
 
 Total & 44.4\% & 50.0\% & 16.6\% & 	16.6\% & 44.4\% & 99\% \\
 \end{tabular}
@@ -333,4 +352,14 @@ Total & 44.4\% & 50.0\% & 16.6\% & 	16.6\% & 44.4\% & 99\% \\
 \label{my-label}
 \end{table}
 
-Let's go to start!
+\begin{flushleft}
+Obviously, only in the hypothetical case of our app is fully developed will cover
+all the aspects considered, but before of the research is easy to understand that
+is not so difficult cover all with the correct design, architecture or design.
+
+\bigskip
+And we are going to try give a simple and really little aproximation of the way
+to achieve that.
+
+So, \textbf{let's go to start!}
+\end{flushleft}
