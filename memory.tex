@@ -105,6 +105,10 @@ pdfproducer = {pdflatex}
 \fancyhead[RO,LE]{\textbf{\thepage}}
 \renewcommand{\chaptermark}[1]{\markboth{\textbf{#1}}{}}
 \renewcommand{\sectionmark}[1]{\markright{\textbf{\thesection. #1}}}
+% Our own command to do a clear intro with a white line and
+% avoid indent the next line as first in section and the
+% justify of last line.
+\newcommand{\intro}{\\ \\ \noindent}
 
 \setlength{\headheight}{1.5\headheight}
 
