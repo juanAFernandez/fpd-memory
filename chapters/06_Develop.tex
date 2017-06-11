@@ -2,14 +2,53 @@
 
 
 \section{Api Gateway microService}
+
+As was discussed above, the principal goal of this service is to offer the
+abstraction of the whole system, so it will not be very complex because all
+functionality is actually implemented when this service is built.
+\intro
+Their unique task is to receive the requests, to construe this and do the call
+to the service that must answer it and return the data,
+maybe modified.
+In common case and in the point of the develop are the service only
+reply the queries and return the responses without more logic interaction, but
+in the future, this is not only that this will do, because is the perfect place
+to implement authorization and authentication with ACLs\footnote{ACL of Access Control List
+specifies which users or system processes are granted access to objects, as well
+as what operations are allowed on given objects} exploiting the fact that through
+this service all calls go.
+\intro
+Another situation which this service would transform the response of a service or
+compound a response with the response of few of them is when must be offered a
+resource that is the composition of data arising from several services. For example,
+when a user profile info is required, the call will be redirected to Teaching Data
+Base mService that will return a simple data block. So, this data block does not
+have the image of the user, because this is stored in another different service.
+Now the role of gateway take sense because will be it who will retrieve the image
+from other service, will insert it in the data block (by some way) and will return
+the data block complete.
+\intro
+It also provides some possibilities to have a dynamic and not locking develop process.
+How? Easy, because at first the images can be extracted in execution time from some
+library that put example images (or something like this) without locking the APIGmS
+and also UImS and so, this service of data storage could be developed after, in another
+phase of priorities. So, one more time, the architecture help us to develop team domain
+based without any blocking.
+
+
 \subsection{Cloud Endpoint spike}
 
-API Rest with flask, not Google CloudEndpoints
-
-Before to spends some weeks with the recomended technology by Google, was
-detected some drawbacks that was upper than the benefits of this technology,
-in spite of that it had a better performance.
-
+As we are working with GAE and GCE the first approach is use
+their technology, and if in any resource that you can read about this
+they are talking about Google Cloud Enpoints must be some good reason.
+This technology is based of an own version of RPC protocol developed
+by Google and used in their own intern architecture, called gRPC.
+\intro
+Basically is another implementation of a Remote Procedure Call
+system, but according to Google, really fast and nice, and is true, but has some
+drawbacks as for example that can you select other common technologies, as in
+our case.
+\intro
 This is an example of the spike related, it can see in the first phases of the
 project.
 
@@ -52,12 +91,11 @@ class GatewayApi(remote.Service):
     return ListaAlumnos(alumnos=alumnosItems)
 ...
 \end{lstlisting}
-About 2000 lines in the endpoint first aproximation of the Gateway API microService
 
-
-
-
-Now take a look to the \emph{flask} version:
+\noindent This is only an example, but the complete file has about 2000 lines in the first
+approximation of the service.
+Now take a look to the \emph{Flask} version, an example bellow,  having exactly
+the same functionality of previous code segment.
 
 \begin{lstlisting}[language=python,frame=none]
 @api_gateway.route('/students', methods=['GET'])
@@ -70,6 +108,59 @@ def get_students():
     return students_list
 \end{lstlisting}
 
+\noindent The reasons to select Flask insetead of it?
+Is not necessary define the schema of the objects, this is sufficient reason
+to dismiss their use, but sound enough nice to considere to another
+applications in the future (as almos any technology researched).
+
+
+\subsection{As a simple dispatcher}
+
+This is an example of the behavior dispatching a simple request and answering
+exactly the same response from the service.
+
+\begin{lstlisting}[language=python,frame=none]
+  @tdbms_segment_api.route('/entities/<string:kind>', methods=['POST'])
+  def post_entity(kind):
+      response = requests.post(url='http://' + str(modules.get_hostname(module='tdbms')) + '/entities/' + str(kind),
+                               json=request.get_json())
+      response.headers['Access-Control-Allow-Origin'] = "*"
+      return make_response(response.content, response.status_code)
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=python,frame=none]
+
+  @tdbms_segment_api.route('/entities/<string:kind>', methods=['GET'])
+  def get_entity(entity_id):
+      ...
+      response = requests.get(url='...', json=request.get_json())
+      ...
+      response['profile_image'] = requests.get(url='filesServicesUrl...')
+      ...
+      return make_response(response, 200)
+\end{lstlisting}
+
+\noindent And the next natural step will be built a library that works as a general
+customer of any service in the system, to be used in any place where be needed
+make a call to any service. This will to work loading dynamically at execution
+time the api of each service to know what resources are available and turned
+this as Python methods.
+
+
+\begin{lstlisting}[language=python,frame=none]
+
+  @tdbms_segment_api.route('/entities/<string:entity_id>', methods=['GET'])
+  def get_entity(entity_id):
+      ...
+      response = service['teachingDBmS'].getEntity(entity_id)
+      ...
+      response['profile_image'] = services['filesStorage'].get(file_id)
+      ...
+      return make_response(response, 200)
+\end{lstlisting}
+
+\noindent With this new tool, the code of the whole project will be reduce 10\% at least.
 
 \section{Teaching Data Base microService}
 

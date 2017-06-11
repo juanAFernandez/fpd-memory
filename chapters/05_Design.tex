@@ -360,13 +360,13 @@ The design follow some details that the domain presents, that is related
 While at firs of develop the mainly strategie to follow was write
 all by cero, finally the point of view has been changed to follow
 the use of standard tools and avoid reinvent the wheel.
-
+\intro
 So, if in the first stages of the project the acces to raw data through
 the engine was hand made, using an own simple library that worked
 like as simple ORM, the evolution of it and especially the problems
 found and the unmaintainability of code have made that now the approach
 turned to use a good tool as ORM like \href{http://www.google.es}{SQLAlchemy}.
-
+\intro
 The changes in the specifications of the api while the develop and
 the maintaince of the performance of the queries when is writed hand
 made in raw SQL isn't a good idea. Before the develop of this mService
@@ -638,13 +638,11 @@ in the databases, which will require established a connection with them without
 the interaction of the services or their connection libraries. This is faster but
 on some occasions, we do not want to do this, because another of their goal is to
 check at the same time the correctly of all parts of APIs involved in the data insertion.
-\linebreak
-\linebreak
-\noindent So, the execution this kind of program required that the system has fully launched.
+\intro
+So, the execution this kind of program required that the system has fully launched.
 This will be the most used tool when we want to try some feature that required a
 lot of data in the system.
-\linebreak
-\linebreak
-\noindent How does it work? Easy, only need simple parameters as entry and based on some rules it will do all
+\intro
+How does it work? Easy, only need simple parameters as entry and based on some rules it will do all
 calls to the API gateway to insert all data required, besides to save all operations
 in a register or log file because is necessary to check this in a debug operation.
