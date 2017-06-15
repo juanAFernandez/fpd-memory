@@ -1,23 +1,23 @@
 \chapter{Design}
 
 Once the requirements have been decided, is time to make the design of the system
- that will do all needed to cover them. First we are going to take a look over
- the general arquitecture, the distribution of the domain of the services and
- how delimit their behaviour and communications with each others to after enter
- each one to know how work in each domain and how have been solved all problems
- that this design present.
+that will do all needed to cover them. First, we are going to take a look over
+the general architecture, the distribution of the domain of the services and
+how to delimit their behavior and communications with each other, by after,
+take a look to each one to know how to work in each domain and how have been solved all problems
+that this design present.
 
 \section{Responsabilites distribution}
 
 At the moment that we decided split the functionality of the system between
-services we found the problem that how decide which is the domain
-
+services we found the problem that how to decide which is the domain
+\intro
 At the moment that we decided split the functionality of the system between
-services, we found the problem that how decide which is the domain of each one.
-In the majority of the cases we are begining from a monolithic system that we
-want split, in this case is some like this but at first it was thinked to be splited.
-
-In the common app (whatever kind of it) we have three well defined layers, user
+services, we found the problem that how to choose which is the domain of each one.
+In the majority of the cases, we are beginning from a monolithic system that we
+want split, in this instance, is some like this but at first, it was thought to be splited.
+\intro
+In a common app (whatever kind of it) we have three well-defined layers, user
 interface, logic and storage, something as common MVC\footnote{Model–view–controller
 (MVC) is a software architectural pattern for implementing user interfaces on
 computers. It divides a given application into three interconnected parts in
@@ -27,118 +27,196 @@ introduced by Trygve Reenskaug into Smalltalk-76 at Palo Alto Research Center in
 A part of user interface make the necessary to present the info and offer the
 way to interact with this to the user while the logic layer do this possible
 doing the logic steps to work with data structures saved in some kind of storage.
-
+\intro
 There are some frameworks as Django wherein all this layer can be developed
-toguether, is not strange their popularity, but if we use other as AngularJS
+together, is not strange their popularity, but if we use other as AngularJS
 this only help us in the user interface layer, not in the rest, but for other
-hands have another advantages.
-
+hands have another advantage.
+\intro
 So, that as it may, this would be the more simple schema to start to work in
-our domain, with the difference that we work with service instead of layer in a
+our domain, with the difference that we work with service instead of layers in a
 single program, but essentially, the concept is the same.
-
+\intro
 As we can see in the next picture, we will have a user interface, when  will
-builded all views and controllers that work with this to buil complete user
+built all views and controllers that work with this to build a complete user
 interface, a logic section layer, here labeled as APIGmService (as a first
 approach) that will do the logic of the system, transform the data,
 restructuring and offering the interaction form UI to database.
-And at end, the database system, mainly a engine of the database and the drivers
-neccesary to work with the.
+And at end, the database system, mainly an engine of the database and the drivers
+necessary to work with them.
 
-\begin{center}
-\includegraphics[scale=0.3]{img/graphics/initial_microservices_distribution.png}
-\end{center}
+\begin{figure}[H]
+  \includegraphics[scale=0.25]{img/graphics/initial_microservices_distribution.png}
+  \centering
+  \caption{Basic layers in common app.}
+\end{figure}
 
-As we can imagine this work fine, is compact and stable when we are talking about
-the same code in the same machine but now we are going to split that in
-different services, maybe runing at diferents places and maybe in different
-languages, so when we talk about split the domain is about split the logic with
+\noindent As we can imagine this work fine, is compact and stable when we are talking about
+the same code on the same machine but now we are going to split that in
+different services, maybe running at different places and maybe in different
+languages, so when we talk about divide the domain is about split the logic with
 the database access layer.
-
-Next picture show us perfectly what are talking about. This is an example
+\intro
+Next picture shows us perfectly what are talking about. This is an example
 of migration from monolithic to microservices from Nginx resources.
 
-\begin{center}
-\includegraphics[scale=0.4]{img/graphics/refactoring.png}
-\end{center}
+\begin{figure}[H]
+  \includegraphics[scale=0.35]{img/graphics/refactoring.png}
+  \centering
+  \caption{Monolithic to microservices, from nginx resources. }
+\end{figure}
 
-So, for us, each service will be always mainly the same components,
-communication protocol and logic layer. Database layer is always optional,
-a service can be do some logic without need a database, imagine a simple service
-to do calcs, that consume the data from another service or act as third party
-services gateway, a social network, a payment service, whatever.
-
+\noindent So, for us, each service will always be mainly the same components,
+communication protocol and logic layer while database layer will always be optional,
+a service can do some logic without need a database, imagine a simple service
+to do several calculations or consume the data from another service or act as
+third party services gateway, a social network, a payment service, whatever.
+\intro
 Coming back again to our problem we have decided to split all the back end in
 four services that will cover the domain of the problem, following a Domain
 Driven Development principles. Each one will be described with details after,
-for now, only a some reasons that why is so. We need a logic part that control
-any call to the system, some as gateway that act as dispatcher of request, that
+for now, only some reasons that why is so. We need a logic part that controls
+any system call, some as the gateway that acts as a dispatcher of requests, that
 call to the service (maybe not only one) that can help it to resolve the requests
-and give back the info. For another and, we need cover all requierements specified,
-and to achieve this we  are going to design three services that split all logic
-issues, teaching database, students control and analysis microservice. All toguether
-compose the backend of the app.
+and give back the info.
+\intro
+For another and, we need cover all requirements specified,
+and to achieve this we are going to design three services that split all logic
+issues, it will be \textbf{Teaching Database microService}, \textbf{Students Control}
+and \textbf{Analysis microService}. All toguether compose the backend of the app,
+toguether with other service that will enlarge the functionality of our project
+in the future.
+\intro
+So, as a big picture, the backend of our service would look like this, some
+services with approximately the same form (in the pictur only three, is the same).
 
-\begin{center}
-\includegraphics[scale=0.3]{img/graphics/backend.png}
-\end{center}
+\begin{figure}[H]
+  \includegraphics[scale=0.25]{img/graphics/backend.png}
+  \centering
+  \caption{Some as the first approach of the system.}
+\end{figure}
 
-Further on we will talking about the reason to choose API Gateway as pattern.
+\noindent Once that the architecture is clear and the services are well defined
+(not their behavior, only their domain) we must have clear how this services will
+be deployed in the platform or infrastructure chosen because the selection can
+modify the way to design the services.
+\intro
+So in our case, of all possibilities that we have already discussed before we
+only consider two as acceptable, Google and Amazon infrastructure, so as you
+know already, Google was the selected, so we need design our services to run
+inside of it and this mean that we need how configure our services.
+\intro
+As we always evaluate some options, we have done a simple design to see what
+will be the infrastructure and design required, first in Amazon Web Services.
+\intro
+In this case, as the code must run into the container we would need configure
+all our services as Docker Containers and to use the service Amazon EC2 Container
+Service to deploy them. And our gateway service could be deployed in another
+container or could be used a specific service called API Gateway Service with
+Lambda Service, both services was launched by Amazon when they saw that this
+pattern was really common in all projects, and they design this service to save
+efforts to developers (even though it have some drawbacks as for example that you
+do not try it in local, at least for now but is sure that will be solved).
+
+\begin{figure}[H]
+  \includegraphics[scale=0.35]{img/graphics/aws_approach.jpg}
+  \centering
+  \caption{Approach in Amazon Web Service infrastructure.}
+\end{figure}
+
+\noindent The goal of this study was compare the facilities or drawbacks of each platform
+(doing a little bit deep study that only to take a look over the solutions each
+one offered), and the drawbacks of AWS for this kind of "amateur" project was too.
+\intro
+Come back to GAE, the deploy must be different because there are not docker
+container, we only have speciall sandbox to run our code with some special
+characteristics (as wee commented before). But, the architecture does not vary
+significantly between both architectures, as could not have been otherwise.
+If this not so, microservices and their platform independence would not have sense.
+\intro
+So, focused on GAE, the services must be deployed and developed (nothing else of
+some changes in the code) as modules (now called services by GAE) and this can
+(and must) put joined in GAE applications. So, as the platform are thought and
+to adjust this to our requirements we are going to launch two apps, one only with
+the user web interface service (front end) and another with the group of services
+that compound the backend, (here GAE app 2).
+You can see the distribution in the next picture.
+
+\begin{figure}[H]
+  \includegraphics[scale=0.35]{img/graphics/gae_approach.jpg}
+  \centering
+  \caption{The same approach in Google App Engine infrastructure.}
+\end{figure}
 
 
-Diferents aproximations in the two mainly platforms to work:
+\subsection{Be more realistic}
 
-\begin{center}
-\includegraphics[scale=0.35]{img/graphics/aws_approach.jpg}
-\end{center}
+As is esay to imagine, is needed a lot of services to complete all requirements
+of the project, and presented here is only the most important because define the
+core of app and their structure but of course are necessary a lot more.
+Only thinking about security and authentication is easy to see that is necessary
+other services to check this, but as is a standard service (not taking part in
+the design of the app) not will be developed now and neither explained here.
+Their goals are to ensure the authentication of the user and provide the user
+authorization of different parts of the app. So, this will be Authorization \&
+Authentication microService.
+\intro
+On another hand, there are two more functionalities must be developed as soon as
+possible in the next iterations, a files storage, and a messaging service.
+Both are necessary for a more advanced stage of the deploy, not now, but essential
+in the final product. The next picture shows you all services, developed in this
+phase and the planned.
+
+\begin{figure}[H]
+  \includegraphics[scale=0.22]{img/graphics/final_microservices_distribution.png}
+  \centering
+  \caption{Group of microservices of SMS launched and planned.}
+\end{figure}
+
+\noindent Next picture shows us a more realistic snap of the deployment, with
+the services, technologies, tools and third party services consumed.
+We can see how SCmS need G Cloud Datastore, TDBmS Cloud SQL (for example) and
+all technologies related.
+
+\begin{figure}[H]
+  \includegraphics[scale=0.15]{img/graphics/GAE_final_architecture.png}
+  \centering
+  \caption{Final snap of the distribution of the services with their technologies.}
+\end{figure}
+
+\noindent And will be our roadmap to follow, without any service needed to obtain a pre-alfa
+product version that satisfy minimum requirements at this point.
 
 
-\begin{center}
-\includegraphics[scale=0.35]{img/graphics/gae_approach.jpg}
-\end{center}
+\section{API standar status codes}
 
-
-
-This is the complete snap of the system in their final distribution of the
-fuctionality between the services.
-
-\begin{center}
-\includegraphics[scale=0.22]{img/graphics/final_microservices_distribution.png}
-\end{center}
-
-This is the real situation of the develop
-
-\begin{center}
-\includegraphics[scale=0.15]{img/graphics/GAE_final_architecture.png}
-\end{center}
-
-\subsection{API standar status code cases}
-
-CODIGOS Y POR QUE ELEGIMOS LOS QUE ELEGIMOS
-
-
+When we design an API over HTTP we are assuming that we are going to use standard
+status code of this protocol (HTTP/1.1 in particular) and is useful that from beginning
+all team knows what code will be used and the meaning. The next table shows us which is these,
+obviously, there are a lot of more, but this is most important for us.
 
 \begin{table}[H]
 \centering
 
 \begin{tabular}{@{}lllllll@{}}
 
-Status Code & Meaning\\
+Status Code & Meaning & Use/Behavior\\
 \midrule
 
-200 & Ok.The request has succeeded. Information will be returned \\
-201 & Created. \\
-204 & Ok without body. \\
-404 & Not found. \\
-422 & Unprocesable entity. \\
-500 & Server error. \\
+200 & Ok & Any request that returned content.\\
+201 & Created. & Not return content and the item has been saved.\\
+204 & Ok without body. & Call with success without content. \\
+404 & Not found. & Element not founded.\\
+422 & Unprocesable entity. & Bad body at request.\\
+500 & Server error. & Any unknown kind of server error.\\
 
 \end{tabular}
 \caption{HTTP1.1 Status Code common used}
 \label{my-label}
 \end{table}
 
-Todo obedecen al estandar y siguen un significado dado por el primer dígito.
+\noindent And as is known, the numbers have a specific meaning and it will
+be useful to know just in case another will appear.
 
 \begin{table}[H]
 \centering
@@ -153,39 +231,45 @@ Class & Meaning\\
 4xx & Client Error\\
 5xx & Server Error\\
 
-
 \end{tabular}
-\caption{HTTP1.1 Status Code common used}
+\caption{HTTP1.1 Status Code first digit meaning}
 \label{my-label}
 \end{table}
 
 
-\subsection{Pesistence Strategy}
+\section{Pesistence Strategy}
 
 When we are talking aobut persitency that meaning how the data that change
 their state in the database is manage. Obviously we are talking of the changes
 between created, deleted and the between states.
-
+\intro
 Is been identified three ways to do this:
 
-1. non persistence
-When a item is updated or deleted any information of the last state remain.
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+\item \textbf{Non persistence}
+      \intro
+      When a item is updated or deleted any information of the last state remain.
+      \intro
+\item \textbf{Half persistence}
+      \intro
+      When a data is logically erased, the data remain in the database but will never
+      accesible by the user. In this case is isseful if we want develop some mechanism
+      to redo acctions, in this case only deletion actions.
+      \intro
+\item \textbf{Complete persistence}
+      \intro
+      When not only the elements erased can be restored, all items can be restored in
+      any point of the hisory of the system. This is the more complex mechanism to persistence
+      but also the most powerfull and usseful for the users, because as in a simple
+      text editor allow do an infinite redo over acctions realized.
 
-2. Half persistence
-When a data is logically erased, the data remain in the database but will never
-accesible by the user. In this case is isseful if we want develop some mechanism
-to redo acctions, in this case only deletion actions.
+\end{itemize}
 
-3. Complete persistence
-When not only the elements erased can be restored, all items can be restored in
-any point of the hisory of the system. This is the more complex mechanism to persistence
-but also the most powerfull and usseful for the users, because as in a simple
-text editor allow do an infinite redo over acctions realized.
-
-Afte study all options have been decided use the second approach, and to achieve
+\noindent Afte study all options have been decided use the second approach, and to achieve
 this is necessary get some kind of metadata pluged to our objects stored in databases
 to control their state in all moment.
-To do this has been designed this metadada patter for all objects saved in any
+To do this has been designed this metadada pattern for all objects saved in any
 service or database:
 
 \begin{lstlisting}[language=python,frame=none]
@@ -200,7 +284,10 @@ service or database:
 
 \end{lstlisting}
 
-With this nosotros coneguios.....
+With it we get a simple way to save logically deleted items, that allow us
+develop a simple way to recovery this if user want, and not only this, also
+a system to know who do the actions, who save, delete or update an item and
+also when, a lot of data very usefull in many ways.
 
 
 \section{API Gateway microService}
