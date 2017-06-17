@@ -292,22 +292,23 @@ also when, a lot of data very usefull in many ways.
 
 \section{API Gateway microService}
 
-On the other had with docs something similar happens, don't have sense
-write a doc defining the behaviour of all sections of api gateway
-if this doc already exists in each service. It's redundant and complex
-to mantain. Because of this a simple approach is link the docs to
-services docs, so the task of write it relegate to them.
+This service has not owned API definition because at this point of development
+only takes the role of dispatcher (with a bit logic in some parts, but minimal)
+and their only goal is to copy the services API and clone it. Despite this, their
+task is very important in the system, talk with clients and with services and thanks
+to this nothing of them need to know about another.
 
+\begin{figure}[H]
+  \includegraphics[scale=0.35]{img/graphics/apigateway.png}
+  \centering
+  \caption{Api Gateway service concept.}
+\end{figure}
 
-\begin{center}
-\includegraphics[scale=0.35]{img/graphics/apigateway.png}
-\end{center}
-
-\subsubsection {API Definition}
-
-
-
-
+\noindent As it can be seen in the figure above, at first it was designed with Google Cloud
+Endpoints technology, using Python and gRPC but, as we will explain in the next
+chapter, was not the best way (at least with the system that we can build) and
+finally was decided to build as the rest of them, using Flak and building a
+simple and well know API Rest.
 
 
 \section{Teaching Data Base microService}
@@ -317,132 +318,406 @@ services docs, so the task of write it relegate to them.
 This mService offers the managment of the teaching of the center.
 This means that persist in a relational database all relations between
 teachers, students, subjects, etc, and all resource availables to
-make this posible throuhg an api.\bigskip
-
+make this posible throuhg an api.
+\intro
 This like the rest offers his resource throuhg an api writed in Flask
 (follow the same architecture that all).
-
+\intro
 The engine to save all these relations is MySQL, for many reasons,
 mainly because is the best known engine and in which it has some experience
 and also because GCP offers as a cloud product Google Cloud SQL Databases.
 Until recently only offerts MySQL but now (since March of 2017) they
 offer also PostgreSQL.
-
-Access Library design
-
+\intro
 In the old version it was a little ORM that offers simple methods
 to access data transform this in SQL raw sencentes. Now this library
 is only a wraper of the SQLAlchemy to keep apart the apirest of the
 service to the database access layer.
 
-\begin{center}
-\includegraphics[scale=0.35]{img/graphics/tdbms.png}
-\end{center}
+\begin{figure}[H]
+  \includegraphics[scale=0.35]{img/graphics/tdbms.png}
+  \centering
+  \caption{Teaching Data Base service parts.}
+\end{figure}
+
 
 \subsection{Api definition}
-\begin{lstlisting}[language=python,frame=none]
 
+To get API definitions will be used  RAML\footnote{ RESTful API Modeling Language
+(RAML) was launched at 2013 and is YAML based language for describing RESTful APIs }.
+In spite of to be more powerful, it only will be used to do a good definition of the
+APIs independently of the technology with after it will be developed, understandable
+for any developer.
+\intro
+In this case, the API definition of this service is like this, and as we can see,
+is very easy to understand, and we only are going to use the most simple
+version of this definition standard, there a lot of other things that we can
+express, but is not necesary as first approach.
+
+500:
+  description: Internal Server Error. When an unexpected error appears.
+
+\begin{lstlisting}[language=python,frame=none]
   #%RAML 0.8
   title: Teaching Data Base API
   version: 1.0
   baseUri: ---
 
   /test:
-    description:
+    description: For API testing purposes.
     get:
-      description:
+      description: Test the connection with the API.
       responses:
         200:
-          description: Ok. Successful requests.
+          description: Ok. The API is running.
+        405:
+          description: Method not allowed. When it is not running.
 
   /test_mysql:
-    description:
+    description: For database testing purposes.
     get:
-      description:
+      description: Test the connection with the database through the API.
       responses:
         200:
-          description: Ok. Successful requests.
+          description: Ok. Database engine in running.
 
   /entities/{kind}:
-    description:
+    description: Collection of kind type management resource.
+    uriParameters:
+       kind:
+         description: Type of entity required.
+         type: string
     get:
-      description:
-      responses:
-    post:
-      description: INSERT a entity in the database, with a special input format:
-      responses:
-
-  /entities/{kind}/{entity_id}:
-    description:
-    get:
-      description:
+      description: Return all items by kind passed.
       responses:
         200:
-          description:
-    put:
-      description:
+          description: Ok. A list of item will be returned.
+        404:
+          description: Not found. The kind of item does not exists.
+    post:
+      description: To save item in the database.
       responses:
         201:
+          description: Created. The item has been saved, no body will be returned.
+        400:
+          description: Bad request. Request have a syntax error.
+        404:
+          description: Not found. The kind of item does not exists.
+
+  /entities/{kind}/{entity_id}:
+    description: Item of specific kind management resource.
+    uriParameters:
+      kind:
+        description: Type of entity required.
+        type: string
+      entity_id:
+        description: Identifies of the item.
+        type: string
+    get:
+      description: Return an item.
+      responses:
+        200:
+          description: Ok. An item will be returned.
+        404:
+          description: Not found. The kind or item does not exists.
+    put:
+      description: To update item in the database.
+      responses:
+        204:
+          description: No content. Updated success without return.
+        400:
+          description: Bad requeest. Request have a syntax error.
+        404:
+          description: Not found. The kind or item does not exists.
     delete:
-      description:
+      description: To delete an item.
+      queryParameters:
+        action:
+          description: Use to specify some special action.
+                       Options:
+                        dd: delete all dependencies of the item deleted.
+                            If you delete a student will be deleted all
+                            relations with the rest of item in the database
+                            of them.
+          type: string
       respones:
-        204
+        204:
+          description: No content. Item has been deleted.
+        404:
+          description: Not found. The kind or item does not exists.
 
 
-  /entities/{kind}/{entity_id}/{nested_kind}/{onk_entity_id}:
-  description:
-
+  /entities/{kind}/{entity_id}/{optional_nested_kind}/{onk_entity_id}:
+    description: To delete relations between items. Only available for now
+                 between kind as class of subject and optional_nested_kind as student.
+    uriParameters:
+      kind:
+        description: The kind of item to manage.
+        type: string
+      entity_id:
+        description: The id of the kind.
+        type: string
+      optional_nested_kind:
+        description: The nested kind (one related with first).
+        type: string
+      onk_entity_id:
+        description: Identifier of the nested kind.
+        type: string
     delete:
-      description:
+      description: Delete the relation between items.
       respones:
-        204
+        204:
+          description: No content. Item has been deleted.
+        404:
+          description: Not found. The kind or item does not exists.
 
   /entities/{kind}/{entity_id}/{related_kind}:
-  description:
-  get:
-    description:
-    responses:
-      200:
-        description:
+    description: Manage subcollections of items of a kind.
+    uriParameters:
+      kind:
+        description: The kind of item to manage.
+        type: string
+      entity_id:
+        description: The id of the kind.
+        type: string
+      related_kind:
+        description: The related kind to get all items.
+        type: string
+    get:
+      description: Return a list of items of a related collection of another.
+      responses:
+        200:
+          description: Ok. An item will be returned.
+        404:
+          description: Not found. Some of ids do not exists.
 
-  /entities/{kind}/{entity_id}/{relared_kind}/{rk_entity_id}/{subrelated_kind}:
-  description:
-  get:
-    description:
-    response:
-      200:
-        description:
+    /{rk_entity_id}/{subrelated_kind}:
+      description: To manage the relation nested with related kinds.
+      uriParameters:
+        rk_entity_id:
+          description: Related kind id
+          type: string
+        subrelated_kind: Subrelated kind id
+          description:
+          type: string
+      get:
+        description: To get all related items in nested related kind.
+        responses:
+          200:
+            description: Ok. An item will be returned.
+          404:
+            description: Not found. Some of ids do not exists.
 
   /entities/{kind}/{entity_id}/report:
-  description:
-  get:
-    description:
-    response:
-      200:
-        description:
+    description: Retrieve the reports about items that have it.
+    uriParameters:
+      kind:
+        description: The kind of item to manage.
+        type: string
+      entity_id:
+        description: The id of the kind.
+        type: string
+    get:
+      description: To get a report from item.
+      responses:
+        200:
+          description: Ok. An report will be returned.
+        404:
+          description: Not found. Item does not exists.
+
+\end{lstlisting}
+
+HERE-> UN POCO Más de TEXTO AQUI
 
 
 
+\subsection{Database logical design}
+
+Based on user histories and the domain of the problem the designe
+done based of this entity relation diagram:
+\intro
+The design follow some details that the domain presents, that is related
+(at least the more significantly) below:
+
+\begin{figure}[H]
+  \includegraphics[scale=0.4]{img/diagrams/dbms-ER.png}
+  \centering
+  \caption{Entity-Relationship Diagram.}
+\end{figure}
+
+
+\subsubsection{Data model}
+\begin{lstlisting}[language=python,frame=none]
+  CREATE TABLE student (
+    studentId       INT NOT NULL AUTO_INCREMENT,
+    name            CHAR(100) NOT NULL,
+    surname         CHAR(100) NOT NULL,
+    dni             INT,
+    email           CHAR(120),
+    address         CHAR(100),
+    locality        CHAR(50),
+    province        CHAR(50),
+    birthdate       DATE,
+    phone           CHAR(50),
+    profileImageUrl CHAR(200),
+    gender          CHAR(1),
+
+    #Metadata parameters
+    createdBy       INT,
+    createdAt       DATETIME,
+    modifiedBy      INT,
+    modifiedAt      DATETIME,
+    deletedBy       INT,
+    deletedAt       DATETIME,
+    deleted         BOOL,
+
+    PRIMARY KEY (studentId),
+    UNIQUE (dni, deleted)
+  );
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,frame=none]
+  CREATE TABLE teacher (
+    teacherId       INT NOT NULL AUTO_INCREMENT,
+    name            CHAR(100) NOT NULL,
+    surname         CHAR(100) NOT NULL,
+    dni             INT,
+    email           CHAR(120),
+    address         CHAR(100),
+    locality        CHAR(50),
+    province        CHAR(50),
+    birthdate       DATE,
+    phone           CHAR(50),
+    profileImageUrl CHAR(200),
+
+    #Metadata parameters
+    createdBy       INT,
+    createdAt       DATETIME,
+    modifiedBy      INT,
+    modifiedAt      DATETIME,
+    deletedBy       INT,
+    deletedAt       DATETIME,
+    deleted         BOOL,
+
+    PRIMARY KEY (teacherId),
+    UNIQUE (dni, deleted)
+  );
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=python,frame=none]
+  CREATE TABLE subject (
+    subjectId   INT NOT NULL AUTO_INCREMENT,
+    name        CHAR(100) NOT NULL,
+    description CHAR(255),
+
+    #Metadata parameters
+    createdBy   INT,
+    createdAt   DATETIME,
+    modifiedBy  INT,
+    modifiedAt  DATETIME,
+    deletedBy   INT,
+    deletedAt   DATETIME,
+    deleted     BOOL,
+
+    PRIMARY KEY (subjectId),
+    UNIQUE (name, deleted)
+  );
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,frame=none]
+  CREATE TABLE class (
+    classId    INT NOT NULL AUTO_INCREMENT,
+    course     INT(1) NOT NULL,
+    word       CHAR(10) NOT NULL,
+    level      CHAR(20) NOT NULL,
+    description CHAR(255),
+
+    #Metadata attributes
+    createdBy  INT,
+    createdAt  DATETIME,
+    modifiedBy INT,
+    modifiedAt DATETIME,
+    deletedBy  INT,
+    deletedAt  DATETIME,
+    deleted    BOOL,
+
+    PRIMARY KEY (classId),
+    UNIQUE (course, word, level, deleted)
+  );
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,frame=none]
+  CREATE TABLE association (
+    associationId INT NOT NULL AUTO_INCREMENT,
+    classId       INT,
+    subjectId     INT,
+
+    #Metadata parameters
+    createdBy     INT,
+    createdAt     DATETIME,
+    modifiedBy    INT,
+    modifiedAt    DATETIME,
+    deletedBy     INT,
+    deletedAt     DATETIME,
+    deleted       BOOL,
+
+    FOREIGN KEY (subjectId) REFERENCES subject (subjectId),
+    FOREIGN KEY (classId) REFERENCES class (classId),
+    PRIMARY KEY (associationId),
+    UNIQUE (subjectId, classId, deleted)
+  );
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,frame=none]
+CREATE TABLE impart (
+  impartId      INT NOT NULL AUTO_INCREMENT,
+  associationId INT,
+  teacherId     INT,
+
+  #Metadata parameters
+  createdBy     INT,
+  createdAt     DATETIME,
+  modifiedBy    INT,
+  modifiedAt    DATETIME,
+  deletedBy     INT,
+  deletedAt     DATETIME,
+  deleted       BOOL,
+
+  FOREIGN KEY (associationId) REFERENCES association (associationId),
+  FOREIGN KEY (teacherId) REFERENCES teacher (teacherId),
+  PRIMARY KEY (impartId),
+  UNIQUE (associationId, teacherId, deleted)
+);
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,frame=none]
+CREATE TABLE enrollment (
+  enrollmentId  INT NOT NULL AUTO_INCREMENT,
+  studentId     INT,
+  associationId INT,
+
+  #Metadata parameters
+  createdBy     INT,
+  createdAt     DATETIME,
+  modifiedBy    INT,
+  modifiedAt    DATETIME,
+  deletedBy     INT,
+  deletedAt     DATETIME,
+  deleted       BOOL,
+
+  FOREIGN KEY (associationId) REFERENCES association (associationId),
+  FOREIGN KEY (studentId) REFERENCES student (studentId),
+  PRIMARY KEY (enrollmentId),
+  UNIQUE (studentId, associationId, deleted)
+);
 \end{lstlisting}
 
 
 
 
-\subsubsection{Database logical design}
 
-Based on user histories and the domain of the problem the designe
-done based of this entity relation diagram:
-
-The design follow some details that the domain presents, that is related
-(at least the more significantly) below:
-
-\begin{center}
-\includegraphics[scale=0.4]{img/diagrams/dbms-ER.png}
-\end{center}
-
-
-
-\subsubsection{Way to access to raw data}
+\subsection{Way to access to raw data}
 
 While at firs of develop the mainly strategie to follow was write
 all by cero, finally the point of view has been changed to follow
@@ -450,9 +725,12 @@ the use of standard tools and avoid reinvent the wheel.
 \intro
 So, if in the first stages of the project the acces to raw data through
 the engine was hand made, using an own simple library that worked
-like as simple ORM, the evolution of it and especially the problems
+like as a simple ORM\footnote{Object-relational mapping or \textbf{ORM} is a
+technique for converting data between incompatible
+type systems using oriented objects pogramation to do this, as for example access
+to database systems}, the evolution of it and especially the problems
 found and the unmaintainability of code have made that now the approach
-turned to use a good tool as ORM like \href{http://www.google.es}{SQLAlchemy}.
+turned to use a good tool as ORM like SQLAlchemy\footnote{}.
 \intro
 The changes in the specifications of the api while the develop and
 the maintaince of the performance of the queries when is writed hand
@@ -465,21 +743,33 @@ of raw sql sencences and drivers whiout ORM (by easy that it was).
 
 \subsection{Domain and design}
 
-\begin{center}
-\includegraphics[scale=0.4]{img/graphics/scms.png}
-\end{center}
+\begin{figure}[H]
+  \includegraphics[scale=0.4]{img/graphics/scms.png}
+  \centering
+  \caption{Students Control service parts.}
+\end{figure}
 
 \subsection{Api definition}
 
-skjsñdf
-asflkafkdafldañfdsfl
+How was commented before, the design of the resources is based on getting an user
+interface with minimal requirements. So, there are a lot of ways to get a collection
+of data to present it on the interface, and we must decide who do the more complex
+part of this compose, and obviously, we want to save time to the user device.
+To better understand it, is best an example. If we want to get a list of attendance
+controls that have been done and if we only request the raw list we only will
+obtain a list with all data but without any reference to the data of teacher of
+data of the subject.
+\intro
+So, to can offer by the user interface all data that it need,   is necessary to
+develop the fill of this data before to send. And all this complexity must be a
+backend issue, indecently of the request or the mechanism that this use.
+We can see an example of this in \textit{ac resource} when is called with
+\textit{GET} method.
 
 
-\subsubsection{Attendance Controls Subsection}
+\subsubsection{Attendance Controls API Subsection}
 
-This is a simple collection behaviour resource.
-
-This is a RAML0.8 definition file:
+As with the previous, this is the behavior designed RAML based.
 
 \begin{lstlisting}[language=python,frame=none]
 
@@ -488,12 +778,170 @@ This is a RAML0.8 definition file:
   version: 1.0
   baseUri: ---
   /ac:
-    description: The resource to work with attendance controls database saved-
+    description: The resource to work with attendance controls database saved.
     get:
       description: Get a list of all attendance controls
       responses:
         200:
-          description: Ok. Successful requests. An item will be returned.
+          description: Ok. A list of items will be returned.
+          body:
+            application/json:
+              example: |
+              [
+                {
+                  "acId": 4785074604081152,
+                  "association": {
+                      "associationId": 13,
+                      "class": {
+                          "classId": 1,
+                          "course": 1,
+                          "level": "ESO",
+                          "word": "A"
+                      },
+                      "subject": {
+                          "name": "Science",
+                          "subjectId": 1
+                      }
+                  },
+                  "createdAt": "2017-03-12T13:20:23.906080",
+                  "createdBy": 1,
+                  "students": 2,
+                  "teacher": {
+                      "name": "Jhoan",
+                      "profileImageUrl": "/imageservice/29372929.jpg",
+                      "surname": "Mathew",
+                      "teacherId": 1
+                  }
+                }
+              ]
+
+    post:
+      description: To save an item of "ac" kind into service.
+      responses:
+        201:
+          description: Created without response. The item was added to database will not
+                       returned body.
+        body:
+           application/json:
+             example: |
+             {
+               "students": [
+                 {
+                   "control": {
+                     "delay": 0,
+                     "assistance": true,
+                     "uniform": true,
+                     "justifiedDelay": true
+                   },
+                   "studentId": 113
+                 },
+                 {
+                   "control": {
+                     "delay": 0,
+                     "assistance": true,
+                     "uniform": true,
+                     "justifiedDelay": true
+                   },
+                   "studentId": 213
+                 }
+               ],
+               "teacherId": 23,
+               "association": {
+                 "associationId": 13,
+                 "classId": 24,
+                 "subjectId": 17
+               }
+              }
+
+        400:
+          description: Bad request. Request have a syntax error.
+        404:
+          description: Not found. The kind of item does not exists.
+
+    /{ac_id}:
+      uriParameters:
+       ac_id:
+         description: Attendance control identifier
+         type: string
+      get:
+        description: Return an item of the attendance controls collection.
+        responses:
+          200:
+            description: Ok. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+      put:
+        description: Save a new attendance control in the database.
+        responses:
+          204:
+            description: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+      delete:
+        description: Resource to delete items of this type.
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+    /schema:
+      description: To know the schema of this kind of object.
+
+      get:
+        description: To get the schema of the type.
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+
+\end{lstlisting}
+
+\subsubsection{Disciplinary Notes API Subsection}
+
+As with the previous, this is the behavior designed RAML based.
+
+\begin{lstlisting}[language=python,frame=none]
+
+  #%RAML 0.8
+  title: Disciplinary  Notes API
+  version: 1.0
+  baseUri: ---
+  /dn:
+    description: The resource to work with disciplinary notes database saved-
+    get:
+      description: Get a list of all disciplinary notes.
+      responses:
+        200:
+          description: Ok. Successful requests. An item list will be returned.
+          body:
+              application/json:
+                example: |
+                [
+                      {
+                          "classId": 3,
+                          "createdAt": "2017-03-13T11:12:23.846126",
+                          "createdBy": 1,
+                          "dateTime": "2000-12-03T10:30:00",
+                          "description": "A little problem with new boy.",
+                          "disciplinaryNoteId": 5224879255191552,
+                          "gravity": 5,
+                          "kind": 3,
+                          "student": {
+                              "name": "Jhon",
+                              "studentId": 1,
+                              "surname": "adsf"
+                          },
+                          "subjectId": 21,
+                          "teacher": {
+                              "name": "Peter",
+                              "profileImageUrl": "/imageservice/10072919.jpg",
+                              "surname": "Smith",
+                              "teacherId": 1
+                          }
+                      }
+                  ]
 
     post:
       description:
@@ -501,24 +949,37 @@ This is a RAML0.8 definition file:
         201:
           description: Created without response. The item was added to database will not
                        returned body.
+          body:
+            application/json:
+              example: |
+              {
+                  "studentId": 5,
+                  "teacherId": 42,
+                  "classId": 3,
+                  "subjectId": 21,
+                  "dateTime": "2000-12-03 10:30",
+                  "kind": 1,
+                  "gravity": 5,
+                  "description": "A little problem with new boy."
+              }
         422:
           description: Unprocessable Entity. Probably because of the payload
                        sendes has not correct format.
 
-    /{ac_id}:
+    /{dn_id}:
       uriParameters:
-       ac_id:
-         displayName: Attendance control ID
+       dn_id:
+         displayName: Disciplinay Note ID
          type: integer
       get:
-        description: Return an item of the attendance controls collection.
+        description: Return an item of the disciplinary notes collection.
         responses:
           200:
             description: Ok. Successful requests. An item will be returned.
           404:
             description: Not found. The item required does not exists.
       put:
-        description: Save a new attendance control in the database.
+        description: Save a new disciplinary note in the database.
         responses:
           204: No content. The server has fulfilled the request but does not need to return an entity-body.
           404:
@@ -532,39 +993,74 @@ This is a RAML0.8 definition file:
             description: Not found. The item required does not exists.
 
     /schema:
-      uriParameters:
-       ac_id:
-         displayName: Attendance control ID
-         type: integer
       get:
         description:
         responses:
           200:
-            description: Ok. Successful requests. An item will be returned.
+            description: Ok. The item schema will be returned.
+            body:
+                application/json:
+                  example: |
+                  {
+                      "gravities": [
+                          {"code": 1,"meaning": "mild"},
+                          {"code": 2,"meaning": "low"},
+                          {"code": 3,"meaning": "medium"},
+                          {"code": 4,"meaning": "high"}
+                      ],
+                      "kinds": [
+                          {"code": 1, "meaning": "Bullying"},
+                          {"code": 2, "meaning": "Disrespect"},
+                          {"code": 2,"meaning": "Gender violence"}
+                      ]
+                  }
           404:
             description: Not found. The item required does not exists.
 
 \end{lstlisting}
 
-\subsubsection{Disciplinary Notes Subsection}
+\subsubsection{Maks API Subsection}
 
-This is a simple collection behaviour resource.
-
-This is a RAML0.8 definition file:
+As with the previous, this is the behavior designed RAML based.
 
 \begin{lstlisting}[language=python,frame=none]
 
   #%RAML 0.8
-  title: Attendance Controls API
+  title: Marks Subserction API
   version: 1.0
   baseUri: ---
-  /ac:
-    description: The resource to work with attendance controls database saved-
+  /mark:
+    description: The resource to work with marks database saved-
     get:
-      description: Get a list of all attendance controls
+      description: Get a list of all marks
       responses:
         200:
-          description: Ok. Successful requests. An item will be returned.
+          description: Ok. A list of items will be returned.
+          body:
+              application/json:
+                example: |
+                  [
+                      {
+                          "createdAt": "2017-03-12T23:12:53.603021",
+                          "createdBy": 1,
+                          "enrollment": {
+                              "classId": 4,
+                              "enrollmentId": 42,
+                              "subjectId": 5,
+                              "teacherId": 8
+                          },
+                          "markId": 6016527627190272,
+                          "marks": {
+                              "final": null,
+                              "firstEv": 5,
+                              "preFirstEv": 3,
+                              "preSecondEv": 8,
+                              "secondEv": 9,
+                              "thirdEv": 10
+                          },
+                          "studentId": 5
+                      }
+                  ]
 
     post:
       description:
@@ -572,24 +1068,44 @@ This is a RAML0.8 definition file:
         201:
           description: Created without response. The item was added to database will not
                        returned body.
+          body:
+            application/json:
+              example: |
+                {
+                 "studentId": 5,
+                 "enrollment": {
+                   "enrollmentId": 42,
+                   "classId":4,
+                   "subjectId": 5,
+                   "teacherId": 8
+                 },
+                 "marks":{
+                   "preFirstEv": 3,
+                   "firstEv": 5,
+                   "preSecondEv": 8,
+                   "secondEv": 9,
+                   "thirdEv": 10,
+                   "final": 9
+                 }
+                }
         422:
           description: Unprocessable Entity. Probably because of the payload
                        sendes has not correct format.
 
-    /{ac_id}:
+    /{mark_id}:
       uriParameters:
-       ac_id:
-         displayName: Attendance control ID
+       mark_id:
+         displayName: Mark ID
          type: integer
       get:
-        description: Return an item of the attendance controls collection.
+        description: Return an item of the marks collection.
         responses:
           200:
             description: Ok. Successful requests. An item will be returned.
           404:
             description: Not found. The item required does not exists.
       put:
-        description: Save a new attendance control in the database.
+        description: Save a new mark in the database.
         responses:
           204: No content. The server has fulfilled the request but does not need to return an entity-body.
           404:
@@ -603,10 +1119,6 @@ This is a RAML0.8 definition file:
             description: Not found. The item required does not exists.
 
     /schema:
-      uriParameters:
-       ac_id:
-         displayName: Attendance control ID
-         type: integer
       get:
         description:
         responses:
@@ -616,98 +1128,225 @@ This is a RAML0.8 definition file:
             description: Not found. The item required does not exists.
 
 \end{lstlisting}
-
-\subsubsection{Maks Subsection}
-
-This is a simple collection behaviour resource.
-
-This is a RAML0.8 definition file:
-
-\begin{lstlisting}[language=python,frame=none]
-
-  #%RAML 0.8
-  title: Attendance Controls API
-  version: 1.0
-  baseUri: ---
-  /ac:
-    description: The resource to work with attendance controls database saved-
-    get:
-      description: Get a list of all attendance controls
-      responses:
-        200:
-          description: Ok. Successful requests. An item will be returned.
-
-    post:
-      description:
-      responses:
-        201:
-          description: Created without response. The item was added to database will not
-                       returned body.
-        422:
-          description: Unprocessable Entity. Probably because of the payload
-                       sendes has not correct format.
-
-    /{ac_id}:
-      uriParameters:
-       ac_id:
-         displayName: Attendance control ID
-         type: integer
-      get:
-        description: Return an item of the attendance controls collection.
-        responses:
-          200:
-            description: Ok. Successful requests. An item will be returned.
-          404:
-            description: Not found. The item required does not exists.
-      put:
-        description: Save a new attendance control in the database.
-        responses:
-          204: No content. The server has fulfilled the request but does not need to return an entity-body.
-          404:
-            description: Not found. The item required does not exists.
-
-      delete:
-        description:
-        responses:
-          204: No content. The server has fulfilled the request but does not need to return an entity-body.
-          404:
-            description: Not found. The item required does not exists.
-
-    /schema:
-      uriParameters:
-       ac_id:
-         displayName: Attendance control ID
-         type: integer
-      get:
-        description:
-        responses:
-          200:
-            description: Ok. Successful requests. An item will be returned.
-          404:
-            description: Not found. The item required does not exists.
-
-\end{lstlisting}
-
-
-
-\section{Analysis microService}
-
-\subsection{Domain and design}
-\begin{center}
-\includegraphics[scale=0.4]{img/graphics/ams.png}
-\end{center}
-
 
 \section{User Interface microService}
 
 \subsection{Domain and design}
-\begin{center}
-\includegraphics[scale=0.4]{img/graphics/ui.png}
-\end{center}
+
+As has been mentioned, we are going to use AngularJS to build the user interface.
+This means that the files of the app would be load from a service to user devices
+and from there it will make all requests to the server, so the single purpose of
+the service is to serve all app files.
+The design follows bellow schema.
+
+\begin{figure}[H]
+  \includegraphics[scale=0.4]{img/graphics/ui.png}
+  \centering
+  \caption{User interface service logic.}
+\end{figure}
+
+
+\subsubsection{About design}
+
+All the designe of the app is based of Java Script files. And the structure will
+be this,  a section o Students Control where will placed all sections related,
+as Attendance Controls, Discipline, and Marks section and another section, the
+biggest, with all related with the teaching as can be all sections that the domain
+has, teachers, students, subjects, classes, and the rest of items related.
+\intro
+The most of the parts need the same javascript files, controllers to define the
+logic and services to interact with the server. Moreover as the idea is work as
+each logical part as independly modules they will be built as modules as well.
+\intro
+This is the wireframes that give an approach of the design that we want for
+our interface. There are a lot of parts, sections and detail that will
+filled houndred of pages, so this is some examples of the simple a common
+parte as work with list, in this case of teachers.
+
+\subsubsection{About distribution}
+
+The design of the components of the interface will follow
+Google Material Design Philosofy\footnote{Google announced Material Design on
+June, 2014, at Google I/O conference}, it is a design language developed by
+Google.
+
+\begin{figure}[H]
+  \includegraphics[scale=0.4]{img/graphics/MaterialDesign.png}
+  \centering
+  \caption{Some typical Material Design UI components.}
+\end{figure}
+
+\noindent To objtain this characteristic designe there are a lot of options, but easiest
+is to use some CSS Framework existing instead of try to implement our own
+css components. There are some options availables, as \textit{Materialize},
+\textit{MUI}, \textit{Material UI}, \textit{Polymer} (that is much moret),
+we could talk about it hours, and \textit{Angular Material}, that is which
+we are selected.
+Why? because is not only a css kit, is a group of Angular directives that allow
+us to use their css components as directives, some very powerfull and simple,
+that increase the speed of develop when their behaviour is well understood.
+\intro
+Indenpendly of the style guide that we use we need design the interface,
+their parts, the position of the elements and how interact this among them and
+amoung several screens of our app.
+To do this design most common way is use a system of wireframing, that is
+as a way to compound user interfaces using very abstract form, puting the
+focus in the position and general design instead of the details, colors, or
+somethings like this.
+There are some tools to do this, all do basically the same, and we
+are going to use Pencil (An open-source GUI prototyping tool that's available
+for all platforms).
+\intro
+We would need a dozen of pages to show all sections of app. Bellow it can see
+some example of design with two samples of teachers section,
+that it will follow in the rest of the design, that possibly will suffer some
+change in the way.
+
+\begin{figure}[H]
+  \includegraphics[scale=0.2]{img/snaps/teachers_list_wireframe.png}
+  \centering
+  \caption{Teachers List view wireframed.}
+\end{figure}
+
+\begin{figure}[H]
+  \includegraphics[scale=0.2]{img/snaps/teacher_profile_wireframe.png}
+  \centering
+  \caption{Teacher profile view wireframed.}
+\end{figure}
+
+\noindent The rest of them have been handmade (on paper) and it was believed unnecessary
+to include all digital wireframes here.
+
+\section{Analysis microService}
+
+The goal of this service is easy, we need a centered way to can retrieve reports
+of all of our relevant kind of items in the app, as courses, classes, teachers and
+mostespecially, of students.
+If we think only in simple reports maybe is not necessarily an independent service
+that offers that (only this is enough interesting the services to manage the
+relations keep their simplicity) but if we think in report that included statistics
+and data analysis as regresion, trends and alert detection in students behavior
+the scenario changes completely.
+\intro
+To do this we need to use some specific tools,
+libraries, and techniques which have little to do with  the domains of the rest
+of services. Moreover of this, to achieve some of the conclusion that this service
+will obtain will be necessary cross data between services, so externalize this in
+another actor in the system is more reasonable.
+
+\subsection{Domain and design}
+
+Logically, this service follow the same design of the rest. A library that wraps
+the complexity of the logic is accessed by a standard API (as the rest as well).
+The main difference is that the database used in this case is TinyDB\footnote{More
+info about the system here: https://pypi.python.org/pypi/tinydb}, a lightweight
+document oriented database, written in pure Python (without external dependencies).
+\intro
+This was chosen for a simple reason, we need some storage system to save the data
+calculated to avoid do them again for each request, and as is a service that not
+store a big amount of data is a good option and really easy to implement.
+The picture below show the logic of the service.
+
+\begin{figure}[H]
+  \includegraphics[scale=0.3]{img/graphics/ams.png}
+  \centering
+  \caption{Teacher profile view wireframed.}
+\end{figure}
+
+\noindent Our goal with this service is can get obtain more complex data that the services
+can offer us to can offer to the user interface good data blocks to build powerful
+graphics.  As in the domain that we are the students have been evaluated by
+competencies in addition to particular subject skills and knowledge the app must
+offer some way to can check these competencies at general scope (independently of
+the subject) and this kind of information is perfect to use (among others)
+\textit{polar charts as these}:
+
+\begin{figure}[H]
+  \includegraphics[scale=0.45]{img/graphics/polar.png}
+  \centering
+  \caption{Subjects and competences polar charts.}
+\end{figure}
+
+\noindent In these, we can see as a specific student has their competencies covered and
+what it need to improve and the same with the subjects, not only in this course
+or semester, also comparing with previous of futures using simple regression
+equations. We can imagine the power of this kind of shots of data by the educators
+of the center, that would require a lot of work if they would do handmade.
+
+
+\begin{figure}[H]
+  \includegraphics[scale=0.47]{img/graphics/evolution.png}
+  \centering
+  \caption{Subjects and competences polar charts.}
+\end{figure}
+
+\noindent Not is the goal review all possibilities of data flow that it can be exploited
+with all items and their relations, but the above picture shows another interesting
+bunch of data well presented to be analyzed by an educator. As we save all things
+that a student do in the center, homework, marks, behavior, delays, etc. We can build
+a points system that in a range of 0 to 100, we can measure the efficiency of the
+student per week. That means that if a student does all their homework, all their
+exams well, without any delay, etc. It will be 100 points in this week and the
+opposite if it does not do anything.
+\intro
+It is mighty because in a look we can know how the student is, how is their
+evolution and the best interesting (using simple regression) which is their trend,
+to be able to make decisions proactively, not when will be too late, improving
+drastically the way to understand the student tracking systems.
+\textbf{And it is only the begin}.
+
+\subsection{API Definition}
+
+In this case, the API is very small (not meaning nothing) because is not few
+relations between items inside, we only need a way to request reports to the
+system, nothing else.
+
+\begin{lstlisting}[language=python,frame=none]
+  #%RAML 0.8
+  title: Attendance Controls API
+  version: 1.0
+  baseUri: ---
+  ams/{kind}/{entity_id}/trend:
+    description: Simple resource to get general reports.
+    uriParameters:
+      kind:
+        description: Item type related with the reports.
+        type: string
+      entity_id:
+        description: Item identifier.
+        type: string
+    get:
+      description: Return the data block with the report of the item.
+      responses:
+        200:
+          description: Ok. A report will be returned.
+        404:
+          description: Not found. The item or type required does not exists.
+
+  ams/{kind}/{entity_id}/{report_type}:
+    description: To get other type of reports of more specific one.
+    uriParameters:
+      kind:
+        description: Item type related with the reports.
+        type: string
+      entity_id:
+        description: Item identifier.
+        type: string
+      report_type:
+        description: The kind of report required.
+        type: string
+    get:
+      description: Return the data block with the report of the item.
+      responses:
+        200:
+          description: Ok. A report will be returned.
+        404:
+          description: Not found. The item or type required does not exists.
+
+\end{lstlisting}
 
 
 \section{Auxiliar tools}
-
 
 \subsection{Provisioner}
 A provisioner is simply a tool used to provide a system to insert test data, to
@@ -733,3 +1372,18 @@ lot of data in the system.
 How does it work? Easy, only need simple parameters as entry and based on some rules it will do all
 calls to the API gateway to insert all data required, besides to save all operations
 in a register or log file because is necessary to check this in a debug operation.
+
+\subsection{Data base helpers and testing tools}
+
+To all those repetitive tasks as clean the database, create it, populate or
+something like this, reinstall the engine or purge of the system we will need
+some scripts to help us and will be necessary develop this.
+\intro
+About the testing tools, side server will be enough with the normal testing using
+pytests (we could talk a lot of it) and over user interface, we would be using
+Selenium\footnote{Know more at: http://www.seleniumhq.org/},
+in words of their creators, textit{it is for automating web applications for
+testing purposes but is certainly not limited to just that}.
+\intro
+Thinking of this pair of details, we would have covered all design decision taken,
+ready to start do develop, crossing the fingers to get all in time.
