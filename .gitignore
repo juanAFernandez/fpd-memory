@@ -1,7 +1,5 @@
 *~
 
-*.pdf
-
 auto/
 *.aux
 *.blg
