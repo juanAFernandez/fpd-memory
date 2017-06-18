@@ -1,454 +1,81 @@
 \chapter{Requirements}
 
-In this chapter wer are going to describe which are the requirement that
-actually we system have to do that is expected from it.
-It will be used User Stories methodology (footer y referencia a libro) which
-it will be talked a bit more in the next chapter.
-This tool will be usedfull to identify the requirements of the system by a
-human readable way. Removing all possible layer between desing and user requisites.
-
-User stories can be very mininal (unit) and very general. Thats mean that we
-can do an user storie that be a simple requirement or a very generall issue.
-If the criteria to follow is to do very minimal users stories we could be
-houndred of them, so in this case, is better have upper abstraction level
-to have less user stories but with more content, at least when is the
+In this chapter, wer are going to describe which are the requirement that our system has.
+It will be used User Stories\footnote{A user story is an informal, natural language
+description of some features of a software system. See bibliography to know more.}
+methodology which it will be talked a bit more in the next chapter.
+This tool will be useful to identify the requirements of the system by a
+human readable way., removing all possible layer between design and traditional
+requisites specification process.
+\intro
+User stories can be very minimal (unit) and very general. That mean that we
+can do a user story that is a simple requirement or a very general issue.
+If the criteria to follow is to do very minimal users stories, we could be
+hundred of them, so in this case, is better have an upper abstraction level
+to have fewer user stories but with more content, at least when is the
 first time that the team uses this methodology.
-
 \section{Minimal user requirements}
 
-The managers of the center can't have a precise idea about which must be the functions of the sofware. They have a clear idea about what kind of process in their daily work there are the most heavy and consume more paper, that are which they want to digitalice, but they haven't think about navbars, icons, colors palettes, designe of user interfaces or something like this.  They have abstract ideas that will need dimensioning and shaping but which in synthesis offer the minimun system requirements.
+The managers of the center can't have a precise idea about which must be the
+functions of the software. They have a clear idea about what kind of process in
+their daily work there are the heaviest and consume more paper, that is which
+they want to digitalize, but they have not thought about navbars, icons, colors palettes,
+user interfaces design or something like this.  They have abstract ideas that will
+need dimensioning and shaping but which in synthesis offer the minimum system requirements.
 
 \subsection{General needs}
-How is talking about software, it will need run in somewhere, and they what to be cheap and easy to run. And at first there aren't any prerequirements. Maybe they preffer that this can run in devices like smartphones, tablets, laptops, but they don't have a good technical knowlements and is indiferents that be a native app, a web app or some strange artefact.
-For other hand exists an essential requirements, must be run in any devide for the same person, independently of the machine where it be (sometimes in laptop and sometimes in smartphone, for example).
 
-% General needs User Storie #1 #################################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-As user, I want to use the app in any device.
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item Must be accesible from:
-\begin{enumerate}
-\item Smartphones
-\item Tablets
-\item Laptop
-\item Standar Computers
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-\end{enumerate}
-\hrule
-\bigskip
-\textbf{GN \#1 } - High priority
-\end{minipage}}
-% ##############################################################################
+How is talking about software, it will need run in somewhere, and they what to
+be cheap and easy to run. And at first, there are not any pre-requirements. Maybe
+they prefer that this can run in devices like smartphones, tablets, laptops,
+but they do not have a good technical knowledge and for them is indifferent that
+this will be a native app, a web app or some strange artifact.
+\intro
+For other hand exists an essential requirement, must be run on any device for
+the same person, independently of the machine where it be (sometimes in laptop
+and sometimes in a smartphone, for example).
+\intro
+Please see user stories GN-1 to GN-3 on appendix A.
 
-% General needs User Storie #2 #################################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-As user, I want to load in the system data from another databases and formats.
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item Must be accesible from:
-\begin{enumerate}
-\item Smartphones
-\item Tablets
-\item Laptop
-\item Standar Computers
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-\end{enumerate}
-\hrule
-\bigskip
-\textbf{GN \#2 } - High priority
-\end{minipage}}
-% ##############################################################################
-
-% General needs User Storie #3 #################################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-As user, I want to get the database of the app to migrate if was necesary
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item Must be accesible from:
-\begin{enumerate}
-\item Smartphones
-\item Tablets
-\item Laptop
-\item Standar Computers
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-\end{enumerate}
-\hrule
-\bigskip
-\textbf{GN \#3 } - High priority
-\end{minipage}}
-% ##############################################################################
 
 \subsection{Academic Management System}
 
-
 As base of requirements process have been used user stories.
+As we can imagine, a center have a lot of differents kind of relationships,
+and as obligatory part of the system it must be offer a simple way to do this.
+Teachers imparts subjects to group of students (called classes), students are
+enrolled in subjects, and so on. These cases of use and all it can see below will
+be revised as \textit{User Stories} in detail later.
+\intro
+Please see user stories AMS-1 to AMS-7 on appendix A.
 
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-As manager, I want to save students to can to register them.
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be this fields.
-\begin{enumerate}
-\item Name
-\item Surname
-\item Birthdate
-\item Card-id
-\item Location
-\item Address
-\item City
-
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-
-\end{enumerate}
-
-
-\hrule
-\bigskip
-\textbf{AMS \#1 } - High priority
-\end{minipage}}
-
-
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-As manager, I want to save teachers to can to register them.
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be this fields.
-\begin{enumerate}
-\item Name
-\item Surname
-\item Card-id
-\item Address
-\item Location
-\item City
-\item Birthdate
-\item Phone
-\item Image
-\item Gender
-
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-
-\end{enumerate}
-
-
-\hrule
-\bigskip
-\textbf{AMS \#2 } - High priority
-\end{minipage}}
-
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-
-As manager, I want to save subjects to can to register them.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be this fields.
-\begin{enumerate}
-\item Name
-\item Description
-
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-
-\end{enumerate}
-
-\hrule
-\bigskip
-\textbf{AMS \#3 } - High priority
-\end{minipage}}
-
-
-% USER STORY #4
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-
-
-As manager, I want to save classes to can to can to register them.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be this fields.
-\begin{enumerate}
-\item Course
-\item Word
-\item Level
-\item Description
-
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-
-\end{enumerate}
-
-\hrule
-\bigskip
-\textbf{AMS \#4 } - High priority
-\end{minipage}}
-% ############
-
-% USER STORY #5
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-
-
-As manager, I want to save relation between subjects and classes.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-
-\end{enumerate}
-\bigskip
-\hrule
-\bigskip
-\textbf{AMS \#5 } - High priority
-\end{minipage}}
-% #################
-
-% USER STORY #6
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-
-
-As manager, I want to save relation between teachers and the
-relation between subjects and classes.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-
-\end{enumerate}
-\bigskip
-\hrule
-\bigskip
-\textbf{AMS \#6 } - High priority
-\end{minipage}}
-% ################
-
-% USER STORY #7
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-
-As manager, I want to save relation between students and the
-relation between subjects and classes.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-
-\end{enumerate}
-\bigskip
-\hrule
-\bigskip
-\textbf{AMS \#7 } - High priority
-\end{minipage}}
-% ##############
-
-As we can imagine, a center have a lot of differents kind of relationships, and as obligatory part of the system it must be offer a simple way to do this. Teachers imparts subjects to group of students (called classes), students are enrolled in subjects, and so on. These cases of use and all it can see below will be revised as \textit{User Stories} in detail later.
-
-\break
 \subsubsection{Attendance Controls}
-\bigskip
 
-One of most importat proccess to digitaly, the amount of data tha is saved on
-papper and also imposible to manage before and much less do it an analysis.
+One of most important process to digitally, the amount of data that is saved on
+paper and also impossible to manage before and much less do it an analysis.
 They need a simple way, a simple interface to do this that allow this save time
-(doing it, analysis and mangement it), paper and effort.
+(doing it, analysis and management it), paper and effort.
+\intro
+Please see user stories AC-1 on appendix A.
 
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-
-As teacher, I want to save attendance of students to can to register them.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be this fields.
-\begin{enumerate}
-\item Attendance
-\item Delay
-\item Justification
-
-
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted, in a list of
-all students of the class.
-
-\end{enumerate}
-
-\hrule
-\bigskip
-\textbf{AC \#1 } - High priority
-\end{minipage}}
-
-
-
-
-\bigskip
 \subsection{Class Controls}
-\bigskip
 
 A part of manage of classrooms they must offers a say to follow the students evolution in class, behaviour, positives and negativss and another lot of things like paper save, time and effort as section above.
+\intro
+Please see user stories CC-1 on appendix A.
 
-% Disciplinary Notes USER STORY n2 #############################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-
-
-As teacher or educator, I want to know most common disciplinary notes and
-data related.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be this fields.
-\begin{enumerate}
-\item Course
-\item Word
-\item Level
-\item Description
-
-\end{enumerate}
-\item bla bla bla.
-
-\end{enumerate}
-
-\hrule
-\bigskip
-\textbf{DN \#2 } - High priority
-\end{minipage}}
-% ##############################################################################
-
-
-
-
-
-\bigskip
-\subsection{Marks} % I would say this is grades. You really have to check
-                % the terminology in this particular context - JJ
-
-% Marks USER STORY n1 #########################################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-
-
-As teacher or educator, I want to record bad behaviour of a student.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be this fields.
-\begin{enumerate}
-\item Course
-\item Word
-\item Level
-\item Description
-
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-
-\end{enumerate}
-
-\hrule
-\bigskip
-\textbf{MRKS \#1 } - High priority
-\end{minipage}}
-% ##############################################################################
-
-
-
-
-
-
-
-
-
+\subsection{Marks}
 
 As another of proccess that more paper consumes is the marks management. They want a system that simplity the proccess of insertion, analysis and management. Without any specially idea in mind are open to any good user interface that simplify this.
+\intro
+Please see user stories MKs-1 on appendix A.
 
-
-\bigskip
 \subsection{Disciplinary Notes}
-\bigskip
+\
 
 It also must provide a management of this kind of notes, in which a bad behaviour of a studnet is saved, managed and fully reported to the specific users inside of app, as tutors, pedagogue, etc, for example.
 
-% Disciplinary Notes USER STORY n1 #############################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-
-
-As teacher or educator, I want to record bad behaviour of a student.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be this fields.
-\begin{enumerate}
-\item Course
-\item Word
-\item Level
-\item Description
-
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-
-\end{enumerate}
-
-\hrule
-\bigskip
-\textbf{DN \#1 } - High priority
-\end{minipage}}
-% ##############################################################################
-
-% Disciplinary Notes USER STORY n2 #############################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-
-
-As teacher or educator, I want to know most common disciplinary notes and
-data related.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be this fields.
-\begin{enumerate}
-\item Course
-\item Word
-\item Level
-\item Description
-
-\end{enumerate}
-\item bla bla bla.
-
-\end{enumerate}
-
-\hrule
-\bigskip
-\textbf{DN \#2 } - High priority
-\end{minipage}}
-% ##############################################################################
+Please see user stories DN-1 to DN-2 on appendix A.
 
 
 
@@ -463,32 +90,8 @@ This will improve the take of decisions and will do better meetings with better 
 An user stoire by subsystem: repot by marks, report by attendance control..
 reports by.., etc ,etc etc....
 
+Please see user stories SAR-1 on appendix A.
 
-% Simple and A. Reports USER STORY n2 #############################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-
-
-As any person of center I want to have simple and advanced reports about
-the state of the student.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be this fields.
-\begin{enumerate}
-\item Change
-
-\end{enumerate}
-\item bla bla bla.
-
-\end{enumerate}
-
-\hrule
-\bigskip
-\textbf{SAR \#1 } - High priority
-\end{minipage}}
-% ##############################################################################
 
 
 
@@ -498,103 +101,10 @@ Aceptance criteria:
 
 The national system of education in which this center is framed have a diferents informatic reginal system. In this case, in Andalucia, where the certer is it called SENECA (other in other places of the country). All public and semipublic educaitonal centers need save data in this systems necessarily, and this haven't a simple public API where connet us. They must be done dirty way, making a maxed mode way to simplify the download and download of data that minify the interaction with the official system.
 
-% Seneca USER STORY n1 #########################################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
 
-
-As a teacher, I need not interact manually with the official system.
-\bigskip
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item The item must be this fields.
-\begin{enumerate}
-\item Course
-\item Word
-\item Level
-\item Description
-
-\end{enumerate}
-\item The marks of students must be updload automat
-
-\end{enumerate}
-
-\hrule
-\bigskip
-\textbf{SNC \#1 } - High priority
-\end{minipage}}
-% ##############################################################################
-
+Please see user stories SNC-1 on appendix A.
 
 \section{System requirements}
 
-
-\subsection{Modularity}
-
-% General needs User Storie #1 #################################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-As user, I want to use the app in any device.
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item Must be accesible from:
-\begin{enumerate}
-\item Smartphones
-\item Tablets
-\item Laptop
-\item Standar Computers
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-\end{enumerate}
-\hrule
-\bigskip
-\textbf{GN \#1 } - High priority
-\end{minipage}}
-% ##############################################################################
-
-\subsection{Comunications}
-% General needs User Storie #1 #################################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-JSON
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item Must be accesible from:
-\begin{enumerate}
-\item Smartphones
-\item Tablets
-\item Laptop
-\item Standar Computers
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-\end{enumerate}
-\hrule
-\bigskip
-\textbf{GN \#1 } - High priority
-\end{minipage}}
-% ##############################################################################
-
-% General needs User Storie #1 #################################################
-\noindent\shadowbox{
-\begin{minipage}[t]{1\columnwidth - 2\fboxsep - 2\fboxrule - \shadowsize}
-STATUS RESPONSE
-\break
-Aceptance criteria:
-\begin{enumerate}
-\item Must be accesible from:
-\begin{enumerate}
-\item Smartphones
-\item Tablets
-\item Laptop
-\item Standar Computers
-\end{enumerate}
-\item The item must be inserted, readed, updated and deleted.
-\end{enumerate}
-\hrule
-\bigskip
-\textbf{GN \#1 } - High priority
-\end{minipage}}
-% ##############################################################################
+about system, need to be Modularity, Comunications and something like this. 
+Please see user stories SNC-1 on appendix A.

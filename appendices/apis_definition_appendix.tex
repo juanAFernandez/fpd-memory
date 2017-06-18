@@ -1,0 +1,570 @@
+\section{\\Appendix B: APIs definitions}
+
+\begin{lstlisting}[language=python,frame=none]
+  #%RAML 0.8
+  title: Teaching Data Base API
+  version: 1.0
+  baseUri: ---
+
+  /test:
+    description: For API testing purposes.
+    get:
+      description: Test the connection with the API.
+      responses:
+        200:
+          description: Ok. The API is running.
+        405:
+          description: Method not allowed. When it is not running.
+
+  /test_mysql:
+    description: For database testing purposes.
+    get:
+      description: Test the connection with the database through the API.
+      responses:
+        200:
+          description: Ok. Database engine in running.
+
+  /entities/{kind}:
+    description: Collection of kind type management resource.
+    uriParameters:
+       kind:
+         description: Type of entity required.
+         type: string
+    get:
+      description: Return all items by kind passed.
+      responses:
+        200:
+          description: Ok. A list of item will be returned.
+        404:
+          description: Not found. The kind of item does not exists.
+    post:
+      description: To save item in the database.
+      responses:
+        201:
+          description: Created. The item has been saved, no body will be returned.
+        400:
+          description: Bad request. Request have a syntax error.
+        404:
+          description: Not found. The kind of item does not exists.
+
+  /entities/{kind}/{entity_id}:
+    description: Item of specific kind management resource.
+    uriParameters:
+      kind:
+        description: Type of entity required.
+        type: string
+      entity_id:
+        description: Identifies of the item.
+        type: string
+    get:
+      description: Return an item.
+      responses:
+        200:
+          description: Ok. An item will be returned.
+        404:
+          description: Not found. The kind or item does not exists.
+    put:
+      description: To update item in the database.
+      responses:
+        204:
+          description: No content. Updated success without return.
+        400:
+          description: Bad requeest. Request have a syntax error.
+        404:
+          description: Not found. The kind or item does not exists.
+    delete:
+      description: To delete an item.
+      queryParameters:
+        action:
+          description: Use to specify some special action.
+                       Options:
+                        dd: delete all dependencies of the item deleted.
+                            If you delete a student will be deleted all
+                            relations with the rest of item in the database
+                            of them.
+          type: string
+      respones:
+        204:
+          description: No content. Item has been deleted.
+        404:
+          description: Not found. The kind or item does not exists.
+
+
+  /entities/{kind}/{entity_id}/{optional_nested_kind}/{onk_entity_id}:
+    description: To delete relations between items. Only available for now
+                 between kind as class of subject and optional_nested_kind as student.
+    uriParameters:
+      kind:
+        description: The kind of item to manage.
+        type: string
+      entity_id:
+        description: The id of the kind.
+        type: string
+      optional_nested_kind:
+        description: The nested kind (one related with first).
+        type: string
+      onk_entity_id:
+        description: Identifier of the nested kind.
+        type: string
+    delete:
+      description: Delete the relation between items.
+      respones:
+        204:
+          description: No content. Item has been deleted.
+        404:
+          description: Not found. The kind or item does not exists.
+
+  /entities/{kind}/{entity_id}/{related_kind}:
+    description: Manage subcollections of items of a kind.
+    uriParameters:
+      kind:
+        description: The kind of item to manage.
+        type: string
+      entity_id:
+        description: The id of the kind.
+        type: string
+      related_kind:
+        description: The related kind to get all items.
+        type: string
+    get:
+      description: Return a list of items of a related collection of another.
+      responses:
+        200:
+          description: Ok. An item will be returned.
+        404:
+          description: Not found. Some of ids do not exists.
+
+    /{rk_entity_id}/{subrelated_kind}:
+      description: To manage the relation nested with related kinds.
+      uriParameters:
+        rk_entity_id:
+          description: Related kind id
+          type: string
+        subrelated_kind: Subrelated kind id
+          description:
+          type: string
+      get:
+        description: To get all related items in nested related kind.
+        responses:
+          200:
+            description: Ok. An item will be returned.
+          404:
+            description: Not found. Some of ids do not exists.
+
+  /entities/{kind}/{entity_id}/report:
+    description: Retrieve the reports about items that have it.
+    uriParameters:
+      kind:
+        description: The kind of item to manage.
+        type: string
+      entity_id:
+        description: The id of the kind.
+        type: string
+    get:
+      description: To get a report from item.
+      responses:
+        200:
+          description: Ok. An report will be returned.
+        404:
+          description: Not found. Item does not exists.
+\end{lstlisting}
+
+
+
+\begin{lstlisting}[language=python,frame=none]
+
+  #%RAML 0.8
+  title: Attendance Controls API
+  version: 1.0
+  baseUri: ---
+  /ac:
+    description: The resource to work with attendance controls database saved.
+    get:
+      description: Get a list of all attendance controls
+      responses:
+        200:
+          description: Ok. A list of items will be returned.
+          body:
+            application/json:
+              example: |
+              [
+                {
+                  "acId": 4785074604081152,
+                  "association": {
+                      "associationId": 13,
+                      "class": {
+                          "classId": 1,
+                          "course": 1,
+                          "level": "ESO",
+                          "word": "A"
+                      },
+                      "subject": {
+                          "name": "Science",
+                          "subjectId": 1
+                      }
+                  },
+                  "createdAt": "2017-03-12T13:20:23.906080",
+                  "createdBy": 1,
+                  "students": 2,
+                  "teacher": {
+                      "name": "Jhoan",
+                      "profileImageUrl": "/imageservice/29372929.jpg",
+                      "surname": "Mathew",
+                      "teacherId": 1
+                  }
+                }
+              ]
+
+    post:
+      description: To save an item of "ac" kind into service.
+      responses:
+        201:
+          description: Created without response. The item was added to database will not
+                       returned body.
+        body:
+           application/json:
+             example: |
+             {
+               "students": [
+                 {
+                   "control": {
+                     "delay": 0,
+                     "assistance": true,
+                     "uniform": true,
+                     "justifiedDelay": true
+                   },
+                   "studentId": 113
+                 },
+                 {
+                   "control": {
+                     "delay": 0,
+                     "assistance": true,
+                     "uniform": true,
+                     "justifiedDelay": true
+                   },
+                   "studentId": 213
+                 }
+               ],
+               "teacherId": 23,
+               "association": {
+                 "associationId": 13,
+                 "classId": 24,
+                 "subjectId": 17
+               }
+              }
+
+        400:
+          description: Bad request. Request have a syntax error.
+        404:
+          description: Not found. The kind of item does not exists.
+
+    /{ac_id}:
+      uriParameters:
+       ac_id:
+         description: Attendance control identifier
+         type: string
+      get:
+        description: Return an item of the attendance controls collection.
+        responses:
+          200:
+            description: Ok. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+      put:
+        description: Save a new attendance control in the database.
+        responses:
+          204:
+            description: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+      delete:
+        description: Resource to delete items of this type.
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+    /schema:
+      description: To know the schema of this kind of object.
+
+      get:
+        description: To get the schema of the type.
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+
+\end{lstlisting}
+
+
+
+\begin{lstlisting}[language=python,frame=none]
+
+  #%RAML 0.8
+  title: Disciplinary  Notes API
+  version: 1.0
+  baseUri: ---
+  /dn:
+    description: The resource to work with disciplinary notes database saved-
+    get:
+      description: Get a list of all disciplinary notes.
+      responses:
+        200:
+          description: Ok. Successful requests. An item list will be returned.
+          body:
+              application/json:
+                example: |
+                [
+                      {
+                          "classId": 3,
+                          "createdAt": "2017-03-13T11:12:23.846126",
+                          "createdBy": 1,
+                          "dateTime": "2000-12-03T10:30:00",
+                          "description": "A little problem with new boy.",
+                          "disciplinaryNoteId": 5224879255191552,
+                          "gravity": 5,
+                          "kind": 3,
+                          "student": {
+                              "name": "Jhon",
+                              "studentId": 1,
+                              "surname": "adsf"
+                          },
+                          "subjectId": 21,
+                          "teacher": {
+                              "name": "Peter",
+                              "profileImageUrl": "/imageservice/10072919.jpg",
+                              "surname": "Smith",
+                              "teacherId": 1
+                          }
+                      }
+                  ]
+
+    post:
+      description:
+      responses:
+        201:
+          description: Created without response. The item was added to database will not
+                       returned body.
+          body:
+            application/json:
+              example: |
+              {
+                  "studentId": 5,
+                  "teacherId": 42,
+                  "classId": 3,
+                  "subjectId": 21,
+                  "dateTime": "2000-12-03 10:30",
+                  "kind": 1,
+                  "gravity": 5,
+                  "description": "A little problem with new boy."
+              }
+        422:
+          description: Unprocessable Entity. Probably because of the payload
+                       sendes has not correct format.
+
+    /{dn_id}:
+      uriParameters:
+       dn_id:
+         displayName: Disciplinay Note ID
+         type: integer
+      get:
+        description: Return an item of the disciplinary notes collection.
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+      put:
+        description: Save a new disciplinary note in the database.
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+      delete:
+        description:
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+    /schema:
+      get:
+        description:
+        responses:
+          200:
+            description: Ok. The item schema will be returned.
+            body:
+                application/json:
+                  example: |
+                  {
+                      "gravities": [
+                          {"code": 1,"meaning": "mild"},
+                          {"code": 2,"meaning": "low"},
+                          {"code": 3,"meaning": "medium"},
+                          {"code": 4,"meaning": "high"}
+                      ],
+                      "kinds": [
+                          {"code": 1, "meaning": "Bullying"},
+                          {"code": 2, "meaning": "Disrespect"},
+                          {"code": 2,"meaning": "Gender violence"}
+                      ]
+                  }
+          404:
+            description: Not found. The item required does not exists.
+
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=python,frame=none]
+
+  #%RAML 0.8
+  title: Marks Subserction API
+  version: 1.0
+  baseUri: ---
+  /mark:
+    description: The resource to work with marks database saved-
+    get:
+      description: Get a list of all marks
+      responses:
+        200:
+          description: Ok. A list of items will be returned.
+          body:
+              application/json:
+                example: |
+                  [
+                      {
+                          "createdAt": "2017-03-12T23:12:53.603021",
+                          "createdBy": 1,
+                          "enrollment": {
+                              "classId": 4,
+                              "enrollmentId": 42,
+                              "subjectId": 5,
+                              "teacherId": 8
+                          },
+                          "markId": 6016527627190272,
+                          "marks": {
+                              "final": null,
+                              "firstEv": 5,
+                              "preFirstEv": 3,
+                              "preSecondEv": 8,
+                              "secondEv": 9,
+                              "thirdEv": 10
+                          },
+                          "studentId": 5
+                      }
+                  ]
+
+    post:
+      description:
+      responses:
+        201:
+          description: Created without response. The item was added to database will not
+                       returned body.
+          body:
+            application/json:
+              example: |
+                {
+                 "studentId": 5,
+                 "enrollment": {
+                   "enrollmentId": 42,
+                   "classId":4,
+                   "subjectId": 5,
+                   "teacherId": 8
+                 },
+                 "marks":{
+                   "preFirstEv": 3,
+                   "firstEv": 5,
+                   "preSecondEv": 8,
+                   "secondEv": 9,
+                   "thirdEv": 10,
+                   "final": 9
+                 }
+                }
+        422:
+          description: Unprocessable Entity. Probably because of the payload
+                       sendes has not correct format.
+
+    /{mark_id}:
+      uriParameters:
+       mark_id:
+         displayName: Mark ID
+         type: integer
+      get:
+        description: Return an item of the marks collection.
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+      put:
+        description: Save a new mark in the database.
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+      delete:
+        description:
+        responses:
+          204: No content. The server has fulfilled the request but does not need to return an entity-body.
+          404:
+            description: Not found. The item required does not exists.
+
+    /schema:
+      get:
+        description:
+        responses:
+          200:
+            description: Ok. Successful requests. An item will be returned.
+          404:
+            description: Not found. The item required does not exists.
+
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=python,frame=none]
+  #%RAML 0.8
+  title: Attendance Controls API
+  version: 1.0
+  baseUri: ---
+  ams/{kind}/{entity_id}/trend:
+    description: Simple resource to get general reports.
+    uriParameters:
+      kind:
+        description: Item type related with the reports.
+        type: string
+      entity_id:
+        description: Item identifier.
+        type: string
+    get:
+      description: Return the data block with the report of the item.
+      responses:
+        200:
+          description: Ok. A report will be returned.
+        404:
+          description: Not found. The item or type required does not exists.
+
+  ams/{kind}/{entity_id}/{report_type}:
+    description: To get other type of reports of more specific one.
+    uriParameters:
+      kind:
+        description: Item type related with the reports.
+        type: string
+      entity_id:
+        description: Item identifier.
+        type: string
+      report_type:
+        description: The kind of report required.
+        type: string
+    get:
+      description: Return the data block with the report of the item.
+      responses:
+        200:
+          description: Ok. A report will be returned.
+        404:
+          description: Not found. The item or type required does not exists.
+
+\end{lstlisting}
