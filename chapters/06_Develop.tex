@@ -1,5 +1,9 @@
 \chapter{Develop}
 
+As talk about all details that are been solved or managed would take hundred of
+pages in this section we only are going to revise some part of developing that
+are been interesting or have required some bit specific design or decision process
+and are interesting to explain.
 
 \section{Api Gateway microService}
 
@@ -164,28 +168,33 @@ this as Python methods.
 
 \section{Teaching Data Base microService}
 
-\subsubsection{Optional subjects, the ``class'' Table.}
+The deploy of this service is very easy, only has been wrapped the SQL language
+in a kind of own ORM, that would be changed by SQLAlchemy as soon as possible in
+the next iterations of the project but that is enough for us now. So, instead of
+explaining how it is done (it can see in the code of the project) we are going to
+explain the more sensible parts and problem detected, to avoid extend too much this
+ work.
+
+\subsection{Optional subjects, the ``class'' Table.}
 
 In the domain of the problem can be exists optative subjects and is
 needed search a way to implement this because has a specific details
 that aren't like the rest.
-
-\paragraph{The details.}
-
+\intro
 The studies plan forces in certain courses to select one or several
 optional subjects. For example, if a student has enrollment in 2ºESO
 (independently of the group, A, B...) the law and consequently the
 studies plan force to the student to choose between some optional
 subjects. So, maybe this subjects exists only in this optional case
-as `` rare subjects'' but in other cases this are only normal subjects
+as \textit{"rare subjects"} but in other cases this are only normal subjects
 but that in this course are offer like optional.
-
+\intro
 A simple example of this is French subject, it in some courses like
 3ESO and 4ESO is obligatory but it in Bachiller (the upper level)
 is optional because the students can be select if they want make the
 final exam with this second language or select another like English
 or Greek or Latin p.e.
-
+\intro
 To obtain this we decide develop a simple solution without change
 the original database logic schema. So, how we have an entity that
 save the classes and it have three attributes, course, word and level
@@ -193,110 +202,128 @@ mainly we going to add three more to this special cases, optative,
 groupNumber and subgroupNumber. Like this special cases haven't word
 param when they have value word don't have and when the item have
 word (A, B, C...) then don't have this special attributes.
-
+\intro
 Maybe this don't be the best solution, but is a simple in the point
 of develop.
-
 Obviously like we can't have two autoincrement values in the same
 table definition in MySQL we will need control this programatically,
-but is something that we can assume to get our goal easily.
+but is something that we can assume to get our goal easily.But we found a problem.
+\intro
+The same advantage that offer \textit{UNIQUE} to deleted cases now is problematic
+here. While there works fine because this clausulo does not include to items that
+have fields to null and allow to exists without conflict in this case if we saved
+a optative group obviously would to be \textit{"WORD"} field to null, and if we
+do this we can have two groups exactly equals, for example:
 
-Problema:
-
-La misma ventaja que nos ofrece UNIQUE para el caso de los eliminados
-ahora nos muerde aquí. Mientras que allí beneficiaba porque esta clausula
-no incluye a los item que tengan campos a null y permite que no de
-conflicto en este caso si insertamos un grupo optativo obviamente
-deberá tener el camo word a null y si es así podemos tener exactamente
-dos grupos iguales sinque de conflicto.
-
-course
-
+\begin{lstlisting}[language=python,frame=none]
 1 <null> ESO 1 1 1 0
-
 1 <null> ESO 1 1 1 0
+\end{lstlisting}
 
-Sin dar conflicto, lo que no puede ser.
+\noindent This could happens wihtout conflict, and this should be impossible.
+For this reason we decide to use the same field \textit{WORD}, with a special
+naming, because this never will be used by general groups, that help us to
+specify that the group at issue is an optative and also specify the group
+and subgroup.
+\intro
+This is someting like this: OPT\_n\_m
+Where \textit{n} will be the group number (must be increased handmade) and \textit{m}
+the number of the subgroup (also increased handmade).
+Obviously this is only a simple approach to a first solution, will be improved
+in next iteration of the service, and we always follow the same philosy,
+we prefer explicit way to do something ar implicit, more understandable by
+any new developer.
+\intro
+This way to solve this problem with MySQL engine presents some problems.
+As all is managerd by mysql but there are not way to do this automatically
+with the own mechanism of myql is necesary to create some distpacher to the
+inserction and the deletion to maintain the consistency. When a new optative group
+is introduced must be checked that exist the previous (group and subgroup, can not
+exists group 4 if 3 does not exists), and the same way should not be possible
+delete the group 4 if the number 3 exists yet.
+\intro
+Note that is important understand that a lot of detail of consistency control
+can be relegated to UI, because although there is not allowed by the logic
+of interaction from the API must not be allowed neither, to prevent
+inconsistencies malicious induced.
+\intro
+Becuse of this not only the security, also the consistency must be ensured in
+any action that user can do.
 
-
-
-está a null o no para le resto de los procedimientos.
-
-Por esta razon decidimos usar el mismo campo word, con una nomenclatura
-especial, ya que no se va a ser usada para los grupos generales que
-indique que se trata de un grupo optativo y además especifique el
-grupo y el subgrupo, en concreto:
-
-OPT\_n\_m
-
-donde n será el número del grupo (que habrá que incrementar prograticamente
-a mano) y m el número del subgrupo que tambi\'{n}e habrá que incrementar
-a mano en caso de que se creen más.
-
-Esto siempre a falta de un mejor solucion que se adopte en iteraciones
-posteriores.
-
-Y en la api nosotros siempre preferimos explícito a implicito.
-
-Requisitos:
-\begin{enumerate}
-\item Ya que todo se controla desde mysql pero no existe forma de hacerlo
-automatico vamos a crear unos disparadores para la inserccion y la
-eliminacion para mantener la consistencia de los datos. Cuando se
-introduce un nuevo grupo optativo se debe comprobar que existe el
-anterior tanto en grupo como en subgrupo para que no exista el subgrupo
-4 sin el 3 o el dos. De la misma manera no se podrán eliminar un grupo
-4 si el 2 aún existe.
-\end{enumerate}
-
-\paragraph{API definition}
-
-@app.route('/entities/<string:kind>', methods={[}'POST'{]})
-
-Para realizar la introduccion de un estudiante al sistema usamos
-
-el re.
-
-No podemos introducir un usuario que no tenga datos, al menos
-
-deberá pasarse el dato nombre que es úniquo mínimo que debe
-
-existir para el tipo alumno.
-
-Cuando se pide una lista de elementos y la peticin se realiza correctamente
-pero no se devuelve nada porque no existen items de ese recurso se
-envía un 204 Success without content.
-
-Importante: Muchos de los detalles de control de consistencia no pueden
-relegarse a la UI, ya que aunque en ella no se deben permitir ciertas
-acciones por la logica del sistema, la api no debe permitir su realizacin
-aunque se haga de forma manual sin los conectores de la UI.
-
-Por eso no solo la seguridad sino el control de la consistencia debe
-
-estar presente de la mejor forma posible en todas las acciones que
-contra esta un usuario puede hacer.
-
-\paragraph{User histories}
-
-El microservicio de Base de Datos acota el dominio de la gestin docente
-dentro del sistema, quizs se le cambie el nombre a TmS teachingMicroService.
-
-A través de este microservicio podemos realizar todas las acciones
-relativas a.
-
-Este microservicio se basa en una base de datos.
-
-I like
-
-\subsection{Deleted items strategy}
 
 \section{Students Control microService}
 
+In general terms, this service follows the same philosophy of the rest, with the
+difference that they use the Cloud Datastore. In general terms, this service follows
+the same philosophy of the rest, with the difference that they use the Cloud Datastore.
+That only means that the library of access to raw data is different and instead of
+wrap the SQL language as in the last, here we wrap the access to a library designed
+by the Cloud Datastore service called \textbf{ndb}, designed by the same Guido Van
+Rosum (in the time when worked at Google).
+\intro
+Most characteristic here is that we need to define the form of the data that we
+want to save (this is a heavy reason to do not use again this system, we will
+comment this a bit more after).
+So, to can store the disciplinary note item type, is necessary to define a
+class which ndb can manage it.
+\begin{lstlisting}[language=java,frame=none]
+  class DisciplinaryNote(ndb.Model):
+      # Related academic info.
+      studentId = ndb.IntegerProperty()
+      teacherId = ndb.IntegerProperty()
+      classId = ndb.IntegerProperty()
+      subjectId = ndb.IntegerProperty()
+
+      # Disciplinary Note
+      kind = ndb.IntegerProperty()
+      gravity = ndb.IntegerProperty()
+      description = ndb.StringProperty()
+      dateTime = ndb.DateTimeProperty()
+
+      # Item Metadata
+      createdBy = ndb.IntegerProperty()
+      createdAt = ndb.DateTimeProperty()
+      modifiedBy = ndb.IntegerProperty(default=None)
+      modifiedAt = ndb.DateTimeProperty(default=None)
+      deletedBy = ndb.IntegerProperty(default=None)
+      deletedAt = ndb.DateTimeProperty(default=None)
+      deleted = ndb.BooleanProperty(default=False)
+\end{lstlisting}
+
+\noindent And using this denition is builded a wraper to interact, this is
+an example of this same section:
+
+\begin{lstlisting}[language=python, frame=none]
+  @classmethod
+    def post_dn(cls, disciplinary_note):
+        if cls.validate_dn(disciplinary_note):
+            dn_to_save = DisciplinaryNote(
+                studentId=disciplinary_note.get('studentId'),
+                teacherId=disciplinary_note.get('teacherId'),
+                classId=disciplinary_note.get('classId'),
+                subjectId=disciplinary_note.get('subjectId'),
+                dateTime=datetime.datetime.strptime(disciplinary_note.get('dateTime'),"%Y-%m-%d %H:%M"),
+                kind=disciplinary_note.get('kind'), gravity=disciplinary_note.get('gravity'),
+                description=disciplinary_note.get('description'), createdBy=1, createdAt=time_now())
+            key = dn_to_save.put()
+            return {'status': 200, 'data': {'disciplinaryNoteId': key.id()}}
+        else:
+            return {'status': 400, 'data': None, 'log': None}
+\end{lstlisting}
+
+\noindent With their API resource in Flask:
+
+\begin{lstlisting}[language=python, frame=none]
+  @disciplinary_notes_api.route('/disciplinarynote', methods=['POST'])
+  def post_disciplinary_note():
+    return process_response(DisciplinaryNotesManager.post_dn(request.get_json()))
+\end{lstlisting}
+
+\noindent Actually is very simple, the rest of behavior follow the same pattern,
+and the only benefits that have the time spent in learning to build the service
+with this technology is the amazing performance and cost that store data here has.
+
 \section{User Interface microService}
-
-
-
 
 \subsection{Save processes flows}
 
@@ -305,9 +332,8 @@ when we talk about update existing data. These and how to solve the problem that
 it presents will define how the user will use our interface. And spite of this is
 a design phase issue is in the develop moment when this appeared and is why it
 is explained here.
-\linebreak
-\linebreak
-\noindent Focused on the problem, we have an object load in the interface, as a complete
+\intro
+Focused on the problem, we have an object load in the interface, as a complete
 profile info of a student, and we want to update their data (change or add some
 new data) and this is not trivial because will define the signature between the
 API of service and the user interface.So, basically, we have found three ways to do this so we are going to analysis
@@ -401,6 +427,19 @@ function loadData() {
 \end{lstlisting}
 
 \noindent So, this behaviour is replied in all places where this kind of interaction appears.
+\intro
+Another important thing to design is the interaction between the differents parts
+of the interface. The menus, buttons and the flow among these can be the difference
+between a good and bad application because, at this time, there are few things
+that do not exists, but between the existing, a good UI/UX in one of two similar
+apps can be enough to triumph.
+\intro
+In our case, all interactions are well-defined, trying to build a simple and
+powerful user interface. This is an example of the interaction flow that defines
+the processes to add some teaching to a teacher.
+This is only an example, we could fill dozens of pages with flow diagrams, but
+we think that it is enough representative.
+
 
 \includepdf[pages=-,pagecommand={},scale=0.94]{img/diagrams/addTeachingToTeacher_AD.pdf}
 
@@ -416,7 +455,14 @@ function loadData() {
 %   \caption{Teachers List view wireframed.}
 % \end{figure}
 
-\noindent Teachers list
+\noindent One has been decided the design with wireframes and the interaction
+with flow/activity diagrams the rest is to implement this with CSS Framework
+selected and develop all logic so the system satisfies all requirements.
+This is some snaps of the interface already designed.
+\intro
+The teacher list, where we can see a simple dynamic list to manage teachers,
+where we can see basic info and can access to complete info. And can see the
+material design rules applied already.
 
 \begin{figure}[H]
 \centering
@@ -432,7 +478,8 @@ function loadData() {
 \end{minipage}
 \end{figure}
 
-\noindent Teacher profile
+\noindent The pictures below show us teacher profile section, with
+the same philosophy.
 
 \begin{figure}[H]
 \centering
@@ -448,7 +495,7 @@ function loadData() {
 \end{minipage}
 \end{figure}
 
-\noindent Updating a teacher profile (note that this is
+\noindent Aso, for example, updating a teacher profile (note that this is
 the spanish version).
 
 \begin{figure}[H]
@@ -465,7 +512,7 @@ the spanish version).
 \end{minipage}
 \end{figure}
 
-\noindent Students lists and graphics.
+\noindent Now, students list view and some graphics.
 
 \begin{figure}[H]
 \centering
@@ -481,7 +528,15 @@ the spanish version).
 \end{minipage}
 \end{figure}
 
+\noindent And the rest of app follow the same look and feel, responsive and well adaptable
+for almost any device.
+
 \section{Analysis microService}
 
-PONER EJEMPLOS DE COMO LAS ESPECIFICACIONES DE RUTAS EN LA PARTE DE DISEÑO
-SE CORRESPONDEN CON LA IMPLEMENTAIÓN EN FLASK
+In the case of this service, the developing not have gone too far and only have
+been implemented some simple linear regressions to can give a simple way to
+predict the future values of some data block, as student marks or their efficiency
+(as we have discussed already).
+
+In conclusion, this service will offer mocks of all data expected and will be
+the main goal in futures sprints of the project.

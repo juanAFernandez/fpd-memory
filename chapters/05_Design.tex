@@ -354,9 +354,6 @@ is very easy to understand, and we only are going to use the most simple
 version of this definition standard, there a lot of other things that we can
 express, but is not necesary as first approach.
 
-500:
-  description: Internal Server Error. When an unexpected error appears.
-
 \begin{lstlisting}[language=python,frame=none]
   #%RAML 0.8
   title: Teaching Data Base API
@@ -526,9 +523,6 @@ express, but is not necesary as first approach.
           description: Not found. Item does not exists.
 
 \end{lstlisting}
-
-HERE-> UN POCO Más de TEXTO AQUI
-
 
 
 \subsection{Database logical design}
@@ -768,8 +762,10 @@ We can see an example of this in \textit{ac resource} when is called with
 
 
 \subsubsection{Attendance Controls API Subsection}
-
-As with the previous, this is the behavior designed RAML based.
+The sub API which we can manage all related with attendance controls, that are
+records about the attendance of the students to class and something as if the
+students attends with delay, if this is justified, if gone with or without
+the uniform, etc. As with the previous, this is the behavior designed RAML based.
 
 \begin{lstlisting}[language=python,frame=none]
 
@@ -900,7 +896,10 @@ As with the previous, this is the behavior designed RAML based.
 
 \subsubsection{Disciplinary Notes API Subsection}
 
-As with the previous, this is the behavior designed RAML based.
+With this API section, we can manage all related with disciplinary notes, that
+are records about the student's behavior in class. With this we can to register
+negative acts of the students to prevent big problems and to correct this as soon
+as possible. And this is the behavior designed RAML based.
 
 \begin{lstlisting}[language=python,frame=none]
 
@@ -1021,7 +1020,10 @@ As with the previous, this is the behavior designed RAML based.
 
 \subsubsection{Maks API Subsection}
 
-As with the previous, this is the behavior designed RAML based.
+As the final part of the simple student control that we do we still have the marks
+section.  With this we would record all exams marks that students achieve, that
+is another big part that was required. As with the previous, this is the
+behavior designed RAML based.
 
 \begin{lstlisting}[language=python,frame=none]
 
