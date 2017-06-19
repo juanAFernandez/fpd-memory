@@ -1,4 +1,103 @@
-\chapter{Tools, patterns and firsts decisions}
+\chapter{State of Art and first decisions. }
+
+In this chapter, we are going to talk about the state of art in two domains.
+On one side we have the analysis of the similar projects or applications that
+already exists in the market, which would be the state of art of the problem
+that we want to solve and by other side, the technologies that we can choose
+to solve this, it would be the state of art to the implementation.
+
+\section{Problem domain}
+
+The developing of a new complete system have no sense if before have not been
+analyzed other existent solutions. As part of the research process has been
+analyzed some applications that (although is not a direct competition) represent
+the actual state of the art about the kind of software we are talking about.
+\intro
+First, we take a look at the main features that are important in our domain
+to see how many applications have covered them. These are a few requirements
+analysis but not very formal, we will discuss about this after.
+\intro
+In the following table, we are going to compare the rest of app with our idyllic
+software (with the features we hope it will cover).
+
+\begin{table}[H]
+\centering
+
+\begin{tabular}{@{}lllllll@{}}
+
+Feature & classDojo & TeacherKit & A+ & iDoceo & Additio & SMS \\ \midrule
+Attendance & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
+Discipline & \partialValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
+Attitude & \partialValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
+Marks & \noneValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
+Competencias & \noneValue & \noneValue & \noneValue & \completeValue & \completeValue & \completeValue \\
+Rubrics & \noneValue & \noneValue & \noneValue & \completeValue & \completeValue & \completeValue \\
+Message & \completeValue & \completeValue & \completeValue & \noneValue & \noneValue &	\completeValue \\
+patters & \noneValue & \noneValue & \noneValue & \completeValue & \completeValue & \completeValue \\
+reports & \noneValue & \completeValue & \completeValue & \partialValue & \completeValue & \completeValue \\
+analysis & \partialValue & \completeValue & \partialValue & \partialValue & \partialValue & \completeValue \\
+models and predictions & \noneValue & \noneValue & \noneValue & \noneValue & \noneValue & \completeValue \\
+Centralizate and jerarqy & \noneValue & \partialValue & \noneValue & \noneValue & \noneValue & \completeValue \\ \midrule
+
+Total & 58.3\% & 80.5\% & 72.2\% & 	72.2\% & 80.5\% & 99\% \\
+\end{tabular}
+\caption{Features}
+\label{my-label}
+\end{table}
+
+\noindent As we can see, there are some apps that are so focused on their specific domain
+that is very deficient in the rest. In spite of this are referents in
+their area, and their numbers of users are huge (only have been compared apps
+that have a good acceptance by users).
+\intro
+But is not only important the features of the software, because with time and
+effort any feature can be added. There are other things in the background that
+are really important too and that can be that to grow our app steadily or that crash
+when we have thousand of users. We are talking about something as data control,
+performance, scalability or centralización (we do not explain in detail each one because
+is out of his work but we think is also very important).
+And of course, all related to interface and user experience, that in most of
+cases can represent the difference between the successful and failure of our
+project.
+\intro
+So, based on it this is our comparative:
+
+
+
+\begin{table}[H]
+\centering
+
+\begin{tabular}{@{}lllllll@{}}
+
+Feature & classDojo & TeacherKit & A+ & iDoceo & Additio & SMS \\ \midrule
+Personalization & \noneValue & \noneValue & \noneValue & \noneValue & \noneValue & \noneValue \\
+UI & \partialValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
+UX & \partialValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
+Price & \noneValue & \completeValue & \completeValue & \completeValue & \completeValue & \completeValue \\
+Performance & \noneValue & \noneValue & \noneValue	 & \completeValue & \completeValue & \textcolor{ownGreen}{\completeValue} \\
+Scalability & \noneValue & \noneValue & \noneValue & \completeValue & \completeValue & \completeValue \\
+Data control & \completeValue & \completeValue & \completeValue & \noneValue & \partialValue & \completeValue \\
+Multiplatform & \noneValue & \noneValue & \noneValue & \completeValue & \completeValue & \completeValue \\
+Centralization & \noneValue & \completeValue & \completeValue & \partialValue & \completeValue & \completeValue \\ \midrule
+
+Total & 44.4\% & 50.0\% & 16.6\% & 	16.6\% & 44.4\% & 99\% \\
+\end{tabular}
+\caption{Architecture and design}
+\label{my-label}
+\end{table}
+
+\noindent Obviously, only in the hypothetical case of our app is fully developed will cover
+all the aspects considered, but before of the research is easy to understand that
+is not so difficult cover all with the correct design, architecture or design.
+\intro
+And we are going to try to give a simple and really little approximation of the way
+to achieve that.
+\intro
+So, \textbf{let's start!}
+
+
+\section{Implementation domain}
+
 
 Nowadays we can build almost any kind of software with a lot of differents
 language from which to choose, but as if that were not enough there
@@ -7,25 +106,30 @@ of this it will be necessary choose where to deploy our software, or how
 doc it, or how to manage our work team, etc. A lot of options that it
 will be necessary to choose and that can make the difference between the
 success or failure of our project. So, what about of these decisions
-in this project? Take a look at it.
+in this project? We are going to take a look at it, tools, patterns and
+\textit{we will take some firsts decisions about it.}
 
-\section{Architecture}
+\subsection{Architecture}
 
 Almost any kind software or tool can be built of differents ways, independently
 of this behavior or the goals that it must achieve. Some ways are more specific
-to achieve some specific behavior and another.
+to achieve some specific behavior and other although useful are not the best option.
+Because of this, we need this phase of research, to avoid, as far as possible, make mistakes before to start.
 
-\subsection{Kind of software}
-Based on informal requirements was thought that the best option must be a
+\subsubsection{Kind of software}
+We can think of a mobile app, but what happens with desktop users? And even if
+we do a mobile app, for what operating system? Too options for to develop a solution
+for each one. Based on informal requirements was thought that the best option could be a
 \textbf{web app} for a lot of reasons. First of all because is the simplest
 way to offer an app that can run on almost any device (with a \textit{
 simple\footnote{Actually a browser is one of the more complex pieces of
 software, but here is labeled as simple because is a software that the
 majority of devices like smartphones, tablet, etc, have by default and for
 the most nontechnical people isn't a complex software, nothing could be
-further from the truth.}} browser).
+further from the truth.}} browser). Also because is the easiest way, with the best
+learning curve and to end because can be used a lot of different technologies to the same domain.
 
-\subsection{Why microservices?}
+\subsubsection{Why microservices?}
 
 When we think about an app, of any type, the most of the time we think of a software
 running on a single machine, with more or less hardware available, where all
@@ -41,27 +145,27 @@ is their choice.
 Microservices are actually a variant of SOA\footnote{Service-oriented architecture (SOA)
 was first described by Gartner in 1996 and is a style of software design where
 services are provided to the other components by application components, through
-a communication protocol over a network},that simplifying a lot is the architecture
-of a software system composed of few
-different systems, working together to do the service which the software was design.
+a communication protocol over a network},that simplify a lot the architecture
+of a software system spliting their different systems, doing that work together
+to offer the service which the software was design.
 Dr. Peter Rodgers introduced the term "Micro-Web-Services" during a presentation
 at Cloud Computing Expo in 2005 and as we can see in the following graphic (extracted
 using sotagtrends.com) community interest about this emerging technology
 has never stopped growing,
 
-\begin{figure}[h]
+\begin{figure}[H]
   \includegraphics[scale=0.5]{img/graphics/microservices_trend.png}
   \centering
   \caption{Search trend of "microservice" tag in Stack Overflow.}
 \end{figure}
 
-James Lewis\footnote{Principal Consultant at ThoughtWorks and
+\noindent James Lewis\footnote{Principal Consultant at ThoughtWorks and
 member of the Technology Advisory Board} and Martin Fowler\footnote{British software developer,
 author and international public speaker on software development, specializing in
 object-oriented analysis and design, UML, patterns, and agile software development
 methodologies, including extreme programming.} are the major defensor of this
-arquitecture and this brings us to the canonical definition of microservices:
-
+arquitecture and these brings us to the canonical definition of microservices:
+\bigskip
 
 \begin{minipage}{0.9\linewidth}
         \vspace{5pt}%margen superior de minipage
@@ -83,27 +187,64 @@ arquitecture and this brings us to the canonical definition of microservices:
 
 \noindent Language agnostic, scalable, size ajustables, independently, our system design
 splited in litle pieces with this boundaries do this architecture perfect for
-our goals, and this is why did this choice.
+our goals, and this is why we take this choice.
 
-\subsection{Why polyglot database?}
+\subsubsection{Why polyglot database?}
 
-With the mircroservices approach the system will be some very differents
-database to do some diferents things. So, in general we can see our
+With mircroservices approach the system will need differents databases to do
+some diferent things. In general we can see our
 backend like a black box when the data persists in a polyglot database.
-That means that the data is save in differents ways, using diferetns
-formats and diferents driver to manage this. There are a group of
-data that it need saved with certain relations, due to its nature,
-so a relational database seem perfect to do this, but this kind of
-databases (like MySQL) can been slowly or too heavy for other tasks
+That means that the data is saved in differents ways, using different
+formats and diferent drivers to manage this. There are a group of
+data that would have need be saved with certain relations, due to its nature
+and a relational database seem perfect to do this, but this kind of
+databases (like MySQL) can be slowly or too heavy for other tasks
 of kind of processes, like data analysis.
 
-\section{Code strategy}
 
+\subsection{Storage}
+
+With the storage occurs the same, there is a huge list of options to
+choose. The fast answer in the most of the cases is: Why do not use a relational
+database, as MySQL for example? If we are thinking in a little system
+it could be a good choice, always that our data model is adjusted to this kind of system.
+But every people knows the deficits and the complexity of the development of a system
+with this database. Mainly the performance when we are talking about million
+of arrays of objects stored. So, as we was talking before, our goal in this project
+is work with a lot of data, of which some are pure relational and another not,
+and can be processed by another way, using another engine and database.
+\intro
+If you have a logical data model like as this project have is not easy choice one
+of all database engine to model this. SQL systems is very powerful for some
+things but not for another (or not simply) and object oriented databases is
+really powerful and simple to develop with it when the data haven't a lot of
+relations (although can be modeled also).
+so, why choice one between them? Why do not both? This is the approach selected,
+build a system with a Polyglot Database, that means: much better select the better
+engine for any kind of data instead of trying to use the same for all.
+\intro
+And this approach joined with microservices architecture give us the first
+Conceptual design of our system, where each microservice have their domain work and their
+own data, using for their own database engine, and
+Until their own language is it will be required.
+\intro
+So, focused on this project, we are going to use mainly two systems, SQL
+relational database system in a service (we will talk more about it after),
+and a NoSQL service, in this case, Google Datastore, a fast and lightweight
+engine to mange an object oriented database.
+\intro
+At the moment of to write this chapter had been evaluated MongoDB as the best
+choice, but the facilities of the platform selected (detailed after) was made
+that the G. Datastore was selected finally. Beside of this if the project are
+rebuild now have not doubt, Mongo will be selected after the experience ( the
+reasons will be explained in more detail in the conclusion of the work).
+
+\subsection{Code strategy}
 
 Entire project will be stored in a single repository, using git as control
 versions system.
 
-\subsection{Version Control System}
+\subsubsection{Version Control System}
 
 Git\footnote{Git is a free and open source, distributed version control system
 created by Linus Torvalds} is the perfect tool to achieve maintain a more o
@@ -123,7 +264,7 @@ client-side and server-side. Client-side hooks are triggered by operations such
 as committing and merging, while server-side hooks run on network operations
 such as receiving pushed commits} between another.
 
-\subsection{Hub}
+\subsubsection{Hub}
 
 For another hand we have to do another choice, select the remote hub of our repositories
 or Git repository hosting service. The most popular for some years has been GitHub,
@@ -141,7 +282,7 @@ Sizov from Ukraine. The code is written in Ruby. Later, some parts have been
 rewritten in Go.} (with a big grow ultimately).
 
 
-\subsection{Develop workflow}
+\subsubsection{Develop workflow}
 
 Another of the main problem easy to find in the develop when are involved
 few people is the organization of the contribution of a repo, but if the project
@@ -182,7 +323,7 @@ when officially a new version of program will be launched.
 \noindent There are some variations of this standard workflow but for this kind of project
 is perfect.
 
-\section{Languages and frameworks}
+\subsection{Languages and frameworks}
 
 As has been said before, almost any kind of software can be builded at infinite
 ways, and this start with what language can do this. This means it could be
@@ -190,24 +331,19 @@ builded with Java, Ptyhon, C++, Go, Ruby, JavaScript, PHP,  (only talking about
 backend) and with another list to frontend, in this deep list of possibilities,
 we choose the most flexible and powerfull of all of them, Python and JavaScript.
 \intro
-Python because is one of hte most simplest and powerfull languages nowadays, and
+Python because is one of the most simplest and powerfull languages nowadays, and
 JavaScript because is all an standard in the industry. Obviously the choise is
 based also in the fact of both languages are really supported of community, have a
 good learning curve and a lot of projects and systems are based in them.
 \intro
 JavaScript has been selected becuase Angular is writte in it. AngularJS is the
 most powerfull framework nowdays to buil fas, clean and powerfull web apps.
-
-
-\subsection{Communications}
-
+\intro
 To exchange data between service we need to select a idiom which the services
 will talk, which them will exhange information. That's mean mainly select how
 will transform the objects anda data structures that servicres manage to be able
 sender across the net.
-
-\subsubsection{Data serialization format}
-
+\intro
 We have some data serialization solutions, some very popular and another most
 specific of very focused domains. So, the most commons are Json, Yaml,
 Bson and ultimately MessagePack. Each have their owns benefits and drawbacks but
@@ -295,33 +431,30 @@ Byte array is an efficient binary serialization format, like JSON but faster and
 
 \subsubsection{Protocol}
 
-Some introdfdsf dafdaf adsf ds fdsf da fadf dsdsfdsfdsf aad adsf ads adsf adsf afs
+Microservices must talk and can do this by differents ways. So, we are going to
+take a look over more interesting for us.
 \intro
-\noindent \textbf{APIRest}
-\intro
-Representational state transfer (REST) or RESTful Web services are one way of
-providing interoperability between computer systems on the Internet. REST-compliant
+The first that we are talking about is \textbf{REST}. Representational state transfer or
+RESTful Web services are one way of providing interoperability between computer systems on the Internet. REST-compliant
 Web services allow requesting systems to access and manipulate textual representations
 of Web resources using a uniform and predefined set of stateless operations. Other
 forms of Web service exist, which expose their own arbitrary sets of operations such as
 WSDL and SOAP
 \intro
-\noindent \textbf{RPC}
-\intro
-In distributed computing, a remote procedure call (RPC) is when a computer program
+On other hand we have \textbf{RPC}. In distributed computing, a remote procedure call  is when a computer program
 causes a procedure (subroutine) to execute in another address space (commonly on
 çanother computer on a shared network), which is coded as if it were a normal (local)
 procedure call, without the programmer explicitly coding the details for the remote interaction.
-
-
-\noindent \textbf{gRPC}
 \intro
-gRPC is an open source remote procedure call (RPC) system initially developed at Google. It uses HTTP/2 for transport, Protocol Buffers as the interface description language, and provides features such as authentication, bidirectional streaming and flow control, blocking or nonblocking bindings, and cancellation and timeouts. It generates cross-platform client and server bindings for many languages.
-
+And finally \textbf{gRPC} . It is an open source remote procedure call (RPC) system initially developed at
+Google. It uses HTTP/2 for transport, Protocol Buffers as the interface description
+language, and provides features such as authentication, bidirectional streaming and
+flow control, blocking or nonblocking bindings, and cancellation and timeouts.
+It generates cross-platform client and server bindings for many languages.
 We will talk a bit more about this in the Develop chapter.
 
 
-\subsection{Testing}
+\subsubsection{Testing}
 
 The tool that we will use for any testing involved in the backend of the project
 will be PyTest. Launched at 2004 by Holger Krenel is one of the most complete
@@ -335,73 +468,15 @@ libraries and auxiliary programs and testing the entire functionality of the ser
 when it has a role of black box.
 
 
-\subsection{Documentation}
+\subsubsection{Documentation}
 
 As is saided the tool Sphinx is used to build the doc of the service.
 That basically inspect the code files mixing this with all the files
 that we write (pure doc) to show this as a web based documetnation
 (easy to read and understand).
 
-\section{Storage}
 
-With the storage occurs the same, there is a huge list of options to
-choose. The fast answer in the most of the cases is: Why do not use a relational
-database, as MySQL for example? If we are thinking in a little system maybe a
-good choice, always that we data model is adjusted to this kind of system. But
-every people knows the deficits and the complexity of developing a system
-with this database. Mainly the performance when we are talking about million
-of arrays of objects stored. So, as we are talking before, our goal in this project
-is work with a lot of data, which apart are pure relational and another can be
-processed by another way.
-\intro
-If you have a logical data model like as this project have is not easy choice one
-of all database engine to model this. SQL systems is very powerful for some
-things but not for another (or not simply) and object oriented databases is
-really powerful and simple to develop with it when the data haven't a lot of
-relations (although can be modeled also).
-so, why choice one between them? Why do not both? This is the approach selected,
-build a system with a Polyglot Database, that means: much better select the better
-engine for any kind of data instead of trying to use the same for all.
-\intro
-And this approach joined with microservices architecture give as the first
-conceptually of our system, when each microservice of domain work with their
-data, using for this their own database engine, their own kind of data, and
-until their own language if is precise.
-\intro
-So, focused on this project, we are going to use mainly two systems, SQL
-relational database system in a service (we will talk more about it after),
-and a NoSQL service, in this case, Google Datastore, a fast and lightweight
-engine to mange an object oriented database.
-\intro
-At the moment of to write this chapter had been evaluated MongoDB as the best
-choice, but the facilities of the platform selected (detailed after) was made
-that the G. Datastore was selected finally. Beside of this if the project are
-rebuild now have not doubt, Mongo will be selected after the experience ( the
-reasons will be explained in more detail in the conclusion of the work).
-
-\subsection{Versions}
-
-Talking about Python has selected 2.7 version not for the best reasons.
-And is because the sandbox of Google App Engine do not allow another upper versions.
-\intro
-About Angular the selectioni Angular1.x. Seem a bit old, the new version 2.x
-is really popular now and the community is talking about the next two levels
-uppper version AngularJS 4.x.
-\intro
-The selection of the lower version is simple, a lot of interesting material
-about this, the most of problems that we can find already solved or with a lot
-of help and the maintenance.
-
-\subsection{Frameworks}
-
-\subsubsection{Flask}
-
-At the moment to write this work has been used it but exists another
-that are been used in another project that have more potentia because have
-better performance, as Falcon (betweern anothers).
-
-
-\section{Platforms}
+\subsection{Platforms}
 
 Today, with the explosion of the cloud is needed a lot of infrastructure that support
 all that all companies that want to migrate thier bunisses model to cloud need. the possiblite
@@ -458,7 +533,7 @@ data analytics and machine learning.
 \intro
 And is this which was selected.
 
-\section{Documentation}
+\subsection{Documentation}
 
 To do the documentation of the code as in the rest of sections, we have a few options
 to choose. So, as the backend is fully developed in Python we are going to use some python
@@ -469,7 +544,7 @@ For another hand, to the front, especially talking about Javascript with Angular
 we do not have the need to a doc because the docstrings have been sufficient,
 and neither have been found any really good tool as Sphinx for them.
 
-\section{License}
+\subsection{License}
 
 In this project, we are going to use GNU General Public License v3 (GPL-3)
 to license our code.

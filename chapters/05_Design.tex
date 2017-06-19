@@ -301,7 +301,7 @@ to this nothing of them need to know about another.
 \begin{figure}[H]
   \includegraphics[scale=0.35]{img/graphics/apigateway.png}
   \centering
-  \caption{Api Gateway service concept.}
+  \caption{API Gateway service concept.}
 \end{figure}
 
 \noindent As it can be seen in the figure above, at first it was designed with Google Cloud
@@ -318,9 +318,9 @@ simple and well know API Rest.
 This mService offers the managment of the teaching of the center.
 This means that persist in a relational database all relations between
 teachers, students, subjects, etc, and all resource availables to
-make this posible throuhg an api.
+make this posible throuhg an API.
 \intro
-This like the rest offers his resource throuhg an api writed in Flask
+This like the rest offers his resource throuhg an API writed in Flask
 (follow the same architecture that all).
 \intro
 The engine to save all these relations is MySQL, for many reasons,
@@ -341,13 +341,15 @@ service to the database access layer.
 \end{figure}
 
 
-\subsection{Api definition}
+\subsection{API definition}
 
 To get API definitions will be used  RAML\footnote{ RESTful API Modeling Language
 (RAML) was launched at 2013 and is YAML based language for describing RESTful APIs }.
 In spite of to be more powerful, it only will be used to do a good definition of the
 APIs independently of the technology with after it will be developed, understandable
 for any developer.
+\intro
+\textit{To see definition please see Appendix B.}
 \intro
 In this case, the API definition of this service is like this, and as we can see,
 is very easy to understand, and we only are going to use the most simple
@@ -374,176 +376,13 @@ The design follow some details that the domain presents, that is related
 
 
 \subsubsection{Data model}
-\begin{lstlisting}[language=python,frame=none]
-  CREATE TABLE student (
-    studentId       INT NOT NULL AUTO_INCREMENT,
-    name            CHAR(100) NOT NULL,
-    surname         CHAR(100) NOT NULL,
-    dni             INT,
-    email           CHAR(120),
-    address         CHAR(100),
-    locality        CHAR(50),
-    province        CHAR(50),
-    birthdate       DATE,
-    phone           CHAR(50),
-    profileImageUrl CHAR(200),
-    gender          CHAR(1),
 
-    #Metadata parameters
-    createdBy       INT,
-    createdAt       DATETIME,
-    modifiedBy      INT,
-    modifiedAt      DATETIME,
-    deletedBy       INT,
-    deletedAt       DATETIME,
-    deleted         BOOL,
-
-    PRIMARY KEY (studentId),
-    UNIQUE (dni, deleted)
-  );
-\end{lstlisting}
-
-\begin{lstlisting}[language=python,frame=none]
-  CREATE TABLE teacher (
-    teacherId       INT NOT NULL AUTO_INCREMENT,
-    name            CHAR(100) NOT NULL,
-    surname         CHAR(100) NOT NULL,
-    dni             INT,
-    email           CHAR(120),
-    address         CHAR(100),
-    locality        CHAR(50),
-    province        CHAR(50),
-    birthdate       DATE,
-    phone           CHAR(50),
-    profileImageUrl CHAR(200),
-    gender          CHAR(1)
-
-    #Metadata parameters
-    createdBy       INT,
-    createdAt       DATETIME,
-    modifiedBy      INT,
-    modifiedAt      DATETIME,
-    deletedBy       INT,
-    deletedAt       DATETIME,
-    deleted         BOOL,
-
-    PRIMARY KEY (teacherId),
-    UNIQUE (dni, deleted)
-  );
-\end{lstlisting}
-
-
-\begin{lstlisting}[language=python,frame=none]
-  CREATE TABLE subject (
-    subjectId   INT NOT NULL AUTO_INCREMENT,
-    name        CHAR(100) NOT NULL,
-    description CHAR(255),
-
-    #Metadata parameters
-    createdBy   INT,
-    createdAt   DATETIME,
-    modifiedBy  INT,
-    modifiedAt  DATETIME,
-    deletedBy   INT,
-    deletedAt   DATETIME,
-    deleted     BOOL,
-
-    PRIMARY KEY (subjectId),
-    UNIQUE (name, deleted)
-  );
-\end{lstlisting}
-
-\begin{lstlisting}[language=python,frame=none]
-  CREATE TABLE class (
-    classId    INT NOT NULL AUTO_INCREMENT,
-    course     INT(1) NOT NULL,
-    word       CHAR(10) NOT NULL,
-    level      CHAR(20) NOT NULL,
-    description CHAR(255),
-
-    #Metadata attributes
-    createdBy  INT,
-    createdAt  DATETIME,
-    modifiedBy INT,
-    modifiedAt DATETIME,
-    deletedBy  INT,
-    deletedAt  DATETIME,
-    deleted    BOOL,
-
-    PRIMARY KEY (classId),
-    UNIQUE (course, word, level, deleted)
-  );
-\end{lstlisting}
-
-\begin{lstlisting}[language=python,frame=none]
-  CREATE TABLE association (
-    associationId INT NOT NULL AUTO_INCREMENT,
-    classId       INT,
-    subjectId     INT,
-
-    #Metadata parameters
-    createdBy     INT,
-    createdAt     DATETIME,
-    modifiedBy    INT,
-    modifiedAt    DATETIME,
-    deletedBy     INT,
-    deletedAt     DATETIME,
-    deleted       BOOL,
-
-    FOREIGN KEY (subjectId) REFERENCES subject (subjectId),
-    FOREIGN KEY (classId) REFERENCES class (classId),
-    PRIMARY KEY (associationId),
-    UNIQUE (subjectId, classId, deleted)
-  );
-\end{lstlisting}
-
-\begin{lstlisting}[language=python,frame=none]
-CREATE TABLE impart (
-  impartId      INT NOT NULL AUTO_INCREMENT,
-  associationId INT,
-  teacherId     INT,
-
-  #Metadata parameters
-  createdBy     INT,
-  createdAt     DATETIME,
-  modifiedBy    INT,
-  modifiedAt    DATETIME,
-  deletedBy     INT,
-  deletedAt     DATETIME,
-  deleted       BOOL,
-
-  FOREIGN KEY (associationId) REFERENCES association (associationId),
-  FOREIGN KEY (teacherId) REFERENCES teacher (teacherId),
-  PRIMARY KEY (impartId),
-  UNIQUE (associationId, teacherId, deleted)
-);
-\end{lstlisting}
-
-\begin{lstlisting}[language=python,frame=none]
-CREATE TABLE enrollment (
-  enrollmentId  INT NOT NULL AUTO_INCREMENT,
-  studentId     INT,
-  associationId INT,
-
-  #Metadata parameters
-  createdBy     INT,
-  createdAt     DATETIME,
-  modifiedBy    INT,
-  modifiedAt    DATETIME,
-  deletedBy     INT,
-  deletedAt     DATETIME,
-  deleted       BOOL,
-
-  FOREIGN KEY (associationId) REFERENCES association (associationId),
-  FOREIGN KEY (studentId) REFERENCES student (studentId),
-  PRIMARY KEY (enrollmentId),
-  UNIQUE (studentId, associationId, deleted)
-);
-\end{lstlisting}
-
-
-
-
+Based on requirements and on the previous diagram desgined we need to define the
+model data of the database, the logical structures that will give shape to the
+objects that we will save with the restrictions and details required.
+This specifications is normally defined in SQL language.
+We can see this definition in the file \textit{DBCreator.sql} file in the project
+folder or a summary in the Appendix C.
 
 \subsection{Way to access to raw data}
 
@@ -558,9 +397,11 @@ technique for converting data between incompatible
 type systems using oriented objects pogramation to do this, as for example access
 to database systems}, the evolution of it and especially the problems
 found and the unmaintainability of code have made that now the approach
-turned to use a good tool as ORM like SQLAlchemy\footnote{}.
+turned to use a good tool as ORM like SQLAlchemy\footnote{SQLAlchemy is
+most popular Python SQL toolkit and Object Relational Mapper. The first
+release was launched at 2006.}.
 \intro
-The changes in the specifications of the api while the develop and
+The changes in the specifications of the API while the develop and
 the maintaince of the performance of the queries when is writed hand
 made in raw SQL isn't a good idea. Before the develop of this mService
 it easy to understand that only in few projects is justified the use
@@ -577,7 +418,7 @@ of raw sql sencences and drivers whiout ORM (by easy that it was).
   \caption{Students Control service parts.}
 \end{figure}
 
-\subsection{Api definition}
+\subsection{API definition}
 
 How was commented before, the design of the resources is based on getting an user
 interface with minimal requirements. So, there are a lot of ways to get a collection
@@ -592,8 +433,9 @@ So, to can offer by the user interface all data that it need,   is necessary to
 develop the fill of this data before to send. And all this complexity must be a
 backend issue, indecently of the request or the mechanism that this use.
 We can see an example of this in \textit{ac resource} when is called with
-\textit{GET} method.
-
+\textit{GET} method.\intro
+\textit{To see definition please see Appendix B.}
+\intro
 
 \subsubsection{Attendance Controls API Subsection}
 The sub API which we can manage all related with attendance controls, that are

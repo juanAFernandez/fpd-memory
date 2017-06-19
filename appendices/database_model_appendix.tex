@@ -1,0 +1,173 @@
+\section{\\Appendix C: Data base model}
+
+Definition of the datamodel of Teaching Data Base micro Service SQL
+database. This definition is an extrac of \textit{DBCreator.sql}
+project file.
+
+
+\begin{lstlisting}[language=python,frame=none]
+  CREATE TABLE student (
+    studentId       INT NOT NULL AUTO_INCREMENT,
+    name            CHAR(100) NOT NULL,
+    surname         CHAR(100) NOT NULL,
+    dni             INT,
+    email           CHAR(120),
+    address         CHAR(100),
+    locality        CHAR(50),
+    province        CHAR(50),
+    birthdate       DATE,
+    phone           CHAR(50),
+    profileImageUrl CHAR(200),
+    gender          CHAR(1),
+
+    #Metadata parameters
+    createdBy       INT,
+    createdAt       DATETIME,
+    modifiedBy      INT,
+    modifiedAt      DATETIME,
+    deletedBy       INT,
+    deletedAt       DATETIME,
+    deleted         BOOL,
+
+    PRIMARY KEY (studentId),
+    UNIQUE (dni, deleted)
+  );
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,frame=none]
+  CREATE TABLE teacher (
+    teacherId       INT NOT NULL AUTO_INCREMENT,
+    name            CHAR(100) NOT NULL,
+    surname         CHAR(100) NOT NULL,
+    dni             INT,
+    email           CHAR(120),
+    address         CHAR(100),
+    locality        CHAR(50),
+    province        CHAR(50),
+    birthdate       DATE,
+    phone           CHAR(50),
+    profileImageUrl CHAR(200),
+    gender          CHAR(1)
+
+    #Metadata parameters
+    createdBy       INT,
+    createdAt       DATETIME,
+    modifiedBy      INT,
+    modifiedAt      DATETIME,
+    deletedBy       INT,
+    deletedAt       DATETIME,
+    deleted         BOOL,
+
+    PRIMARY KEY (teacherId),
+    UNIQUE (dni, deleted)
+  );
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=python,frame=none]
+  CREATE TABLE subject (
+    subjectId   INT NOT NULL AUTO_INCREMENT,
+    name        CHAR(100) NOT NULL,
+    description CHAR(255),
+
+    #Metadata parameters
+    createdBy   INT,
+    createdAt   DATETIME,
+    modifiedBy  INT,
+    modifiedAt  DATETIME,
+    deletedBy   INT,
+    deletedAt   DATETIME,
+    deleted     BOOL,
+
+    PRIMARY KEY (subjectId),
+    UNIQUE (name, deleted)
+  );
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,frame=none]
+  CREATE TABLE class (
+    classId    INT NOT NULL AUTO_INCREMENT,
+    course     INT(1) NOT NULL,
+    word       CHAR(10) NOT NULL,
+    level      CHAR(20) NOT NULL,
+    description CHAR(255),
+
+    #Metadata attributes
+    createdBy  INT,
+    createdAt  DATETIME,
+    modifiedBy INT,
+    modifiedAt DATETIME,
+    deletedBy  INT,
+    deletedAt  DATETIME,
+    deleted    BOOL,
+
+    PRIMARY KEY (classId),
+    UNIQUE (course, word, level, deleted)
+  );
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,frame=none]
+  CREATE TABLE association (
+    associationId INT NOT NULL AUTO_INCREMENT,
+    classId       INT,
+    subjectId     INT,
+
+    #Metadata parameters
+    createdBy     INT,
+    createdAt     DATETIME,
+    modifiedBy    INT,
+    modifiedAt    DATETIME,
+    deletedBy     INT,
+    deletedAt     DATETIME,
+    deleted       BOOL,
+
+    FOREIGN KEY (subjectId) REFERENCES subject (subjectId),
+    FOREIGN KEY (classId) REFERENCES class (classId),
+    PRIMARY KEY (associationId),
+    UNIQUE (subjectId, classId, deleted)
+  );
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,frame=none]
+CREATE TABLE impart (
+  impartId      INT NOT NULL AUTO_INCREMENT,
+  associationId INT,
+  teacherId     INT,
+
+  #Metadata parameters
+  createdBy     INT,
+  createdAt     DATETIME,
+  modifiedBy    INT,
+  modifiedAt    DATETIME,
+  deletedBy     INT,
+  deletedAt     DATETIME,
+  deleted       BOOL,
+
+  FOREIGN KEY (associationId) REFERENCES association (associationId),
+  FOREIGN KEY (teacherId) REFERENCES teacher (teacherId),
+  PRIMARY KEY (impartId),
+  UNIQUE (associationId, teacherId, deleted)
+);
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,frame=none]
+CREATE TABLE enrollment (
+  enrollmentId  INT NOT NULL AUTO_INCREMENT,
+  studentId     INT,
+  associationId INT,
+
+  #Metadata parameters
+  createdBy     INT,
+  createdAt     DATETIME,
+  modifiedBy    INT,
+  modifiedAt    DATETIME,
+  deletedBy     INT,
+  deletedAt     DATETIME,
+  deleted       BOOL,
+
+  FOREIGN KEY (associationId) REFERENCES association (associationId),
+  FOREIGN KEY (studentId) REFERENCES student (studentId),
+  PRIMARY KEY (enrollmentId),
+  UNIQUE (studentId, associationId, deleted)
+);
+\end{lstlisting}
