@@ -1,9 +1,11 @@
 \chapter{APIs definitions}
 
 These are the RAML 0.8 API specifications files for the project services.
-This does not implement in any file, is only the formal way to give the behavior
+These do not implemented in any file, is only the formal way to give the behavior
 of the APIs between developers or customers. Each code block define an entire
 API or a segment of one.
+
+\section{Teaching Data Base microService API}
 
 \begin{lstlisting}[language=python,frame=none]
   #%RAML 0.8
@@ -174,7 +176,9 @@ API or a segment of one.
           description: Not found. Item does not exists.
 \end{lstlisting}
 
+\section{Students Control microService API}
 
+\subsection{Attendance Controls sub-API}
 
 \begin{lstlisting}[language=python,frame=none]
 
@@ -303,7 +307,7 @@ API or a segment of one.
 
 \end{lstlisting}
 
-
+\subsection{Disciplinary Notes sub-API}
 
 \begin{lstlisting}[language=python,frame=none]
 
@@ -422,11 +426,12 @@ API or a segment of one.
 
 \end{lstlisting}
 
+\subsection{Marks Subsection sub-API}
 
 \begin{lstlisting}[language=python,frame=none]
 
   #%RAML 0.8
-  title: Marks Subserction API
+  title: Marks sub-API
   version: 1.0
   baseUri: ---
   /mark:
@@ -529,10 +534,11 @@ API or a segment of one.
 
 \end{lstlisting}
 
+\section{Analysis microService API}
 
 \begin{lstlisting}[language=python,frame=none]
   #%RAML 0.8
-  title: Attendance Controls API
+  title: Analysis microService API
   version: 1.0
   baseUri: ---
   ams/{kind}/{entity_id}/trend:

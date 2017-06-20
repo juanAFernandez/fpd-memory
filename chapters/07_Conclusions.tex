@@ -179,10 +179,33 @@ have sporadic contributions,
 all is more difficult to follow. Other techniques can be used but SCRUM, eXPrograming
 or something like this not works fine to only one person.
 \intro
-So, independently, is a good point to start to practice. For another hand, is
-noticed that the sporadic contributions as in a Hackathon or in a simple day are
-difficult too because, as is normal, the people require a time to understand the
+So, independently, is a good point to start to practice. On other hand, is
+noticed that the sporadic contributions as in a hackathon\footnote{Is an event based on a sprint
+in which computer programmers and others are involved in the development of some software} or
+in a simple day are difficult too because, as is normal, the people require a time to understand the
 project, the technology and all related with it.
+\intro
+As we comment before if we does not have a good overview of the project to long-term
+and we not foresee the growth of it, we can get a point where the code is too big
+or messy that to require a big refactoring.
+This would make us lose a lot of time of development (that was not planned) and
+even though is better detect this early, it will be a problem.
+An example of this was the point of the development where was necessary to do a
+refactor. See chart bellow.
+
+\begin{figure}[H]
+  \includegraphics[scale=0.45]{img/graphics/repository_size.png}
+  \centering
+  \caption{Project size in lines and refactoring effect.}
+\end{figure}
+
+\noindent As we can see, we had services that not stop to grow despite the logic
+was not very complex. It was because it was used some technologies that after was
+discarded. And after, the weight of the services was reduced drastically (the rest
+of services was a normal grow), to something more normal, having less code to
+maintain, cleaning and documenting, doing a lot more of things that before the
+refactoring. We would like to remind a great book about refactoring, \cite{refactor}).
+
 
 \subsection{Opportunities}
 
