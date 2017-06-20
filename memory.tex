@@ -7,12 +7,15 @@
 
 \usepackage{natbib}
 
+
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 
 \usepackage{pifont} %For ding marks, http://willbenton.com/wb-images/pifont.pdf
 \usepackage{booktabs}
 \usepackage{xcolor}
+
+
 
 % \usepackage[style=list, number=none]{glossary} %
 %\usepackage{titlesec}
@@ -56,10 +59,15 @@
 % ********************************************************************
 % Re-usable information
 % ********************************************************************
-\newcommand{\myTitle}{Título del proyecto\xspace}
+\newcommand{\myTitle}{SMS: A processes acelerator for educational centers.}
+
 \newcommand{\myDegree}{Grado en ...\xspace}
-\newcommand{\myName}{Nombre Apllido1 Apellido2 (alumno)\xspace}
-\newcommand{\myProf}{Nombre Apllido1 Apellido2 (tutor1)\xspace}
+
+\newcommand{\myName}{Juan Antonio Fernández Sánchez}
+\newcommand{\myMentor}{Juan Julián Merelo Guervós}
+\newcommand{\myMentorStatus}{University professor of department of Architecture and technology of computers (ATC) of Granada University.}
+\newcommand{\myDate}{Granada, 30 June 2017}
+
 \newcommand{\myOtherProf}{Nombre Apllido1 Apellido2 (tutor2)\xspace}
 %\newcommand{\mySupervisor}{Put name here\xspace}
 \newcommand{\myFaculty}{Escuela Técnica Superior de Ingenierías Informática y de
@@ -89,7 +97,10 @@ pdfproducer = {pdflatex}
 %\usepackage{pdfpages}
 \usepackage{url}
 \usepackage{colortbl,longtable}
-\usepackage[stable]{footmisc}
+\usepackage[flushmargin]{footmisc}
+
+%\usepackage[hang,flushmargin]{footmisc}
+
 %\usepackage{index}
 
 %\makeindex
@@ -226,12 +237,7 @@ pdfproducer = {pdflatex}
 %
 \input{chapters/07_Conclusions}
 %
-%
-%%\nocite{*}
-\bibliography{bibliography/bibliography}
-\addcontentsline{toc}{chapter}{Bibliografía}
-\bibliographystyle{miunsrturl}
-%
+
 \appendix
 \newpage
 \input{appendices/user_stories_appendix}
@@ -239,6 +245,20 @@ pdfproducer = {pdflatex}
 \input{appendices/apis_definition_appendix}
 \newpage
 \input{appendices/database_model_appendix}
+
+
+
+
+\nocite{*}
+% Styles avalilables are in: /usr/share/texlive/texmf-dist/bibtex/bst/natbib
+% https://es.sharelatex.com/learn/Natbib_bibliography_styles
+\bibliographystyle{unsrtnat}
+\bibliography{bibliography/bibliography}
+
+\addcontentsline{toc}{chapter}{Bibliography}
+%\bibliographystyle{miunsrturl}
+%
+
 %%\input{apendices/paper/paper}
 %\input{glosario/entradas_glosario}
 % \addcontentsline{toc}{chapter}{Glosario}
