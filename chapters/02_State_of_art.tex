@@ -164,7 +164,7 @@ member of the Technology Advisory Board} and Martin Fowler\footnote{British soft
 author and international public speaker on software development, specializing in
 object-oriented analysis and design, UML, patterns, and agile software development
 methodologies, including extreme programming.} are the major defensor of this
-arquitecture and these brings us to the canonical definition of microservices:
+arquitecture and these brings us to the perfect definition of microservices:
 \bigskip
 
 \begin{minipage}{0.9\linewidth}
@@ -185,9 +185,8 @@ arquitecture and these brings us to the canonical definition of microservices:
     \end{minipage}
 
 To know more please see \cite{Fowler14Micro}.
-
-
-\noindent Language agnostic, scalable, size ajustables, independently, our system design
+\intro
+Language agnostic, scalable, size ajustables, independently, our system design
 splited in litle pieces with this boundaries do this architecture perfect for
 our goals, and this is why we take this choice.
 
@@ -281,7 +280,7 @@ launched at 2008},
 SourceForge and especially
 GitLab\footnote{launched at 2011, was written by Dmitriy Zaporozhets and Valery
 Sizov from Ukraine. The code is written in Ruby. Later, some parts have been
-rewritten in Go.} (with a big grow ultimately).
+rewritten in Go.} (with a big grow ultimately). \pagebreak
 
 
 \subsubsection{Develop workflow}
@@ -401,12 +400,14 @@ defined in RFC 7493, is not as popular as original. This is an example:
 Yet Another Markup Language is commonly used for configuration files, but could
 be used in transmision also, YAML 1.2 is a superset of JSON, whitch Latest release1.2
 (Third Edition) was published at (1 October 2009; 7 years ago), YAML was first
-proposed by Clark Evans in 2001.
+proposed by Clark Evans in 2001. This is an example:
 
 \begin{lstlisting}[frame=none,numbers=none]
   ---
-  invoice: 34843
-  date   : 2001-01-23
+  martin:
+      name: Martin D'vloper
+      job: Developer
+      skill: Elite
 \end{lstlisting}
 
 
@@ -420,7 +421,8 @@ ordered fields, and to be efficient for encoding and decoding within different l
 \intro
 \noindent \textbf{MessagePack}
 \intro
-Byte array is an efficient binary serialization format, like JSON but faster and smaller.
+Byte array is an efficient binary serialization format, like JSON but faster and smaller,
+this is an example:
 
 \begin{lstlisting}[frame=none,numbers=none]
 {"compact": true, "schema": 0}
@@ -429,7 +431,6 @@ Byte array is an efficient binary serialization format, like JSON but faster and
 82 A7 compact C3 A6 schema 00
 18bytes
 \end{lstlisting}
-\noindent And another aprox as zerorp, It builds on top of ZeroMQ and MessagePack
 
 \subsubsection{Protocol}
 
@@ -480,17 +481,35 @@ that we write (pure doc) to show this as a web based documetnation
 
 \subsection{Platforms}
 
-Today, with the explosion of the cloud is needed a lot of infrastructure that support
-all that all companies that want to migrate thier bunisses model to cloud need. the possiblite
-come from of the companies that offer solutions to do this, and another that after
-was introduced in the same bunisses.
-So, actually there are a lot of companies that offer some solutions to sofware (not necessary)
-companies to work with cloud to build their solutions and cloud computing easily.
+Today, with the explosion of the cloud is necessary a lot of infrastructures that support
+All that all companies that want to migrate their businesses model to cloud need.
+This is possible thanks to the companies that offer solutions to this, and another that after
+Was introduced to the same businesses offering software and hybrid solutions.
+Actually, there are a lot of companies that offer some solutions to software (not necessary)
+Companies to work with the cloud to build cloud-based solutions and cloud computing easily.
 \intro
-There are a lot but only few are the big in this busineess. And alwyas respond to some
-model IaaS (Infrastructure as a Service)
-AWS, G Computer Engine, Rackspace Cloud, vCloud PaaS (Platform as a Service)
-Google App Engine, Heroku, SaaS (Sofware as a Service) Google Docs, Salesforce, Dropbox, Gmail
+There are a lot of companies and solutions but only a few are relevant in this domain.
+Although the classifications always can change there are three kinds of service
+where each solution can be classified.
+\intro
+The first is \textbf{IaaS}(Infrastructure as a Service), that means the pure
+infrastructure, only servers, virtual machines in cloud data centers with some
+ management tools in the majority of the cases where all internal management of
+ this machines is work of the customer. Examples of these are
+Amazon Web Service, Google Computer Engine, Rackspace Cloud or vCloud.
+The second is
+\intro
+\textbf{PaaS} (Platform as a Service), where above of infrastructure was implemented
+services that abstract the management of the \textit{"metal"}. Normally services
+where the developers build the code and run this in some services. An example of more
+common is Google App Engine or Heroku.
+\intro
+The last one is \textbf{SaaS}(Sofware as a Service), in this case only is offered
+software solutions in line, which customers do not need worry about updates,
+installation or somethings like this. An example of this is famous Google Docs,
+Salesforce, Dropbox or the traditional email managers as Gmail. Almost any online
+service can be framed here.
+Let's take a look to more important nowadays.
 \intro
 \textbf{Amazon Web Services}
 \intro
@@ -501,7 +520,7 @@ Compute Cloud (EC2) and Amazon Simple Storage Service (S3)
 \intro
 is a cloud computing service created by Microsoft for building, testing, deploying,
 and managing applications and services through a global network of Microsoft-managed
-data centers. It provides software as a service (SAAS), platform as a service and
+data centers. It provides software as a service (SaaS), platform as a service and
 infrastructure as a service and supports many different programming languages,
 tools and frameworks, including both Microsoft-specific and third-party software and systems.
 Azure was announced in October 2008 and released on February 1, 2010 as Windows
@@ -509,22 +528,21 @@ Azure was announced in October 2008 and released on February 1, 2010 as Windows
 \intro
 \textbf{IBM BlueMix}
 \intro
-is another platform.
+A PaaS developed by \textit{IBM}. It supports a lot of languages and services. It is
+based on \textit{Cloud Foundry} open technology and runs on
+\textit{SoftLayer\footnote{A dedicated server, managed hosting, and cloud
+computing provider, founded in 2005 and acquired by IBM in 2013}} infrastructure.
+\\\\
 \intro
 \textbf{Heroku}
 \intro
-Is a cloud platform as a service (PaaS), founded by James Lindenbaum in 2007 at
- San Francisco, California, supporting several programming languages that is used
- as a web application deployment model.
- Heroku is said to be a polyglot platform as it lets the developer build,
- run and scale applications in a similar manner across all the languages.
- Heroku was acquired by Salesforce.com in 2010 for 212 million of dollards.
+Another PaaS, founded by James Lindenbaum in 2007 at
+San Francisco, California,is used as a web application deployment model.
+It was acquired by Salesforce.com in 2010.
 \intro
 \textbf{CloudFoundry}
-\intro Is an open source, multi cloud application platform as a service
-(PaaS) governed by the Cloud Foundry Foundation, a 501(c)(6) organization.
-The software was originally developed by VMware and then transferred to Pivotal Software,
-a joint venture by EMC, VMware and General Electric launched at 2011
+\intro Is an open source PAAS governed by the Cloud Foundry Foundation that
+was originally developed by VMware.
 \intro
 \textbf{Google Cloud Platform}
 \intro Is a suite of cloud computing services
@@ -533,7 +551,8 @@ products, such as Google Search and YouTube.Alongside a set of management tools,
 it provides, a series of modular cloud services including computing, data storage,
 data analytics and machine learning.
 \intro
-And is this which was selected.
+\textit{For all those services that offered and by some experience with it in
+some previous little project is because was selected.}
 
 \subsection{Documentation}
 
@@ -544,7 +563,7 @@ simple and powerful Python-based documentation generator.} has been selected.
 \intro
 For another hand, to the front, especially talking about Javascript with AngularJS
 we do not have the need to a doc because the docstrings have been sufficient,
-and neither have been found any really good tool as Sphinx for them.
+and neither have been found any really good tool as Sphinx for them. \pagebreak
 
 \subsection{License}
 
