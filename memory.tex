@@ -7,6 +7,8 @@
 
 \usepackage{natbib}
 
+% To hidde borders set [hidelinks]
+\usepackage[pdfborder={000}]{hyperref} %referencia
 
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -40,7 +42,7 @@
 
 \usepackage{fancybox}
 
-\usepackage[pdfborder={000}]{hyperref} %referencia
+
 
 
 \usepackage{indentfirst}
@@ -160,7 +162,7 @@ pdfproducer = {pdflatex}
      numberfirstline = false,
      breaklines=true,
    }
- 
+
 % minimizar fragmentado de listados
 \lstnewenvironment{listing}[1][]
    {\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
@@ -181,7 +183,7 @@ pdfproducer = {pdflatex}
 	numbers=left
    }
 
- 
+
 \lstdefinestyle{Consola}
    {basicstyle=\scriptsize\bf\ttfamily,
     backgroundcolor=\color{gray30},
@@ -253,12 +255,10 @@ pdfproducer = {pdflatex}
 % https://es.sharelatex.com/learn/Natbib_bibliography_styles
 \bibliographystyle{unsrtnat}
 \bibliography{bibliography/bibliography}
-
 \addcontentsline{toc}{chapter}{Bibliography}
-%\bibliographystyle{miunsrturl}
+
 %
 
-%%\input{apendices/paper/paper}
 %\input{glosario/entradas_glosario}
 % \addcontentsline{toc}{chapter}{Glosario}
 % \printglossary

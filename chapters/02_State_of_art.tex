@@ -1,4 +1,4 @@
-\chapter{State of Art and first decisions. }
+\chapter{State of Art and first decisions}
 
 In this chapter, we are going to talk about the state of art in two domains.
 On one side we have the analysis of the similar projects or applications that
@@ -17,7 +17,8 @@ First, we take a look at the main features that are important in our domain
 to see how many applications have covered them. These are a few requirements
 analysis but not very formal, we will discuss about this after.
 \intro
-In the following table, we are going to compare the rest of app with our idyllic
+\pagebreak
+\intro In the following table, we are going to compare the rest of app with our idyllic
 software (with the features we hope it will cover).
 
 \begin{table}[H]
@@ -59,6 +60,8 @@ is out of his work but we think is also very important).
 And of course, all related to interface and user experience, that in most of
 cases can represent the difference between the successful and failure of our
 project.
+\intro
+\pagebreak
 \intro
 So, based on it this is our comparative:
 
@@ -145,7 +148,7 @@ is their choice.
 Microservices are actually a variant of SOA\footnote{Service-oriented architecture (SOA)
 was first described by Gartner in 1996 and is a style of software design where
 services are provided to the other components by application components, through
-a communication protocol over a network},that simplify a lot the architecture
+a communication protocol over a network.},that simplify a lot the architecture
 of a software system spliting their different systems, doing that work together
 to offer the service which the software was design.
 Dr. Peter Rodgers introduced the term \textit{"Micro-Web-Services"} during a presentation
@@ -160,7 +163,7 @@ has never stopped growing.
 \end{figure}
 
 \noindent James Lewis\footnote{Principal Consultant at ThoughtWorks and
-member of the Technology Advisory Board} and Martin Fowler\footnote{Software developer,
+member of the Technology Advisory Board.} and Martin Fowler\footnote{Software developer,
 author and international public speaker on software development, specializing in
 object-oriented analysis and design, UML, patterns, and agile software development
 methodologies, including extreme programming.} are the major defensor of this
@@ -234,7 +237,8 @@ relational database system in a service (we will talk more about it after),
 and a NoSQL service, in this case, Google Datastore, a fast and lightweight
 engine to mange an object oriented database.
 \intro
-At the moment of to write this chapter had been evaluated MongoDB as the best
+\\
+At the moment to write this chapter had been evaluated MongoDB as the best
 choice, but the facilities of the platform selected (detailed after) was made
 that the G. Datastore was selected finally. Beside of this if the project are
 rebuild now have not doubt, Mongo will be selected after the experience ( the
@@ -248,7 +252,7 @@ versions system.
 \subsubsection{Version Control System}
 
 Git\footnote{Git is a free and open source, distributed version control system
-created by Linus Torvalds} is the perfect tool to achieve maintain a more o
+created by Linus Torvalds.} is the perfect tool to achieve maintain a more o
 less easy workflow between developers minimizing the risks, and the huge list of
 plugins to different software and IDEs do this perfect to work, dismissing another
 as Subversion, Mercurial, Fossil, or Bazzar.
@@ -263,7 +267,7 @@ separate.}, or Git Hooks\footnote{Git has a way to fire off custom scripts when
 certain important actions occur. There are two groups of these hooks:
 client-side and server-side. Client-side hooks are triggered by operations such
 as committing and merging, while server-side hooks run on network operations
-such as receiving pushed commits} between another.
+such as receiving pushed commits.} between another.
 
 \subsubsection{Hub}
 
@@ -276,7 +280,7 @@ launched at 2008
 but there are other options as Bitbucket\footnote{web-based hosting service
 that is owned by Atlassian, used for source code and development projects that
 use either Mercurial (since launch) or Git
-launched at 2008},
+launched at 2008.},
 SourceForge and especially
 GitLab\footnote{launched at 2011, was written by Dmitriy Zaporozhets and Valery
 Sizov from Ukraine. The code is written in Ruby. Later, some parts have been
@@ -377,7 +381,7 @@ two competing standards, RFC\footnote{ Request for Comments, is a type of
 publication from the Internet Engineering Task Force (IETF) and the Internet
 Society (ISOC), the principal technical development and standards-setting bodies
 for the Internet. were invented by Steve Crocker in 1969 to help record
-unofficial notes on the development of ARPANET} 7159 and ECMA\footnote{Ecma is a
+unofficial notes on the development of ARPANET.} 7159 and ECMA\footnote{Ecma is a
 standards organization for information and communication systems founded in 1961
 to standardize computer systems in Europe.}-404, defined it in 2013.
 The ECMA standard describes only the allowed syntax, whereas the RFC covers some
@@ -401,7 +405,7 @@ defined in RFC 7493, is not as popular as original.
 Is other Markup Language, commonly used for configuration files but that can
 be used in transmision also. Actually is a superset of JSON, whitch latest release
 1.2 was published in 2009 and was first proposed by Clark Evans in 2001.
-\\This is an example:
+This is an example:
 
 \begin{lstlisting}[frame=none,numbers=none]
   ---
@@ -495,7 +499,7 @@ There are a lot of companies and solutions but only a few are relevant in this d
 Although the classifications always can change there are three kinds of service
 where each solution can be classified.
 \intro
-The first is \textbf{IaaS}(Infrastructure as a Service), that means the pure
+The first is \textbf{IaaS} (Infrastructure as a Service), that means the pure
 infrastructure, only servers, virtual machines in cloud data centers with some
  management tools in the majority of the cases where all internal management of
  this machines is work of the customer. Examples of these are
@@ -507,7 +511,7 @@ services that abstract the management of the \textit{"metal"}. Normally services
 where the developers build the code and run this in some services. An example of more
 common is Google App Engine or Heroku.
 \intro
-The last one is \textbf{SaaS}(Sofware as a Service), in this case only is offered
+The last one is \textbf{SaaS} (Software as a Service), in this case only is offered
 software solutions in line, which customers do not need worry about updates,
 installation or somethings like this. An example of this is famous Google Docs,
 Salesforce, Dropbox or the traditional email managers as Gmail. Almost any online
@@ -521,21 +525,21 @@ Compute Cloud (EC2) and Amazon Simple Storage Service (S3).
 \intro
 \textbf{Microsoft Azure}
 \intro
-is a cloud computing service created by Microsoft for building, testing, deploying,
+Is a cloud computing service created by Microsoft for building, testing, deploying,
 and managing applications and services through a global network of Microsoft-managed
 data centers. It provides software as a service (SaaS), platform as a service and
 infrastructure as a service and supports many different programming languages,
 tools and frameworks, including both Microsoft-specific and third-party software and systems.
-Azure was announced in October 2008 and released on February 1, 2010 as Windows
-Azure, before being renamed to Microsoft Azure on March 25, 2014.
+Azure was announced in  2008 and released in 2010 as Windows Azure,
+before being renamed to Microsoft Azure in 2014.
 \pagebreak
+\intro
 \textbf{IBM BlueMix}
 \intro
 A PaaS developed by \textit{IBM}. It supports a lot of languages and services. It is
 based on \textit{Cloud Foundry} open technology and runs on
 \textit{SoftLayer\footnote{A dedicated server, managed hosting, and cloud
 computing provider, founded in 2005 and acquired by IBM in 2013.}} infrastructure.
-\\\\
 \intro
 \textbf{Heroku}
 \intro
@@ -589,3 +593,14 @@ this is a little summary of this:
   \end{tabular}
   \caption{License characteristics summary.}
 \end{table}
+
+\noindent Although this is one of the most famous, there are a lot of open source
+licenses. If we want to know how many projects are licensed with which licenses
+there are some research about it. As for example, the made by \textit{Black Duck
+(blackducksoftware.com)} that looking at more of 9000 forges and repositories have
+calculated these use percentages:  \textbf{MIT}\footnote{A permissive free software
+license originating at the Massachusetts Institute of Technology (MIT).} (32\%), GNU 2.0 (18\%),
+\textbf{Apache}\footnote{A permissive free software license written by the Apache
+Software Foundation (ASF).} 2.0 (14\%), GNU 3.0	(7\%) and \textbf{BSD}\footnote{A
+family of permissive free software licenses by the Berkeley Software Distribution (BSD),
+a Unix-like operating system.} 2.0 (6\%).
