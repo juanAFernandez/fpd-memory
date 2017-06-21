@@ -10,7 +10,7 @@ to solve this, it would be the state of art to the implementation.
 
 The developing of a new complete system have no sense if before have not been
 analyzed other existent solutions. As part of the research process has been
-analyzed some applications that (although is not a direct competition) represent
+analyzed some applications that (although are not a direct competence) represent
 the actual state of the art about the kind of software we are talking about.
 \intro
 First, we take a look at the main features that are important in our domain
@@ -148,10 +148,10 @@ services are provided to the other components by application components, through
 a communication protocol over a network},that simplify a lot the architecture
 of a software system spliting their different systems, doing that work together
 to offer the service which the software was design.
-Dr. Peter Rodgers introduced the term "Micro-Web-Services" during a presentation
-at Cloud Computing Expo in 2005 and as we can see in the following graphic (extracted
-using sotagtrends.com) community interest about this emerging technology
-has never stopped growing,
+Dr. Peter Rodgers introduced the term \textit{"Micro-Web-Services"} during a presentation
+at textit{Cloud Computing Expo} in 2005 and as we can see in the following graphic (extracted
+using \textit{sotagtrends.com}), the interest of the community about this emerging technology
+has never stopped growing.
 
 \begin{figure}[H]
   \includegraphics[scale=0.5]{img/graphics/microservices_trend.png}
@@ -160,7 +160,7 @@ has never stopped growing,
 \end{figure}
 
 \noindent James Lewis\footnote{Principal Consultant at ThoughtWorks and
-member of the Technology Advisory Board} and Martin Fowler\footnote{British software developer,
+member of the Technology Advisory Board} and Martin Fowler\footnote{Software developer,
 author and international public speaker on software development, specializing in
 object-oriented analysis and design, UML, patterns, and agile software development
 methodologies, including extreme programming.} are the major defensor of this
@@ -186,13 +186,13 @@ arquitecture and these brings us to the perfect definition of microservices:
 
 To know more please see \cite{Fowler14Micro}.
 \intro
-Language agnostic, scalable, size ajustables, independently, our system design
-splited in litle pieces with this boundaries do this architecture perfect for
+Language agnostics, scalables, adjustables size, independent. our system design
+splited in litle pieces with this boundaries make this architecture perfect for
 our goals, and this is why we take this choice.
 
 \subsubsection{Why polyglot database?}
 
-With mircroservices approach the system will need differents databases to do
+With mircroservices-based approach the system will need differents databases to do
 some diferent things. In general we can see our
 backend like a black box when the data persists in a polyglot database.
 That means that the data is saved in differents ways, using different
@@ -326,28 +326,28 @@ is perfect.
 
 \subsection{Languages and frameworks}
 
-As has been said before, almost any kind of software can be builded at infinite
+As has been said before, almost any kind of software can be built at infinite
 ways, and this start with what language can do this. This means it could be
-builded with Java, Ptyhon, C++, Go, Ruby, JavaScript, PHP,  (only talking about
-backend) and with another list to frontend, in this deep list of possibilities,
-we choose the most flexible and powerfull of all of them, Python and JavaScript.
+built with Java, Python, C++, Go, Ruby, JavaScript, PHP,  (only talking about
+backend) and with another list to the frontend, in this deep list of possibilities,
+we choose the most flexible and powerful of all of them, Python and JavaScript.
 \intro
-Python because is one of the most simplest and powerfull languages nowadays, and
-JavaScript because is all an standard in the industry. Obviously the choise is
-based also in the fact of both languages are really supported of community, have a
-good learning curve and a lot of projects and systems are based in them.
+Python because is one of the most simplest and powerful languages nowadays, and
+JavaScript because is all a standard in the industry. Obviously, the choice is
+based also on the fact of both languages are really supported by the community, have a
+good learning curve and a lot of projects and systems are based on them.
 \intro
-JavaScript has been selected becuase Angular is writte in it. AngularJS is the
-most powerfull framework nowdays to buil fas, clean and powerfull web apps.
+JavaScript has been selected because Angular is written in it. AngularJS is the
+most powerful framework nowadays to build fast, clean and powerful web apps.
 \intro
-To exchange data between service we need to select a idiom which the services
-will talk, which them will exhange information. That's mean mainly select how
-will transform the objects anda data structures that servicres manage to be able
+To exchange data between service we need to select an idiom which the services
+will talk, which they will exchange information. That's mean mainly select how
+will transform the objects and data structures that services will manage to be able
 sender across the net.
 \intro
 We have some data serialization solutions, some very popular and another most
-specific of very focused domains. So, the most commons are Json, Yaml,
-Bson and ultimately MessagePack. Each have their owns benefits and drawbacks but
+specific of very focused domains. So, the most commons are JSON, YAML,
+BSON and ultimately MessagePack. Each one has their owns benefits and drawbacks but
 the selection has been easy, JSON.
 \intro
 \textbf{XML}
@@ -371,8 +371,8 @@ in the development of standards for the World Wide Web.} This is an example:
 \noindent \textbf{JSON}
 \intro
 JavaScript Object Notation, is an open-standard file format that uses
-human-readable text to transmit data objects consisting of attribute–value pairs
-Douglas Crockford originally specified the JSON format in the early 2000s;
+human-readable text to transmit data objects based of attribute–value pairs.
+Douglas Crockford originally specified the JSON format in the early 2000s
 two competing standards, RFC\footnote{ Request for Comments, is a type of
 publication from the Internet Engineering Task Force (IETF) and the Internet
 Society (ISOC), the principal technical development and standards-setting bodies
@@ -383,8 +383,9 @@ to standardize computer systems in Europe.}-404, defined it in 2013.
 The ECMA standard describes only the allowed syntax, whereas the RFC covers some
  security and interoperability considerations.
 \intro
-In spite of A restricted profile of JSON, known as I-JSON (short for "Internet JSON"),
-defined in RFC 7493, is not as popular as original. This is an example:
+In spite of exists a restricted version of JSON, known as I-JSON (short for "Internet JSON"),
+defined in RFC 7493, is not as popular as original.
+\\This is an example:
 
 \begin{lstlisting}[frame=none,numbers=none]
   {
@@ -397,10 +398,10 @@ defined in RFC 7493, is not as popular as original. This is an example:
 
 \noindent \textbf{YAML}
 \intro
-Yet Another Markup Language is commonly used for configuration files, but could
-be used in transmision also, YAML 1.2 is a superset of JSON, whitch Latest release1.2
-(Third Edition) was published at (1 October 2009; 7 years ago), YAML was first
-proposed by Clark Evans in 2001. This is an example:
+Is other Markup Language, commonly used for configuration files but that can
+be used in transmision also. Actually is a superset of JSON, whitch latest release
+1.2 was published in 2009 and was first proposed by Clark Evans in 2001.
+\\This is an example:
 
 \begin{lstlisting}[frame=none,numbers=none]
   ---
@@ -421,8 +422,7 @@ ordered fields, and to be efficient for encoding and decoding within different l
 \intro
 \noindent \textbf{MessagePack}
 \intro
-Byte array is an efficient binary serialization format, like JSON but faster and smaller,
-this is an example:
+Byte array is an efficient binary serialization format, like JSON but faster and smaller and this is an example:
 
 \begin{lstlisting}[frame=none,numbers=none]
 {"compact": true, "schema": 0}
@@ -431,6 +431,10 @@ this is an example:
 82 A7 compact C3 A6 schema 00
 18bytes
 \end{lstlisting}
+
+\noindent This has several properties really interesting to change in the future
+our architecture if will be precise by performance problems (almost all related to internal communications).
+See this, \cite{comparision}, interesting benchmark about it.
 
 \subsubsection{Protocol}
 
@@ -450,9 +454,8 @@ causes a procedure (subroutine) to execute in another address space (commonly on
 procedure call, without the programmer explicitly coding the details for the remote interaction.
 \intro
 And finally \textbf{gRPC} . It is an open source remote procedure call (RPC) system initially developed at
-Google. It uses HTTP/2 for transport, Protocol Buffers as the interface description
-language, and provides features such as authentication, bidirectional streaming and
-flow control, blocking or nonblocking bindings, and cancellation and timeouts.
+Google. It uses HTTP/2 for transport and provides features such as authentication, bidirectional streaming and
+flow control.
 It generates cross-platform client and server bindings for many languages.
 We will talk a bit more about this in the Develop chapter.
 
@@ -514,7 +517,7 @@ Let's take a look to more important nowadays.
 \textbf{Amazon Web Services}
 \intro
 Launched at 2006 The most popular include Amazon Elastic
-Compute Cloud (EC2) and Amazon Simple Storage Service (S3)
+Compute Cloud (EC2) and Amazon Simple Storage Service (S3).
 \intro
 \textbf{Microsoft Azure}
 \intro
@@ -524,14 +527,14 @@ data centers. It provides software as a service (SaaS), platform as a service an
 infrastructure as a service and supports many different programming languages,
 tools and frameworks, including both Microsoft-specific and third-party software and systems.
 Azure was announced in October 2008 and released on February 1, 2010 as Windows
- Azure, before being renamed to Microsoft Azure on March 25, 2014.
-\intro
+Azure, before being renamed to Microsoft Azure on March 25, 2014.
+\pagebreak
 \textbf{IBM BlueMix}
 \intro
 A PaaS developed by \textit{IBM}. It supports a lot of languages and services. It is
 based on \textit{Cloud Foundry} open technology and runs on
 \textit{SoftLayer\footnote{A dedicated server, managed hosting, and cloud
-computing provider, founded in 2005 and acquired by IBM in 2013}} infrastructure.
+computing provider, founded in 2005 and acquired by IBM in 2013.}} infrastructure.
 \\\\
 \intro
 \textbf{Heroku}

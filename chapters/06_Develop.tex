@@ -116,10 +116,10 @@ def get_students():
     return students_list
 \end{lstlisting}
 
-\noindent The reasons to select Flask insetead of it?
+\noindent The reasons to select Flask instead of it?
 Is not necessary define the schema of the objects, this is sufficient reason
-to dismiss their use, but sound enough nice to considere to another
-applications in the future (as almos any technology researched).
+to dismiss their use, but sound enough nice to consider to another
+applications in the future (as almost any technology researched).
 
 
 \subsection{As a simple dispatcher}
@@ -152,7 +152,7 @@ exactly the same response from the service.
 \noindent And the next natural step will be built a library that works as a general
 customer of any service in the system, to be used in any place where be needed
 make a call to any service. This will to work loading dynamically at execution
-time the api of each service to know what resources are available and turned
+time the API of each service to know what resources are available and turned
 this as Python methods.
 
 
@@ -181,7 +181,7 @@ explain the more sensible parts and problem detected, to avoid extend too much t
 
 \subsection{Optional subjects, the ``class'' Table.}
 
-In the domain of the problem can be exists optative subjects and is
+In the domain of the problem can be exists optional subjects and is
 needed search a way to implement this because has a specific details
 that aren't like the rest.
 \intro
@@ -194,7 +194,7 @@ as \textit{"rare subjects"} but in other cases this are only normal subjects
 but that in this course are offer like optional.
 \intro
 A simple example of this is French subject, it in some courses like
-3ESO and 4ESO is obligatory but it in Bachiller (the upper level)
+3ESO and 4ESO is obligatory but it in \textit{"Bachillerato"} (Spanish high upper level, something as Bachelor)
 is optional because the students can be select if they want make the
 final exam with this second language or select another like English
 or Greek or Latin p.e.
@@ -202,21 +202,21 @@ or Greek or Latin p.e.
 To obtain this we decide develop a simple solution without change
 the original database logic schema. So, how we have an entity that
 save the classes and it have three attributes, course, word and level
-mainly we going to add three more to this special cases, optative,
-groupNumber and subgroupNumber. Like this special cases haven't word
-param when they have value word don't have and when the item have
+mainly we going to add three more to this special cases, optional,
+groupNumber and subgroupNumber. Like this special cases have not word
+parameter when they have value word do not have and when the item have
 word (A, B, C...) then don't have this special attributes.
 \intro
 Maybe this don't be the best solution, but is a simple in the point
 of develop.
 Obviously like we can't have two autoincrement values in the same
-table definition in MySQL we will need control this programatically,
+table definition in MySQL we will need control this programmatically,
 but is something that we can assume to get our goal easily.But we found a problem.
 \intro
 The same advantage that offer \textit{UNIQUE} to deleted cases now is problematic
-here. While there works fine because this clausulo does not include to items that
+here. While there works fine because this clause does not include to items that
 have fields to null and allow to exists without conflict in this case if we saved
-a optative group obviously would to be \textit{"WORD"} field to null, and if we
+a optional group obviously would to be \textit{"WORD"} field to null, and if we
 do this we can have two groups exactly equals, for example:
 
 \begin{lstlisting}[language=python,frame=none]
@@ -224,24 +224,24 @@ do this we can have two groups exactly equals, for example:
 1 <null> ESO 1 1 1 0
 \end{lstlisting}
 
-\noindent This could happens wihtout conflict, and this should be impossible.
+\noindent This could happens without conflict, and this should be impossible.
 For this reason we decide to use the same field \textit{WORD}, with a special
 naming, because this never will be used by general groups, that help us to
-specify that the group at issue is an optative and also specify the group
+specify that the group at issue is an optional and also specify the group
 and subgroup.
 \intro
-This is someting like this: OPT\_n\_m
+This is something like this: OPT\_n\_m
 Where \textit{n} will be the group number (must be increased handmade) and \textit{m}
 the number of the subgroup (also increased handmade).
 Obviously this is only a simple approach to a first solution, will be improved
-in next iteration of the service, and we always follow the same philosy,
-we prefer explicit way to do something ar implicit, more understandable by
+in next iteration of the service, and we always follow the same philosophy,
+we prefer explicit way to do something to implicit, more understandable by
 any new developer.
 \intro
 This way to solve this problem with MySQL engine presents some problems.
-As all is managerd by mysql but there are not way to do this automatically
-with the own mechanism of myql is necesary to create some distpacher to the
-inserction and the deletion to maintain the consistency. When a new optative group
+As all is managed by MySQL but there are not way to do this automatically
+with the own mechanism of MySQL is necessary to create some dispatcher to the
+insertion and the deletion to maintain the consistency. When a new optional group
 is introduced must be checked that exist the previous (group and subgroup, can not
 exists group 4 if 3 does not exists), and the same way should not be possible
 delete the group 4 if the number 3 exists yet.
@@ -251,7 +251,7 @@ can be relegated to UI, because although there is not allowed by the logic
 of interaction from the API must not be allowed neither, to prevent
 inconsistencies malicious induced.
 \intro
-Becuse of this not only the security, also the consistency must be ensured in
+Because of this not only the security, also the consistency must be ensured in
 any action that user can do.
 
 
@@ -262,8 +262,8 @@ difference that they use the Cloud Datastore. In general terms, this service fol
 the same philosophy of the rest, with the difference that they use the Cloud Datastore.
 That only means that the library of access to raw data is different and instead of
 wrap the SQL language as in the last, here we wrap the access to a library designed
-by the Cloud Datastore service called \textbf{ndb}, designed by the same Guido Van
-Rosum (in the time when worked at Google).
+by the Cloud Datastore service called \textbf{ndb}, designed by the same \textit{Guido Van
+Rossum}\footnote{Dutch programmer, author of the Python programming language.} (in the time when worked at Google).
 \intro
 Most characteristic here is that we need to define the form of the data that we
 want to save (this is a heavy reason to do not use again this system, we will
@@ -294,7 +294,7 @@ class which ndb can manage it.
       deleted = ndb.BooleanProperty(default=False)
 \end{lstlisting}
 
-\noindent And using this denition is builded a wraper to interact, this is
+\noindent And using this definition is build a wrapper to interact, this is
 an example of this same section:
 
 \begin{lstlisting}[language=python, frame=none]
@@ -430,7 +430,7 @@ function loadData() {
 ...
 \end{lstlisting}
 
-\noindent So, this behaviour is replied in all places where this kind of interaction appears.
+\noindent So, this behavior is replied in all places where this kind of interaction appears.
 \intro
 Another important thing to design is the interaction between the differents parts
 of the interface. The menus, buttons and the flow among these can be the difference
@@ -500,7 +500,7 @@ the same philosophy.
 \end{figure}
 
 \noindent Aso, for example, updating a teacher profile (note that this is
-the spanish version).
+the Spanish version).
 
 \begin{figure}[H]
 \centering

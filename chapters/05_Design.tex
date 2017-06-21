@@ -7,7 +7,7 @@ how to delimit their behavior and communications with each other, by after,
 take a look to each one to know how to work in each domain and how have been solved all problems
 that this design present.
 
-\section{Responsabilites distribution}
+\section{Responsibilities distribution}
 
 At the moment that we decided split the functionality of the system between
 services we found the problem that how to decide which is the domain
@@ -15,7 +15,7 @@ services we found the problem that how to decide which is the domain
 At the moment that we decided split the functionality of the system between
 services, we found the problem that how to choose which is the domain of each one.
 In the majority of the cases, we are beginning from a monolithic system that we
-want split, in this instance, is some like this but at first, it was thought to be splited.
+want split, in this instance, is some like this but at first, it was thought to be splitted.
 \intro
 In a common app (whatever kind of it) we have three well-defined layers, user
 interface, logic and storage, something as common MVC\footnote{Model–view–controller
@@ -23,7 +23,7 @@ interface, logic and storage, something as common MVC\footnote{Model–view–co
 computers. It divides a given application into three interconnected parts in
 order to separate internal representations of information from the ways that
 information is presented to and accepted from the user, user interfaces pattern,
-introduced by Trygve Reenskaug into Smalltalk-76 at Palo Alto Research Center in the 1970s}
+introduced by \textit{Trygve Reenskaug} into Smalltalk-76 at Palo Alto Research Center in the 1970s}
 A part of user interface make the necessary to present the info and offer the
 way to interact with this to the user while the logic layer do this possible
 doing the logic steps to work with data structures saved in some kind of storage.
@@ -83,8 +83,8 @@ and give back the info.
 For another and, we need cover all requirements specified,
 and to achieve this we are going to design three services that split all logic
 issues, it will be \textbf{Teaching Database microService}, \textbf{Students Control}
-and \textbf{Analysis microService}. All toguether compose the backend of the app,
-toguether with other service that will enlarge the functionality of our project
+and \textbf{Analysis microService}. All together compose the backend of the app,
+together with other service that will enlarge the functionality of our project
 in the future.
 \intro
 So, as a big picture, the backend of our service would look like this, some
@@ -129,7 +129,7 @@ do not try it in local, at least for now but is sure that will be solved).
 one offered), and the drawbacks of AWS for this kind of "amateur" project was too.
 \intro
 Come back to GAE, the deploy must be different because there are not docker
-container, we only have speciall sandbox to run our code with some special
+container, we only have special sandbox to run our code with some special
 characteristics (as wee commented before). But, the architecture does not vary
 significantly between both architectures, as could not have been otherwise.
 If this not so, microservices and their platform independence would not have sense.
@@ -151,7 +151,7 @@ You can see the distribution in the next picture.
 
 \subsection{Be more realistic}
 
-As is esay to imagine, is needed a lot of services to complete all requirements
+As is easy to imagine, is needed a lot of services to complete all requirements
 of the project, and presented here is only the most important because define the
 core of app and their structure but of course are necessary a lot more.
 Only thinking about security and authentication is easy to see that is necessary
@@ -184,7 +184,7 @@ all technologies related.
   \caption{Final snap of the distribution of the services with their technologies.}
 \end{figure}
 
-\noindent And will be our roadmap to follow, without any service needed to obtain a pre-alfa
+\noindent And will be our road map to follow, without any service needed to obtain a pre-alfa
 product version that satisfy minimum requirements at this point.
 
 
@@ -239,7 +239,7 @@ Class & Meaning\\
 
 \section{Pesistence Strategy}
 
-When we are talking aobut persitency that meaning how the data that change
+When we are talking about persistence that meaning how the data that change
 their state in the database is manage. Obviously we are talking of the changes
 between created, deleted and the between states.
 \intro
@@ -254,20 +254,20 @@ Is been identified three ways to do this:
 \item \textbf{Half persistence}
       \intro
       When a data is logically erased, the data remain in the database but will never
-      accesible by the user. In this case is isseful if we want develop some mechanism
-      to redo acctions, in this case only deletion actions.
+      accessible by the user. In this case is useful if we want develop some mechanism
+      to redo actions, in this case only deletion actions.
       \intro
 \item \textbf{Complete persistence}
       \intro
       When not only the elements erased can be restored, all items can be restored in
-      any point of the hisory of the system. This is the more complex mechanism to persistence
-      but also the most powerfull and usseful for the users, because as in a simple
-      text editor allow do an infinite redo over acctions realized.
+      any point of the history of the system. This is the more complex mechanism to persistence
+      but also the most powerful and useful for the users, because as in a simple
+      text editor allow do an infinite redo over actions realized.
 
 \end{itemize}
 
 \noindent Afte study all options have been decided use the second approach, and to achieve
-this is necessary get some kind of metadata pluged to our objects stored in databases
+this is necessary get some kind of metadata plugged to our objects stored in databases
 to control their state in all moment.
 To do this has been designed this metadada pattern for all objects saved in any
 service or database:
@@ -287,7 +287,7 @@ service or database:
 With it we get a simple way to save logically deleted items, that allow us
 develop a simple way to recovery this if user want, and not only this, also
 a system to know who do the actions, who save, delete or update an item and
-also when, a lot of data very usefull in many ways.
+also when, a lot of data very useful in many ways.
 
 
 \section{API Gateway microService}
@@ -326,12 +326,12 @@ This like the rest offers his resource throuhg an API writed in Flask
 The engine to save all these relations is MySQL, for many reasons,
 mainly because is the best known engine and in which it has some experience
 and also because GCP offers as a cloud product Google Cloud SQL Databases.
-Until recently only offerts MySQL but now (since March of 2017) they
+Until recently only offers MySQL but now (since March of 2017) they
 offer also PostgreSQL.
 \intro
 In the old version it was a little ORM that offers simple methods
-to access data transform this in SQL raw sencentes. Now this library
-is only a wraper of the SQLAlchemy to keep apart the apirest of the
+to access data transform this in SQL raw sentences. Now this library
+is only a wrapper of the SQLAlchemy to keep apart the APIrest of the
 service to the database access layer.
 
 \begin{figure}[H]
@@ -354,7 +354,7 @@ for any developer.
 In this case, the API definition of this service is like this, and as we can see,
 is very easy to understand, and we only are going to use the most simple
 version of this definition standard, there a lot of other things that we can
-express, but is not necesary as first approach.
+express, but is not necessary as first approach.
 
 
 
@@ -362,7 +362,7 @@ express, but is not necesary as first approach.
 
 \subsection{Database logical design}
 
-Based on user histories and the domain of the problem the designe
+Based on user histories and the domain of the problem the design
 done based of this entity relation diagram:
 \intro
 The design follow some details that the domain presents, that is related
@@ -377,7 +377,7 @@ The design follow some details that the domain presents, that is related
 
 \subsubsection{Data model}
 
-Based on requirements and on the previous diagram desgined we need to define the
+Based on requirements and on the previous diagram designed we need to define the
 model data of the database, the logical structures that will give shape to the
 objects that we will save with the restrictions and details required.
 This specifications is normally defined in SQL language.
@@ -386,15 +386,15 @@ folder or a summary in the Appendix C.
 
 \subsection{Way to access to raw data}
 
-While at firs of develop the mainly strategie to follow was write
-all by cero, finally the point of view has been changed to follow
+While at firs of develop the mainly strategy to follow was write
+all by zero, finally the point of view has been changed to follow
 the use of standard tools and avoid reinvent the wheel.
 \intro
-So, if in the first stages of the project the acces to raw data through
+So, if in the first stages of the project the access to raw data through
 the engine was hand made, using an own simple library that worked
 like as a simple ORM\footnote{Object-relational mapping or \textbf{ORM} is a
 technique for converting data between incompatible
-type systems using oriented objects pogramation to do this, as for example access
+type systems using oriented objects programmation to do this, as for example access
 to database systems}, the evolution of it and especially the problems
 found and the unmaintainability of code have made that now the approach
 turned to use a good tool as ORM like SQLAlchemy\footnote{SQLAlchemy is
@@ -402,10 +402,10 @@ most popular Python SQL toolkit and Object Relational Mapper. The first
 release was launched at 2006.}.
 \intro
 The changes in the specifications of the API while the develop and
-the maintaince of the performance of the queries when is writed hand
-made in raw SQL isn't a good idea. Before the develop of this mService
+the maintenance of the performance of the queries when is written hand
+made in raw SQL is not a good idea. After the develop of this mService
 it easy to understand that only in few projects is justified the use
-of raw sql sencences and drivers whiout ORM (by easy that it was).
+of raw SQL sentences and drivers without ORM (by easy that it was).
 
 
 \section{Students Control microService}
@@ -479,7 +479,7 @@ The design follows bellow schema.
 
 \subsubsection{About design}
 
-All the designe of the app is based of Java Script files. And the structure will
+All the design of the app is based of Java Script files. And the structure will
 be this,  a section o Students Control where will placed all sections related,
 as Attendance Controls, Discipline, and Marks section and another section, the
 biggest, with all related with the teaching as can be all sections that the domain
@@ -487,12 +487,12 @@ has, teachers, students, subjects, classes, and the rest of items related.
 \intro
 The most of the parts need the same javascript files, controllers to define the
 logic and services to interact with the server. Moreover as the idea is work as
-each logical part as independly modules they will be built as modules as well.
+each logical part as independently modules they will be built as modules as well.
 \intro
 This is the wireframes that give an approach of the design that we want for
 our interface. There are a lot of parts, sections and detail that will
-filled houndred of pages, so this is some examples of the simple a common
-parte as work with list, in this case of teachers.
+filled hundred of pages, so this is some examples of the simple a common
+part as work with list, in this case of teachers.
 
 \subsubsection{About distribution}
 
@@ -507,21 +507,21 @@ Google.
   \caption{Some typical Material Design UI components.}
 \end{figure}
 
-\noindent To objtain this characteristic designe there are a lot of options, but easiest
+\noindent To obtain this characteristic design there are a lot of options, but easiest
 is to use some CSS Framework existing instead of try to implement our own
-css components. There are some options availables, as \textit{Materialize},
-\textit{MUI}, \textit{Material UI}, \textit{Polymer} (that is much moret),
+CSS components. There are some options availables, as \textit{Materialize},
+\textit{MUI}, \textit{Material UI}, \textit{Polymer} (that is much more),
 we could talk about it hours, and \textit{Angular Material}, that is which
 we are selected.
-Why? because is not only a css kit, is a group of Angular directives that allow
-us to use their css components as directives, some very powerfull and simple,
-that increase the speed of develop when their behaviour is well understood.
+Why? because is not only a CSS kit, is a group of Angular directives that allow
+us to use their CSS components as directives, some very powerful and simple,
+that increase the speed of develop when their behavior is well understood.
 \intro
 Indenpendly of the style guide that we use we need design the interface,
 their parts, the position of the elements and how interact this among them and
 amoung several screens of our app.
 To do this design most common way is use a system of wireframing, that is
-as a way to compound user interfaces using very abstract form, puting the
+as a way to compound user interfaces using very abstract form, putting the
 focus in the position and general design instead of the details, colors, or
 somethings like this.
 There are some tools to do this, all do basically the same, and we
@@ -552,11 +552,11 @@ to include all digital wireframes here.
 
 The goal of this service is easy, we need a centered way to can retrieve reports
 of all of our relevant kind of items in the app, as courses, classes, teachers and
-mostespecially, of students.
+most specially, of students.
 If we think only in simple reports maybe is not necessarily an independent service
 that offers that (only this is enough interesting the services to manage the
 relations keep their simplicity) but if we think in report that included statistics
-and data analysis as regresion, trends and alert detection in students behavior
+and data analysis as regression, trends and alert detection in students behavior
 the scenario changes completely.
 \intro
 To do this we need to use some specific tools,
